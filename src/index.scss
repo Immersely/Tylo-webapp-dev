@@ -1,0 +1,203 @@
+@import url("./styles/layout.scss");
+@import url("./styles/colors.scss");
+@import url("./styles/fonts.scss");
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: "Righteous", cursive !important;
+  line-height: 1.5;
+}
+// code {
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+// }
+@font-face {
+  font-family: "Mokoto Mark";
+  src: url("./assets/fonts/Mokoto\ Glitch\ Mark\ 2.otf");
+}
+@font-face {
+  font-family: "Mokoto Mark2";
+  src: url("./assets/fonts/Mokoto\ Glitch\ Mark\ 2.ttf");
+}
+@font-face {
+  font-family: "Mokoto Glitch";
+  src: url("./assets/fonts/Mokoto\ Glitch.otf");
+}
+@font-face {
+  font-family: "Mokoto Glitch2";
+  src: url("./assets/fonts/Mokoto\ Glitch.ttf");
+}
+/* @font-face {
+  font-family: "Mokoto Glitch Mark Outline";
+  src: url("./assets/fonts/Mokoto\ Glitch\ Mark\ Outline.otf");
+} */
+@font-face {
+  font-family: "Mokoto Glitch Mark Outline";
+  src: url("./assets/fonts/Mokto\ Glitch\ Mark\ outline.ttf");
+}
+.mokoto-glitch {
+  font-family: "Mokoto Glitch2" !important;
+}
+.poppins {
+  font-family: "Poppins", sans-serif !important;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ececec;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #01596c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(0.8);
+}
+button#menu-dropdown {
+  background: transparent;
+  padding: 0px;
+  border: none;
+  &:after {
+    display: none;
+  }
+}
+button {
+  font-family: "Righteous", cursive;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+.theme-btn {
+  border: none;
+  padding: 11px 25px;
+  color: #fff;
+  min-width: 120px;
+  .submit-link {
+    color: #c7dee2 !important;
+    text-decoration: none;
+  }
+  &.bradius {
+    border-radius: 4px;
+  }
+  &.theme-color {
+    background-color: #3c8da1;
+    color: #fff !important;
+  }
+  &.tp-border {
+    background-color: transparent;
+    border: 1px solid #3c8da1;
+    color: #3c8da1 !important;
+  }
+}
+.actionBtn {
+  background: #fff;
+  box-shadow: 0px 0px 4.5px #4bb9d7;
+  border-radius: 2.25px;
+  padding: 6px;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  img {
+    width: 16px;
+  }
+  &.red {
+    background: #fe0000;
+    &:hover {
+      border: 1px solid #4bb9d7;
+    }
+  }
+}
+.bgBlue {
+  background-color: #011c27;
+}
+.main-sec {
+  overflow: hidden;
+  height: 100vh;
+}
+.z9 {
+  z-index: 9;
+  position: relative;
+}
+.vectorImg2 {
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 62%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.4;
+}
+.vectorImg1 {
+  position: absolute;
+  right: 0px;
+  top: 70px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.welcomeText {
+  font-family: "Mokoto Glitch Mark Outline" !important;
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.form-group {
+  .form-control,
+  input,
+  select {
+    background: transparent;
+    border: 1px solid #3c8da1;
+    outline: none;
+    padding: 8px;
+    height: 36px;
+    width: 100%;
+    color: #3c8da1;
+    font-family: "Righteous", cursive !important;
+    &::placeholder {
+      color: #3c8da1 !important;
+    }
+  }
+}
+
+.game-card {
+  background: linear-gradient(to bottom right, #3d5a65, #0d323f);
+  padding: 24px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.leaderBoardProfileImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.noLink {
+  text-decoration: none;
+}
+.video-card {
+  background-color: #344952;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+@media (min-width: 1931px) and (max-width: 2570px) {
+  .video-sec iframe {
+    height: 650px;
+  }
+}
+@media (min-width: 1650px) and (max-width: 1930px) {
+  .video-sec iframe {
+    height: 450px;
+  }
+}

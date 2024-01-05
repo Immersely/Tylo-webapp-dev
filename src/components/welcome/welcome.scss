@@ -1,0 +1,36 @@
+.form-card {
+    background-color: #011c27;
+    padding: 32px;
+}
+.welcome-btn {
+    .buttonDiv {
+        position: relative;
+        cursor: pointer;
+    }
+    .media-layer {
+        position: relative;
+        left: -21px;
+    }
+    .media-layer img {
+        position: absolute;
+        transition: 500ms linear;
+    }
+    img.layer1 {
+        left: -10px;
+    }
+    img.layer2 {
+        left: 1px;
+    }
+    img.layer3 {
+        left: 11px;
+    }
+    .buttonDiv:hover + .mly1 .layer1 {
+        left: -2px;
+    }
+    .buttonDiv:hover + .mly1 .layer2 {
+        left: 15px;
+    }
+    .buttonDiv:hover + .mly1 .layer3 {
+        left: 30px;
+    }
+}

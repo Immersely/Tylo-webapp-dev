@@ -1,0 +1,542 @@
+.about-page {
+    background-color: white;
+     display: flex;
+    flex-direction: column;
+    align-items: center; // Adjust alignment as neede
+    
+}
+.about-page-icon {
+    background-color: white;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    padding: 28px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-shrink: 0;
+    box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);  
+}
+.about-page-1 {
+    background: var(--background, #FBFBFB);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center; // Horizontally center content
+    align-items: center; // Vertically center content
+    text-align: center; 
+    // top: 0;
+    // position: absolute;
+}
+
+.about-page-2 {
+  background: rgba(70, 129, 241, 0.05);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; // Horizontally center content
+  align-items: center; // Vertically center content
+  text-align: center; 
+  padding: 135px; 
+}
+
+.top-header {
+  display: flex;
+  width: 1920px;
+  height: 100px;
+  padding: 28px 60px;
+  justify-content: center; /* Changed to space-between to align items at the edges */
+  align-items: center;
+  // gap: 60px;
+  flex-shrink: 0;
+  background: var(--white, #FFF);
+  box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);
+}
+
+.tabs {
+  display: flex; // Aligns the tabs horizontally
+  height: 47px;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0; 
+}
+
+.tylo-icon {
+    height: 96px;
+    width: 96px;
+    position: absolute;
+    top: 28;
+    left: 60px; // Adjust this value if needed
+    image-rendering: auto; // Default rendering
+    border: none; // Ensures no border is added
+    outline: none; // Removes any outline
+}
+
+.top-bar-tab {
+  // position: relative;
+  display: flex;
+  width: 118px;
+  height: 47px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.top-bar-text, .top-bar-tab a {
+  color: var(--Secondary, #0D1542);
+  font-family: 'Inter';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none; // Removes underline from links
+}
+
+.top-bar-tab a:hover, .top-bar-tab a:focus {
+  text-decoration: underline; // Optional: Adds underline on hover/focus for better user experience
+}
+
+.gradient-rectangle-about {
+  
+    height: 537px;
+    width: 100vw; // Makes the rectangle span the entire viewport width
+    background: linear-gradient(
+      90deg,
+      rgba(98, 236, 246, 0.50) 0.03%,
+      rgba(67, 122, 239, 0.50) 100.21%
+    );
+    position: absolute;
+    top: 96px; // Positioning it right below the logo
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Horizontally center content
+    align-items: center; // Vertically center content
+    text-align: center; // Ensures text alignment is centered (for multi-line text)
+    
+  }
+
+  .about-title {
+    color: var(--Secondary, #0D1542);
+    font-family: 'Inter', sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-bottom: 20px; // Space between title and content
+  }
+
+  .about-content {
+    color: var(--Secondary, #0D1542);
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+    width: 1597px;
+    height: 176px;
+    flex-shrink: 0;
+    // margin: 0 auto; // Centers the text block
+    // padding: 20px; // Adds padding for better readability
+  }
+
+  .what-text, .we-offer-text {
+    display: inline-block; // Makes elements align in the same line
+    font-family: 'Inter', sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize; 
+    // margin: 0; // Removes default margin
+  }
+
+  .spacer {
+  margin: 0 10px; // Adjust space between 'What' and 'We Offer'
+}
+  
+  .what-text {
+    color: var(--Secondary, #0D1542);
+  }
+  
+  .we-offer-text {
+    color: var(--Primary, #4476F1);
+  }
+  
+  // Center the 'What we offer' text horizontally
+  .offer-header {
+    text-align: center;
+    margin-top: 28%;
+  }
+
+  .what-we-offer-content {
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 1373px; 
+  }
+
+  .offer-content-177 {
+    display: flex;
+    text-align: left;
+    flex-direction: row; // Consider using column if elements are to be stacked
+    width: 1486px;
+    // height: 745px;
+    align-items: flex-start;
+    gap: 50px;
+    flex-shrink: 0; 
+  }
+
+  .inquire-content-14 {
+    display: flex;
+    padding: 32px;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 745px;
+    align-items: left;
+    gap: 24px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 16px;
+    background: var(--white, #FFF);
+  }
+
+  .inquire-row {
+    display: flex;
+    width: 589px;
+    justify-content: center;
+    align-items: center;
+    gap: 13.463px;
+
+    margin-top: 1px; 
+  }
+
+  .inquire-text-1 {
+    color: var(--Secondary, #0D1542);
+    font-family: 'Inter';
+    text-align: left;
+    font-size: 28.985px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    width: 654px;
+  }
+
+  .inquire-text-2-box {
+    display: flex;
+    height: 213.098px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14.492px;
+    align-self: stretch;
+    border-radius: 10px;
+    background: #FFF;
+
+    /* ds */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .inquire-text-2 {
+    color: #858585;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 16px;
+    background: var(--white, #FFF);
+  }
+
+  .inquire-text-3-box {
+    display: flex;
+    width: 338.254px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14.492px;
+    flex-shrink: 0;
+    align-self: stretch;
+    border-radius: 10px;
+    background: #FFF;
+
+    /* ds */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .inquire-text-3 {
+    color: var(--Primary, #4476F1);
+    font-family: 'Inter';
+    font-size: 17.598px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    height: 22.942px;
+    align-self: stretch;
+  }
+
+  .inquire-text-4 {
+    overflow: hidden;
+    color: var(--Secondary, #0D1542);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Inter';
+    font-size: 17.598px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+
+  .inquire-frame-107 {
+    position: relative;
+    // left: 48px;
+    display: flex;
+    align-items: left;
+    bottom: 138.196px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 589px;
+    height: 251px;
+
+     // Add margins
+     margin-top: 130px;    // Top distance
+     margin-bottom: 138px; // Bottom distance
+     margin-right: 81px;   // Right distance
+     margin-left: 1px;    // Left distance
+  }
+
+  .inquire-frame-135 {
+    display: flex;
+    padding: 7.012px;
+    align-items: center;
+    gap: 10.518px;
+    align-self: stretch;
+    background: rgba(15, 11, 156, 0.05);
+  }
+
+  .inquire-text-5 {
+    color: var(--Secondary, #0D1542);
+    font-family: 'Inter';
+    font-size: 7.012px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    flex: 1 0 0;
+  }
+
+  .inquire-frame-95 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 175px;
+    height: auto;
+  }
+
+  .inquire-frame-99 {
+    display: flex;
+    width: 63.107px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+  }
+
+  .inquire-text-13 {
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    align-self: stretch;
+  }
+
+  .track-content {
+    display: flex;
+    padding: 32px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: left;
+    gap: 24px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 16px;
+    background: var(--white, #FFF);
+  }
+
+  .track-frame-46 {
+    display: flex;
+    width: 578px;
+    height: 559px;
+    padding: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14.492px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 1px; 
+  }
+
+  .track-frame-150 {
+    display: flex;
+    align-items: flex-start;
+    gap: 9.662px;
+    align-self: stretch;
+    
+  }
+
+  .track-frame-151 {
+    display: flex;
+    width: 59.419px;
+    height: 48.791px;
+    padding: 9.662px;
+    justify-content: center;
+    align-items: center;
+    gap: 14.492px;
+    border-radius: 9.662px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 1.932px 1.932px 0px rgba(198, 198, 198, 0.25);
+  }
+
+  .track-card {
+    display: flex;
+    height: 48.791px;
+    width: 100%;
+    padding: 9.662px;
+    // justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    // gap: 1px;
+    // align-self: stretch;
+    border-radius: 9.662px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 1.932px 1.932px 0px rgba(198, 198, 198, 0.25);
+  }
+
+  .track-text-1 {
+    display: flex;
+    width: 59.419px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 14.492px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .track-text-2 {
+    color: var(--Primary, #4476F1);
+    font-family: 'Inter';
+    font-size: 11.594px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    flex: 1 0 0;
+  }
+
+  .track-text-3 {
+    align-self: stretch;
+    color: var(--Gray, #858585);
+    font-family: 'Inter';
+    font-size: 8.695px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .faq-frame-175 {
+    display: flex;
+    width: 1421px;
+    padding: 60px;
+    flex-direction: column;
+    // align-items: center;
+    gap: 16px;
+    border-radius: 20px;
+    background: #FFF;
+  }
+  
+  .faq-text-header {
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .faq-header-separator {
+    height: 1px;
+    width: 100%; /* Stretch to the full width */
+    background: #E2E8F0;
+    margin-bottom: 20px 0; /* Space below the line */
+  }
+
+  .faq-text-normal {
+    color: var(--Secondary, #0D1542);
+    font-family: 'Inter';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 27.9px; /* 126.818% */
+    flex: 1 0 0;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .dropdown-icon {
+    /* Style for the dropdown icon (▼/▲) */
+    cursor: pointer;
+  }
+  
+  .faq-answer {
+    color: var(--Gray, #858585);
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 27.9px; /* 155% */
+    margin-top: 10px; /* Spacing between question and answer */
+    text-align: left;
+  }
+
+  .faq-item {
+    width: 100%; /* Ensure full width for proper alignment */
+    
+  }
+
