@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
 import "./about.scss";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 
 const faqData = [
     { question: "1. What is Tylo AI?", answer: "Tylo AI is a venture capital-backed start-up specializing in providing highly personalized deep-tech ideas and solutions for enterprise innovation and research and development (R&D) teams." },
