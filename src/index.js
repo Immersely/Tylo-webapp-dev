@@ -16,7 +16,7 @@ root.render(
 if (typeof process === 'undefined') {
   global.process = {
     env: {
-      NODE_ENV: 'development',
+      NODE_ENV: 'production',
     },
     nextTick: function (callback) {
       setTimeout(callback, 0);
