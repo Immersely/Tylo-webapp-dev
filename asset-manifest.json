@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Tylo-webapp-dev/static/css/main.ba257c22.css",
-    "main.js": "/Tylo-webapp-dev/static/js/main.e03169c5.js",
+    "main.js": "/Tylo-webapp-dev/static/js/main.2e52c11c.js",
     "static/js/787.3187cdcb.chunk.js": "/Tylo-webapp-dev/static/js/787.3187cdcb.chunk.js",
     "static/media/Mokto Glitch Mark outline.ttf": "/Tylo-webapp-dev/static/media/Mokto Glitch Mark outline.2d28c351db4b93d357dd.ttf",
     "static/media/Mokoto Glitch Mark 2.ttf": "/Tylo-webapp-dev/static/media/Mokoto Glitch Mark 2.851a6fb05dc902e41476.ttf",
@@ -13,11 +13,11 @@
     "static/media/Dropdown_open.svg": "/Tylo-webapp-dev/static/media/Dropdown_open.5b1ba82fad239d3315af70747799f7b0.svg",
     "static/media/Dropdown_closed.svg": "/Tylo-webapp-dev/static/media/Dropdown_closed.0335f561267cadb73f6b0e5ca5304b0b.svg",
     "main.ba257c22.css.map": "/Tylo-webapp-dev/static/css/main.ba257c22.css.map",
-    "main.e03169c5.js.map": "/Tylo-webapp-dev/static/js/main.e03169c5.js.map",
+    "main.2e52c11c.js.map": "/Tylo-webapp-dev/static/js/main.2e52c11c.js.map",
     "787.3187cdcb.chunk.js.map": "/Tylo-webapp-dev/static/js/787.3187cdcb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba257c22.css",
-    "static/js/main.e03169c5.js"
+    "static/js/main.2e52c11c.js"
   ]
 }
