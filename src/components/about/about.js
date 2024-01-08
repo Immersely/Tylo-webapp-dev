@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
-import "./about.scss";
+import "../about/about.scss";
 // import { Link, useNavigate } from "react-router-dom";
 
 const faqData = [
@@ -20,12 +20,16 @@ const faqData = [
   ];
 
 function About() {
+    console.log('About component rendering');
     const [activeIndex, setActiveIndex] = useState(null); // To track the active FAQ
+    console.log('State in About:', activeIndex);
       
     const toggleFAQ = index => {
       setActiveIndex(activeIndex === index ? null : index); // Toggle visibility
+      console.log('toggleFAQ handler triggered in About');
     };
 
+    console.log('About component about to render JSX');
     return (
         <div className="about-page">
             

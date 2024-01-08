@@ -6,6 +6,7 @@ import Features from "./components/features/features";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  console.log('App component rendering');
   return (
     <Router>
       <div>

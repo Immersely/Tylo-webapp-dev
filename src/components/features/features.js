@@ -3,7 +3,7 @@ import React from "react";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 // import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 // import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
-import "./features.scss";
+import "../features/features.scss";
 // import { Link, useNavigate } from "react-router-dom";
 
 
