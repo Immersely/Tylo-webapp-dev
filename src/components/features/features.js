@@ -7,7 +7,7 @@ import "../features/features.scss";
 // import { Link, useNavigate } from "react-router-dom";
 
 
-function features() {
+function Features() {
 
     return (
         <div className="feature-page">
@@ -118,4 +118,4 @@ function features() {
     );
 }
 
-export default features
+export default Features;
