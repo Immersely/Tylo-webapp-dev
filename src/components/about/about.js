@@ -37,10 +37,10 @@ function About() {
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
                         <div className="top-bar-tab">
-                            <a href="/" className="top-bar-text">About</a> {/* Link to the About page */}
+                            <a href="Tylo-webapp-dev/#" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                         <div className="top-bar-tab">
-                            <a href="/features" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                            <a href="Tylo-webapp-dev/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                     </div>
                 </div>
