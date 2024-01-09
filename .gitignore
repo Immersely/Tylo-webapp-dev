@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-/web.config
 
 # production
 # /build
