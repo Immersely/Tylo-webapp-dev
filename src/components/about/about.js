@@ -21,15 +21,20 @@ const faqData = [
 
 function About() {
     console.log('About component rendering');
+    console.log('About component rendering');
+    console.log('About component rendering');
     const [activeIndex, setActiveIndex] = useState(null); // To track the active FAQ
     console.log('State in About:', activeIndex);
       
     const toggleFAQ = index => {
       setActiveIndex(activeIndex === index ? null : index); // Toggle visibility
-      console.log('toggleFAQ handler triggered in About');
+      console.log('toggleFAQ handler triggered in About good');
     };
 
     console.log('About component about to render JSX');
+    console.log('About component rendering');
+    console.log('About component rendering');
+    console.log('About component rendering');
     return (
         <div className="about-page">
             
@@ -37,10 +42,10 @@ function About() {
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
                         <div className="top-bar-tab">
-                            <a href="Tylo-webapp-dev/#" className="top-bar-text">About</a> {/* Link to the About page */}
+                            <a href="/#" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                         <div className="top-bar-tab">
-                            <a href="Tylo-webapp-dev/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                            <a href="/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                     </div>
                 </div>

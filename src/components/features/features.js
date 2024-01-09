@@ -8,7 +8,12 @@ import "../features/features.scss";
 
 
 function Features() {
+    console.log('Features component rendering')
+    console.log('Features component rendering')
+    console.log('Features component rendering')
+    console.log('Features component rendering')
 
+    console.log('Feature component about to render JSX');
     return (
         <div className="feature-page">
             
@@ -16,10 +21,10 @@ function Features() {
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
                         <div className="top-bar-tab">
-                            <a href="Tylo-webapp-dev/#" className="top-bar-text">About</a> {/* Link to the About page */}
+                            <a href="/#" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                         <div className="top-bar-tab">
-                            <a href="Tylo-webapp-dev/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                            <a href="/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                     </div>
                 </div>
