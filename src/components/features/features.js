@@ -34,6 +34,9 @@ function Features() {
             <p className="feature-content">
                 Sign in to unlock full features
             </p>
+            <div className="sign-in">
+                <span className="sign-in-text">Sign up/in</span>
+            </div>
           </div>
           <div className="feature-page-1">
             <div className="inquire-frame-108">
@@ -42,7 +45,11 @@ function Features() {
                     <p className="inquire-text-1">
                         The more specific, the better
                     </p>
-                    <div className="inquire-textbox"></div>
+                    <div className="inquire-textbox">
+                        <div className="inquire-button">
+                            <span className="sign-in-text">Inquire</span>
+                        </div>
+                    </div>
                 </div>
                 <div className="answer-text-box">
                     <p className="answer-text">

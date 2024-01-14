@@ -21,8 +21,6 @@ const faqData = [
 
 function About() {
     console.log('About component rendering');
-    console.log('About component rendering');
-    console.log('About component rendering');
     const [activeIndex, setActiveIndex] = useState(null); // To track the active FAQ
     console.log('State in About:', activeIndex);
       
@@ -32,9 +30,13 @@ function About() {
     };
 
     console.log('About component about to render JSX');
-    console.log('About component rendering');
-    console.log('About component rendering');
-    console.log('About component rendering');
+
+    function handleButtonClick(buttonNumber) {
+        // Logic for button click
+        console.log("Button", buttonNumber, "clicked");
+        // You can add more logic here depending on what you want the button to do
+      }
+
     return (
         <div className="about-page">
             
@@ -55,6 +57,17 @@ function About() {
             <p className="about-content">
                 Tylo AI was created to make it easier for business innovation and R&D teams to source and interpret relevant developments and resources in global scientific research. Our solution engine continually learns what the users are most interested in. It is powered by the next generation of knowledge graph and AI technology that extract deep connected insights from academic research and patents.
             </p>
+            <div className="about-button-frame-117">
+                <div className="about-button-1" onClick={() => handleButtonClick(1)}>
+                    <span className="about-button-text-1">Enterprise</span>
+                </div>
+                <div className="about-button-2" onClick={() => handleButtonClick(2)}>
+                    <span className="about-button-text-2">Tylo AI Sign up/in</span>
+                </div>
+                <div className="about-button-1" onClick={() => handleButtonClick(3)}>
+                    <span className="about-button-text-1">Academia</span>
+                </div>
+            </div>
           </div>
           <div className="about-page-1">
             <div className="offer-header">
@@ -72,6 +85,9 @@ function About() {
                                 <p className="inquire-text-2">
                                 Inquire anything, the more specific, the better
                                 </p>
+                                <div className="inquire-button-about">
+                                    <span className="inquire-button-text">Inquire</span>
+                                </div>
                             </div>
                             <div className="inquire-text-3-box">
                                 <h2 className="inquire-text-3">Answer:</h2>
@@ -105,7 +121,16 @@ function About() {
                     </div>
                     <div className="track-content">
                         <div className="track-frame-46">
-                            <h2 className="inquire-text-1">Track Anything</h2>
+                            <div className="track-frame-155">
+                                <h2 className="inquire-text-1">Track Anything</h2>
+                                <div className="track-button-1">
+                                    <span className="track-button-text">Add Email push</span>
+                                </div>
+                                <div className="track-button-2">
+                                <span className="track-button-text">Track</span>
+                                </div>
+                            </div>
+                            
                             <div className="track-frame-150">
                                 <div className="track-frame-151">
                                     <h2 className="track-text-1">28/11</h2>

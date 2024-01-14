@@ -117,6 +117,28 @@
     text-align: center; // Ensures text alignment is centered (for multi-line text)
   }
 
+  .sign-in {
+    display: flex;
+    width: 324.568px;
+    height: 70.834px;
+    padding: 10.572px;
+    justify-content: center;
+    align-items: center;
+    gap: 10.572px;
+    border-radius: 10.572px;
+    background: var(--Primary, #4476F1);
+  }
+
+  .sign-in-text {
+    color: var(--white, #FFF);
+    font-family: 'Inter';
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
   .feature-title {
     color: var(--Secondary, #0D1542);
     font-family: 'Inter', sans-serif;
@@ -192,6 +214,18 @@
     border-radius: 10px;
     border: 1px solid var(--Primary, #4476F1);
     background: var(--background, #FBFBFB);
+  }
+
+  .inquire-button {
+    display: flex;
+    width: 250px;
+    height: 70.834px;
+    padding: 10.572px;
+    justify-content: center;
+    align-items: center;
+    gap: 10.572px;
+    border-radius: 10.572px;
+    background: var(--Primary, #4476F1);
   }
 
   .answer-text-box {
