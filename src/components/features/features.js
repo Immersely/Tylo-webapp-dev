@@ -10,8 +10,7 @@ import "../features/features.scss";
 function Features() {
     console.log('Features component rendering')
     console.log('Features component rendering')
-    console.log('Features component rendering')
-    console.log('Features component rendering')
+    
 
     console.log('Feature component about to render JSX');
     return (

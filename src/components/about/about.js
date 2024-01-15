@@ -58,13 +58,13 @@ function About() {
                 Tylo AI was created to make it easier for business innovation and R&D teams to source and interpret relevant developments and resources in global scientific research. Our solution engine continually learns what the users are most interested in. It is powered by the next generation of knowledge graph and AI technology that extract deep connected insights from academic research and patents.
             </p>
             <div className="about-button-frame-117">
-                <div className="about-button-1" onClick={() => handleButtonClick(1)}>
+                <div className="about-button-1" onClick={() => handleButtonClick(11)}>
                     <span className="about-button-text-1">Enterprise</span>
                 </div>
-                <div className="about-button-2" onClick={() => handleButtonClick(2)}>
+                <div className="about-button-2" onClick={() => handleButtonClick(22)}>
                     <span className="about-button-text-2">Tylo AI Sign up/in</span>
                 </div>
-                <div className="about-button-1" onClick={() => handleButtonClick(3)}>
+                <div className="about-button-1" onClick={() => handleButtonClick(33)}>
                     <span className="about-button-text-1">Academia</span>
                 </div>
             </div>
