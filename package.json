@@ -10,6 +10,7 @@
     "@babel/plugin-transform-private-methods": "^7.23.3",
     "@babel/plugin-transform-private-property-in-object": "^7.23.4",
     "@rollup/plugin-terser": "^0.4.4",
+    "@supabase/supabase-js": "^2.39.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -52,7 +53,6 @@
       "react-app/jest"
     ]
   },
- 
   "browserslist": {
     "production": [
       ">0.2%",

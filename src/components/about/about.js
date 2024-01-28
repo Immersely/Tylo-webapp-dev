@@ -4,6 +4,9 @@ import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
 import "../about/about.scss";
+import { gapi } from "gapi-script";
+import axios from "axios";
+import { setToken } from "../../services/userService";
 // import { Link, useNavigate } from "react-router-dom";
 
 const faqData = [
@@ -37,6 +40,65 @@ function About() {
         // You can add more logic here depending on what you want the button to do
       }
 
+
+
+    //   useEffect(() => {
+    //     // Load the Google API client library
+    //     const script = document.createElement("script");
+    //     script.src = "https://apis.google.com/js/api.js";
+    //     script.onload = () => {
+    //       // Initialize the Google API client library
+    //       gapi.load("auth2", () => {
+    //         gapi.auth2.init({
+    //           client_id:
+    //             "584832623015-02ioa5kbjqp9agd30pdiifln0bhb5trb.apps.googleusercontent.com",
+    //           scope: "profile email",
+    //           redirect_uri: "https://tylo.ai/",
+    //           cookiepolicy: "single_host_origin",
+    //         });
+    //       });
+    //     };
+    //     document.body.appendChild(script);
+    //   }, []);
+
+      const handleSignInClick = () => {
+        gapi.auth2
+          .getAuthInstance()
+          .signIn()
+          .then((data) => {
+            axios
+              .post(
+                "https://brain.immersely.ai/api/v1/auth",
+                { idToken: data.xc.id_token },
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                  },
+                }
+              )
+              .then((data) => {
+                console.log(data);
+                // Save the JWT token to local storage
+                localStorage.setItem("token", data.data.token);
+                localStorage.setItem("immerselyEmail",data.data.user.email)
+                console.log("email",data.data.user.email)
+                console.log("name", data.data.user.name)
+                console.log("username", data.data.user.username)
+                setToken(data.data.token);
+                if (data.data.user.name){
+                  localStorage.setItem("name", data.data.user.name)
+                  localStorage.setItem("username", data.data.user.username)
+    
+                //   navigate("/welcome?profile_completed=true");
+                }
+                // else{navigate("/welcome?profile_completed=false");}
+                
+              });
+            console.log("User signed in.", data.xc.id_token);
+          });
+      };
+
     return (
         <div className="about-page">
             
@@ -44,10 +106,10 @@ function About() {
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
                         <div className="top-bar-tab">
-                            <a href="/#" className="top-bar-text">About</a> {/* Link to the About page */}
+                            <a href="/#" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                         <div className="top-bar-tab">
-                            <a href="/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                            <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                     </div>
                 </div>

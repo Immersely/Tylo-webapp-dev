@@ -3,6 +3,7 @@ import "./App.css";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./components/about/about";
 import Features from "./components/features/features";
+import FeaturesUnlocked from "./components/features/featuresUnlocked";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -11,8 +12,9 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route exact path="/" element={<About />}></Route>
-          <Route exact path="/features" element={<Features />}></Route>
+          <Route exact path="/about" element={<About />}></Route>
+          <Route exact path="/" element={<Features />}></Route>
+          <Route exact path="/features" element={<FeaturesUnlocked />}></Route>
           {/* <Route exact path="/dashboard" element={<Dashboard />}></Route> */}
 
         </Routes>

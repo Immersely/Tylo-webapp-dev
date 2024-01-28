@@ -18,11 +18,11 @@ function Features() {
     const [publishers, setPublishers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [answerText, setAnswerText] = useState('');
     // Create a single supabase client for interacting with your database
     const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
-
-    const navigate = useNavigate();
-    
+    const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
+    const navigate = useNavigate(); 
     // const { data, error } = supabase
     // .from('publishers')
     // .select('publisher_id')
@@ -70,50 +70,66 @@ function Features() {
         document.body.appendChild(script);
       }, []);
 
-    const handleSignInClick = () => {
-        gapi.auth2
-          .getAuthInstance()
-          .signIn()
-          .then((googleUser) => {
-            const profile = googleUser.getBasicProfile();
-            const profileImageUrl = profile.getImageUrl();
-            axios
-              .post(
-                "https://tylo-backend.azurewebsites.net/api/v1/auth",
-                { idToken: googleUser.xc.id_token },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                  },
-                }
-              )
-              .then((response) => {
-                console.log("Axios response data:", response.data);
-                // Save the JWT token to local storage
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem("tyloEmail",response.data.user.email)
-                localStorage.setItem("googleProfileImageUrl", profileImageUrl);
-                console.log("email",response.data.user.email)
-                console.log("name", response.data.user.name)
-                console.log("username", response.data.user.username)
-                setToken(response.data.token);
+      const handleSignOutClick = () => {
+        // Sign out from your application
+        // This might involve removing the user's session or token from local storage
+        localStorage.removeItem('token'); // For example, if you store a session token
 
-                // Navigate to /#features page
-                navigate("features"); // Adjust as per your routing setup
-            
-                if (response.data.user.name){
-                  localStorage.setItem("name", response.data.user.name)
-                  localStorage.setItem("username", response.data.user.username)
+        // If using Google sign-in and you want to sign the user out of Google as well
+        const auth2 = gapi.auth2.getAuthInstance();
+        if (auth2 != null) {
+            auth2.signOut().then(auth2.disconnect().then(() => {
+                console.log('User signed out of Google.');
+            }));
+        }
+
+        navigate(-1); // -1 takes you one page back in the history
+        // Redirect the user to the sign-in page or another appropriate page
+        // This depends on your routing setup, for example using react-router
+        // navigate('/signin'); // Example using react-router
+    };
+
+    const handleInquireClick = () => {
+        setAnswerText('output here'); // Update the text that you want to display
+    };
+
+    // const handleSignInClick = () => {
+    //     gapi.auth2
+    //       .getAuthInstance()
+    //       .signIn()
+    //       .then((data) => {
+    //         axios
+    //           .post(
+    //             "http://localhost:4004/api/v1/auth",
+    //             { idToken: data.xc.id_token },
+    //             {
+    //               headers: {
+    //                 "Content-Type": "application/json",
+    //                 Accept: "application/json",
+    //               },
+    //             }
+    //           )
+    //           .then((data) => {
+    //             console.log(data);
+    //             // Save the JWT token to local storage
+    //             localStorage.setItem("token", data.data.token);
+    //             localStorage.setItem("tyloEmail",data.data.user.email)
+    //             console.log("email",data.data.user.email)
+    //             console.log("name", data.data.user.name)
+    //             console.log("username", data.data.user.username)
+    //             setToken(data.data.token);
+    //             if (data.data.user.name){
+    //               localStorage.setItem("name", data.data.user.name)
+    //               localStorage.setItem("username", data.data.user.username)
     
-                //   navigate("/welcome?profile_completed=true");
-                }
-                // else{navigate("/welcome?profile_completed=false");}
+    //             //   navigate("/welcome?profile_completed=true");
+    //             }
+    //             // else{navigate("/welcome?profile_completed=false");}
                 
-              });
-            console.log("User signed in.", googleUser.xc.id_token);
-          });
-      };
+    //           });
+    //         console.log("User signed in.", data.xc.id_token);
+    //       });
+    //   };
 
     console.log('Feature component about to render JSX');
     return (
@@ -129,15 +145,14 @@ function Features() {
                             <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                     </div>
+                    <img src={googleProfileImageUrl} alt="Profile Icon" className="profile-icon" />
                 </div>
 
           <div className="gradient-rectangle">
             <h2 className="feature-title">Deeptech innovation Assistant</h2>
-            <p className="feature-content">
-                Sign in to unlock full features
-            </p>
-            <div className="sign-in" onClick={handleSignInClick}>
-                <span className="sign-in-text" >Sign up/in</span>
+            
+            <div className="sign-in">
+                <span className="sign-in-text" onClick={handleSignOutClick}>Sign Out</span>
             </div>
           </div>
           <div className="feature-page-1">
@@ -147,15 +162,17 @@ function Features() {
                     <p className="inquire-text-1">
                         The more specific, the better
                     </p>
-                    <div className="inquire-textbox">
-                        <div className="inquire-button">
+                        <textarea className="inquire-textbox" placeholder="Enter your inquiry here">
+                        
+                        </textarea>
+                        <div className="inquire-button_unlocked" onClick={handleInquireClick}>
                             <span className="sign-in-text">Inquire</span>
                         </div>
-                    </div>
+                    
                 </div>
                 <div className="answer-text-box">
                     <p className="answer-text">
-                        Answer:
+                        Answer: {answerText}
                     </p>
                 </div>
             </div>
@@ -318,12 +335,12 @@ function Features() {
             </div>
           
           </div>
-            <div>
-                <h2>Publishers</h2>
-                {publishers.map(publisher => (
-                    <div key={publisher.homepage_url}>{publisher.homepage_url}</div>
-                ))}
-            </div>
+          <div>
+            <h2>Publishers</h2>
+            {publishers.map(publisher => (
+                <div key={publisher.homepage_url}>{publisher.homepage_url}</div>
+            ))}
+         </div>
         </div>
     );
 }

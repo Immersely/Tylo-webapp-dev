@@ -16,6 +16,14 @@
     flex-shrink: 0;
     box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);  
 }
+
+.profile-icon {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  border-radius: 50%; /* Makes the image circular */
+  /* Add any other styles you need */
+}
+
 .feature-page-1 {
     background-color: rgba(70, 129, 241, 0.05);
     display: flex;
@@ -26,7 +34,7 @@
     text-align: left; 
     height: 1150px;
     flex-shrink: 0; 
-    margin-top: 308px;
+    // margin-top: 308px;
 }
 
 .feature-page-2 {
@@ -36,7 +44,8 @@
     height: 1150px;
     padding: 50px 120px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: left;
     gap: 30px;
     flex-shrink: 0;
 }
@@ -127,6 +136,7 @@
     gap: 10.572px;
     border-radius: 10.572px;
     background: var(--Primary, #4476F1);
+    cursor: pointer;
   }
 
   .sign-in-text {
@@ -138,6 +148,8 @@
     line-height: normal;
     text-transform: capitalize;
   }
+
+  
 
   .feature-title {
     color: var(--Secondary, #0D1542);
@@ -161,7 +173,7 @@
     // padding: 20px; // Adds padding for better readability
   }
 
-  .inquire-frame-108 {
+  .Inquire_feature-frame-108 {
     display: flex;
     width: 1680px;
     flex-direction: column;
@@ -201,6 +213,22 @@
     align-self: stretch;
   }
 
+  .inquire-container {
+    width: 100%;
+    height: 111px;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 30px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Primary, #4476F1);
+    background: var(--background, #FBFBFB);
+    position: relative; /* Allows absolute positioning within the container */
+  }
+
   .inquire-textbox {
     width: 100%;
     height: 111px;
@@ -214,7 +242,13 @@
     border-radius: 10px;
     border: 1px solid var(--Primary, #4476F1);
     background: var(--background, #FBFBFB);
+    resize: none; /* Disables resizing of the textarea */
+    outline: none; /* Removes the outline on focus */
+    font-size: 1em; /* Adjust the font size as needed */
+    color: #333; /* Text color */
+    box-sizing: border-box;
   }
+
 
   .inquire-button {
     display: flex;
@@ -226,6 +260,21 @@
     gap: 10.572px;
     border-radius: 10.572px;
     background: var(--Primary, #4476F1);
+    padding-right: 20px;
+  }
+
+  .inquire-button_unlocked {
+    display: flex;
+    width: 250px;
+    height: 70.834px;
+    padding: 10.572px;
+    justify-content: center;
+    align-items: center;
+    gap: 10.572px;
+    border-radius: 10.572px;
+    background: var(--Primary, #4476F1);
+    padding-right: 20px;
+    cursor: pointer;
   }
 
   .answer-text-box {
@@ -371,4 +420,119 @@ background: var(--white, #FFF);
     align-self: stretch;
     border-bottom: 0.5px solid var(--Gray, #858585);
     background: var(--background, #FBFBFB);
+  }
+
+  .track-frame-main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+  }
+
+  .track-frame-155 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+  }
+
+  .track-frame-154 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    align-self: stretch;
+  }
+
+  .vector-68 {
+    width: 0px;
+    height: 790px;
+    position: absolute;
+    left: 62px;
+    bottom: 43px;
+    stroke-width: 3px;
+    stroke: var(--Secondary, #0D1542);
+  }
+
+  .track-frame-150 {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+    align-self: stretch;
+  }
+
+  .track-frame-151 {
+    display: flex;
+    width: 123px;
+    height: 101px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border-radius: 20px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 4px 0px rgba(198, 198, 198, 0.25);
+  }
+
+  .track-frame-15 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 30px;
+    flex: 1 0 0;
+  }
+
+  .track-frame-15-card {
+    display: flex;
+    height: 101px;
+    padding: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    gap: 30px;
+    align-self: stretch;
+    border-radius: 20px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 4px 0px rgba(198, 198, 198, 0.25);
+  }
+
+  .track-frame-43 {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+    gap: 20px;
+    flex: 1 0 0;
+  }
+
+  .track-text-date {
+    display: flex;
+    width: 123px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .track-text-header {
+    flex: 1 0 0;
+    color: var(--Primary, #4476F1);
+    font-family: 'Inter';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    text-align: left;
   }
