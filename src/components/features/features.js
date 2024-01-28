@@ -6,7 +6,7 @@ import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import "../features/features.scss";
 import { gapi } from "gapi-script";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setToken } from "../../services/userService";
 import { createClient } from '@supabase/supabase-js'
 

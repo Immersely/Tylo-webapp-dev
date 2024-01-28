@@ -5,9 +5,9 @@ import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 // import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
 import "../features/features.scss";
 import { gapi } from "gapi-script";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { setToken } from "../../services/userService";
+// import axios from "axios";
+import {useNavigate } from "react-router-dom";
+// import { setToken } from "../../services/userService";
 import { createClient } from '@supabase/supabase-js'
 
 
@@ -16,8 +16,8 @@ function Features() {
 
     // Initialize state for storing the data
     const [publishers, setPublishers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(null);
     const [answerText, setAnswerText] = useState('');
     // Create a single supabase client for interacting with your database
     const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
