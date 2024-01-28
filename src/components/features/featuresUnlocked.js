@@ -8,7 +8,7 @@ import { gapi } from "gapi-script";
 // import axios from "axios";
 import {useNavigate } from "react-router-dom";
 // import { setToken } from "../../services/userService";
-import { createClient } from '@supabase/supabase-js'
+// import { createClient } from '@supabase/supabase-js'
 
 
 function Features() {
@@ -16,11 +16,11 @@ function Features() {
 
     // Initialize state for storing the data
     const [publishers, setPublishers] = useState([]);
-    const [setLoading] = useState(true);
-    const [ setError] = useState(null);
+    // const [setLoading] = useState(true);
+    // const [ setError] = useState(null);
     const [answerText, setAnswerText] = useState('');
     // Create a single supabase client for interacting with your database
-    const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
+    // const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
     const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
     const navigate = useNavigate(); 
     // const { data, error } = supabase
@@ -31,26 +31,26 @@ function Features() {
     useEffect(() => {
 
     // Fetch data from Supabase
-        const fetchData = async () => {
-            try {
-                const { data, error } = await supabase
-                    .from('publishers')
-                    .select('homepage_url');
+        // const fetchData = async () => {
+        //     try {
+        //         const { data, error } = await supabase
+        //             .from('publishers')
+        //             .select('homepage_url');
 
-                if (error) {
-                    throw error;
-                }
+        //         if (error) {
+        //             throw error;
+        //         }
 
-                setPublishers(data);
-            } catch (error) {
-                console.error('Error fetching data:', error.message);
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
+        //         setPublishers(data);
+        //     } catch (error) {
+        //         console.error('Error fetching data:', error.message);
+        //         setError(error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // };
 
-        fetchData();
+        // fetchData();
 
         // Load the Google API client library
         const script = document.createElement("script");
@@ -335,12 +335,12 @@ function Features() {
             </div>
           
           </div>
-          <div>
+          {/* <div>
             <h2>Publishers</h2>
             {publishers.map(publisher => (
                 <div key={publisher.homepage_url}>{publisher.homepage_url}</div>
             ))}
-         </div>
+         </div> */}
         </div>
     );
 }

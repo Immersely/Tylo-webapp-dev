@@ -61,43 +61,7 @@ function About() {
     //     document.body.appendChild(script);
     //   }, []);
 
-      const handleSignInClick = () => {
-        gapi.auth2
-          .getAuthInstance()
-          .signIn()
-          .then((data) => {
-            axios
-              .post(
-                "https://brain.immersely.ai/api/v1/auth",
-                { idToken: data.xc.id_token },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                  },
-                }
-              )
-              .then((data) => {
-                console.log(data);
-                // Save the JWT token to local storage
-                localStorage.setItem("token", data.data.token);
-                localStorage.setItem("immerselyEmail",data.data.user.email)
-                console.log("email",data.data.user.email)
-                console.log("name", data.data.user.name)
-                console.log("username", data.data.user.username)
-                setToken(data.data.token);
-                if (data.data.user.name){
-                  localStorage.setItem("name", data.data.user.name)
-                  localStorage.setItem("username", data.data.user.username)
-    
-                //   navigate("/welcome?profile_completed=true");
-                }
-                // else{navigate("/welcome?profile_completed=false");}
-                
-              });
-            console.log("User signed in.", data.xc.id_token);
-          });
-      };
+  
 
     return (
         <div className="about-page">
