@@ -15,7 +15,7 @@ function Features() {
     console.log('Features unlocked component rendering')
 
     // Initialize state for storing the data
-    const [publishers, setPublishers] = useState([]);
+    // const [publishers, setPublishers] = useState([]);
     // const [setLoading] = useState(true);
     // const [ setError] = useState(null);
     const [answerText, setAnswerText] = useState('');

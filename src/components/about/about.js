@@ -4,9 +4,9 @@ import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
 import "../about/about.scss";
-import { gapi } from "gapi-script";
-import axios from "axios";
-import { setToken } from "../../services/userService";
+// import { gapi } from "gapi-script";
+// import axios from "axios";
+// import { setToken } from "../../services/userService";
 // import { Link, useNavigate } from "react-router-dom";
 
 const faqData = [
