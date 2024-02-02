@@ -1,4 +1,4 @@
-import React, { useEffect, useState  } from "react";
+import React, { useEffect, useState } from "react";
 // import ReactDOM from "react-dom";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 // import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
@@ -8,8 +8,7 @@ import { gapi } from "gapi-script";
 // import axios from "axios";
 import {useNavigate } from "react-router-dom";
 // import { setToken } from "../../services/userService";
-// import { createClient } from '@supabase/supabase-js'
-
+// import { createClient } from '@supabase/supabase-js';
 
 function Features() {
     console.log('Features unlocked component rendering')
@@ -22,11 +21,19 @@ function Features() {
     // Create a single supabase client for interacting with your database
     // const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
     const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    
     // const { data, error } = supabase
     // .from('publishers')
     // .select('publisher_id')
     // console.log('the publisher is', data)
+    const [supportEvidence, setSupportEvidence] = useState([]);
+    const [referenceSources, setReferenceSources] = useState([]);
+    const [relevanceDisplay, setRelevanceDisplay] = useState([]);
+    const [jsonData, setJsonData] = useState([]);
+    const [isDyslexiaFontEnabled, setIsDyslexiaFontEnabled] = useState(false);
+
+
 
     useEffect(() => {
 
@@ -51,6 +58,7 @@ function Features() {
         // };
 
         // fetchData();
+        
 
         // Load the Google API client library
         const script = document.createElement("script");
@@ -62,13 +70,32 @@ function Features() {
               client_id:
                 "584832623015-02ioa5kbjqp9agd30pdiifln0bhb5trb.apps.googleusercontent.com",
               scope: "profile email",
-              redirect_uri: "https://tylo.ai/",
+              redirect_uri: "https://tylo.ai/", 
               cookiepolicy: "single_host_origin",
             });
           });
         };
         document.body.appendChild(script);
       }, []);
+
+    //   function populateTable(data) {
+    //         let supportData = [];
+    //         let referenceData = [];
+
+    //         data.forEach((item, index) => {
+    //             // Alternating the class names for each cell
+    //             let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+
+    //             // For support evidence, use paragraph
+    //             supportData.push({ content: item.paragraph, className });
+
+    //             // For reference & sources, use title and URL
+    //             referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
+    //         });
+
+    //         setSupportEvidence(supportData);
+    //         setReferenceSources(referenceData);
+    //     }
 
       const handleSignOutClick = () => {
         // Sign out from your application
@@ -89,9 +116,202 @@ function Features() {
         // navigate('/signin'); // Example using react-router
     };
 
-    const handleInquireClick = () => {
-        setAnswerText('output here'); // Update the text that you want to display
+    const handleFilterChange = (event) => {
+        // Get the selected value
+        const selectedFilter = event.target.value;
+    
+        // Call the function to filter the data
+        filterData(selectedFilter);
     };
+
+    const filterData = (filterCriteria) => {
+        let filteredData = [];
+
+        const sortedData = jsonData.sort((a, b) => b.relevance - a.relevance);
+
+
+    
+        switch (filterCriteria) {
+            case 'all':
+                filteredData = jsonData; // Assuming 'data' is your original data array
+                break;
+            case 'top10':
+                filteredData = sortedData.slice(0, 10); // Get the first 10 items
+                break;
+            case 'top20':
+                filteredData = sortedData.slice(0, 20); // Get the first 20 items
+                break;
+            default:
+                filteredData = jsonData; // Default to showing all
+        }
+    
+        updateDisplay(filteredData);
+        
+    };
+
+    
+    const handleDyslexiaFontToggle = (event) => {
+        setIsDyslexiaFontEnabled(event.target.checked);
+    };
+
+    const updateDisplay = (filteredData) => {
+        // Your logic to update the UI
+        // This might involve clearing the existing displayed data
+        // and then iterating over 'filteredData' to display each item
+
+        // Clear existing data
+        setSupportEvidence([]);
+        setReferenceSources([]);
+
+        const minRelevance = Math.min(...filteredData.map(item => item.relevance));
+                const maxRelevance = Math.max(...filteredData.map(item => item.relevance));
+
+
+                // Function to calculate color based on relevance
+                const getColorForRelevance = (relevance) => {
+                    const ratio = (relevance - minRelevance) / (maxRelevance - minRelevance);
+                    // Convert ratio to a color between yellow and green
+                    const greenIntensity = Math.floor(255 * ratio);
+                    const yellowIntensity = 255 - greenIntensity;
+                    const green = 225;
+                    return `rgb(${yellowIntensity}, ${green}, 0)`;
+                };
+
+        let supportData = [];
+        let referenceData = [];
+        let relevanceDisplay = [];
+
+                filteredData.forEach((item, index) => {
+                    let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+                    const color = getColorForRelevance(item.relevance);
+                    const relevanceStyle = {
+                        backgroundColor: color
+                    };
+                    
+                    supportData.push({ content: item.paragraph, className });
+                    referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
+                    relevanceDisplay.push({ style: relevanceStyle, className });
+                });
+
+                setSupportEvidence(supportData);
+                setReferenceSources(referenceData);
+                setRelevanceDisplay(relevanceDisplay);
+    };
+    
+
+    const handleInquireClick = () => {
+        
+        // Get the value from the textarea
+        var textareaValue = document.querySelector('.inquire-textbox').value;
+
+        // Encode the textarea content to be used in a URL
+        var encodedValue = encodeURIComponent(textareaValue);
+
+        // Construct the URL with the textarea content
+        var url = `http://34.171.46.125:8080/query?question=${encodedValue}`;
+
+        // Send the request to the server
+        fetch(url)
+            .then(response => {
+                // Make sure the response is OK and parse it as JSON
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log(data);
+
+                const minRelevance = Math.min(...data.map(item => item.relevance));
+                const maxRelevance = Math.max(...data.map(item => item.relevance));
+
+
+                // Function to calculate color based on relevance
+                const getColorForRelevance = (relevance) => {
+                    const ratio = (relevance - minRelevance) / (maxRelevance - minRelevance);
+                    // Convert ratio to a color between yellow and green
+                    const greenIntensity = Math.floor(255 * ratio);
+                    const yellowIntensity = 255 - greenIntensity;
+                    const green = 225;
+                    return `rgb(${yellowIntensity}, ${green}, 0)`;
+                };
+                setJsonData(data);
+                const texts = jsonData.map((item, idx) => `Answer ${idx}: ${item.paragraph}`);
+                const finalTexts = texts.join("\n");
+                // console.log("context", finalTexts )
+
+                let supportData = [];
+                let referenceData = [];
+                let relevanceDisplay = [];
+
+                data.forEach((item, index) => {
+                    let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+                    
+                    const color = getColorForRelevance(item.relevance);
+                    const relevanceStyle = {
+                        backgroundColor: color
+                    };
+
+                    supportData.push({ content: item.paragraph, className });
+                    referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
+                    relevanceDisplay.push({ style: relevanceStyle, className });
+                });
+               
+
+                setSupportEvidence(supportData);
+                setReferenceSources(referenceData);
+                setRelevanceDisplay(relevanceDisplay);
+
+                callOpenAI(textareaValue, finalTexts);
+                // setAnswerText('output here'); // Update the answer text
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+
+    };
+    console.log("outsideJson",jsonData)
+
+
+    const callOpenAI = async (question, finalTexts) => {
+        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
+        const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
+    
+        const prompt = [
+            { "role": "system", "content": systemPrompt },
+            { "role": "user", "content": userPrompt }
+        ];
+    
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer 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` // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-4-1106-preview",
+                    messages: prompt,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setAnswerText(data.choices[0].message.content); // Update the answer state
+            console.log()
+        } catch (error) {
+            console.error("Error calling OpenAI API:", error);
+        }
+    }
+    
 
     // const handleSignInClick = () => {
     //     gapi.auth2
@@ -170,9 +390,18 @@ function Features() {
                         </div>
                     
                 </div>
-                <div className="answer-text-box">
-                    <p className="answer-text">
-                        Answer: {answerText}
+                <div className="answer-text-box"
+                style={{
+                    ...isDyslexiaFontEnabled && { backgroundColor: '#FFFFE0' }, // Only apply this style if isDyslexiaFontEnabled is true
+                }}
+                >
+                    <p className="answer-header">Answer:</p>
+                    <p className="answer-text"
+                    style={{
+                        ...isDyslexiaFontEnabled && { fontFamily: '"OpenDyslexic", sans-serif' }, // Only apply this style if isDyslexiaFontEnabled is true
+                    }}
+                    >
+                        {answerText}
                     </p>
                 </div>
             </div>
@@ -181,9 +410,11 @@ function Features() {
                     <p className="support-text-blue">Support Evidence</p>
                     <p className="mini-grey-text">(20 Items Found)</p>
                     <div className="dropdown-box">
-                        <p className="inquire-text-1">
-                            Top 10 Show
-                        </p>
+                        <select className="inquire-text-1" onChange={handleFilterChange}>
+                            <option value="all">All</option>
+                            <option value="top10">Top 10</option>
+                            <option value="top20">Top 20</option>
+                        </select>
                     </div>
                     <p className="support-text-blue">Sort By</p>
                     <div className="dropdown-box">
@@ -191,52 +422,46 @@ function Features() {
                             Year
                         </p>
                     </div>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={isDyslexiaFontEnabled}
+                            onChange={handleDyslexiaFontToggle}
+                        />
+                        Use Dyslexia-Friendly Font
+                    </label>
+
                 </div>
                 <div className="support-frame-107">
                     <div className="support-frame-95">
                         <div className="support-frame-135">
                             <p className="support-text">Support evidence</p>
                         </div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        
+                        {supportEvidence.map((item, index) => (
+                            <div key={index} className={item.className}>
+                                {item.content}
+                            </div>
+                        ))}    
                     </div>
                     <div className="support-frame-95">
                         <div className="support-frame-135">
                             <p className="support-text">Reference & sources</p>
                         </div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                    </div>
-                    <div className="support-frame-95">
-                        <div className="support-frame-135">
-                            <p className="support-text">Short Summary</p>
-                        </div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
+                        {referenceSources.map((item, index) => (
+                            <div key={index} className={item.className}>
+                                {item.content}
+                            </div>
+                        ))}
                     </div>
                     <div className="support-frame-95">
                         <div className="support-frame-135">
                             <p className="support-text">Relevance</p>
                         </div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
-                        <div className="support-frame-94"> </div>
-                        <div className="support-frame-135-b"></div>
+                        {relevanceDisplay.map((item, index) => (
+                            <div key={index} className={`${item.className} relevance-circle`} style={item.style}></div>
+                        ))}
+                      
                     </div>
                 </div>
             </div>

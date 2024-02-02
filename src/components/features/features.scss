@@ -24,15 +24,18 @@
   /* Add any other styles you need */
 }
 
+
+
 .feature-page-1 {
     background-color: rgba(70, 129, 241, 0.05);
     display: flex;
     // position: absolute;
     flex-direction: column;
-    justify-content: center; // Horizontally center content
+    // justify-content: center; // Horizontally center content
     align-items: center; // Vertically center content
     text-align: left; 
-    height: 1150px;
+    min-height: 1150px;
+     padding-bottom: 50px;
     flex-shrink: 0; 
     // margin-top: 308px;
 }
@@ -281,6 +284,7 @@
     display: flex;
     width: 100%;
     height: 252px;
+    margin: 0 auto;
     padding: 20px;
     flex-direction: column;
     align-items: flex-start;
@@ -290,14 +294,15 @@
     border: 1px solid var(--Primary, #4476F1);
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(125, 125, 125, 0.25);
+    overflow-y: auto;
   }
 
-  .answer-text {
+  .answer-header {
     height: 31.289px;
     flex-shrink: 0;
     align-self: stretch;
     color: var(--Primary, #4476F1);
-    font-family: Inter;
+    font-family: 'Inter';
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
@@ -305,9 +310,28 @@
     text-transform: capitalize;
   }
 
+  .answer-text {
+    height: 31.289px;
+    flex-shrink: 0;
+    align-self: stretch;
+    color: black;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.6; /* Line height for better readability */
+    text-align: justify; /* Justify text for a neat look */
+    // text-transform: capitalize;
+   
+  }
+
+
+
+
+
   .mini-grey-text {
     color: var(--Gray, #858585);
-    font-family: Inter;
+    font-family: 'Inter';
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
@@ -317,7 +341,7 @@
 
   .support-frame-162 {
     display: inline-flex;
-    height: 523px;
+    min-height: 523px;
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
@@ -372,8 +396,8 @@
 
   .support-frame-107 {
     display: flex;
-    width: 1680px;
-    height: 353px;
+    width: 1500px;
+    min-height: 353px;
     justify-content: center;
     align-items: flex-start;
     flex-shrink: 0;
@@ -384,22 +408,28 @@
 
   .support-frame-95 {
     display: flex;
-    // height: 64px;
+    min-height: 64px;
     width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    overflow-y: auto;
   }
 
   .support-frame-94{
     display: flex;
     width: 100%;
-    height: 62px;
+    max-width: 500px;
+    height: 93px;
     padding: 20px;
     align-items: flex-start;
     gap: 30px;
+    align-self: stretch;
     border-bottom: 0.5px solid var(--Gray, #858585);
-background: var(--white, #FFF);
+    background: var(--white, #FFF);
+    overflow: hidden; /* Hide overflow content */
+    // text-overflow: ellipsis; /* Show ellipsis */
+    // white-space: nowrap; /* Prevents the text from wrapping */
   }
 
   .support-frame-135 {
@@ -414,13 +444,28 @@ background: var(--white, #FFF);
   .support-frame-135-b {
     display: flex;
     padding: 20px;
-    height: 62px;
-    align-items: center;
+    max-width: 500px;
+    height: 93px;
+    padding: 20px;
+    align-items: flex-start;
     gap: 30px;
     align-self: stretch;
     border-bottom: 0.5px solid var(--Gray, #858585);
     background: var(--background, #FBFBFB);
+    overflow: hidden; /* Hide overflow content */
+    // text-overflow: ellipsis; /* Show ellipsis */
+    // white-space: nowrap; /* Prevents the text from wrapping */
   }
+
+  .relevance-circle {
+    width: 5px; /* Adjusted size */
+    height: 5px; /* Adjusted size */
+    border-radius: 50%; /* Make it circular */
+    display: flex;
+    margin: 26px; /* Adjust spacing around circles */
+    // align-items: center;
+}
+  
 
   .track-frame-main{
     display: flex;
