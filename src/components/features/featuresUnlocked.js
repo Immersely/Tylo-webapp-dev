@@ -12,21 +12,12 @@ import {useNavigate } from "react-router-dom";
 
 function Features() {
     console.log('Features unlocked component rendering')
-
-    // Initialize state for storing the data
-    // const [publishers, setPublishers] = useState([]);
-    // const [setLoading] = useState(true);
-    // const [ setError] = useState(null);
     const [answerText, setAnswerText] = useState('');
     // Create a single supabase client for interacting with your database
     // const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
     const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
     const navigate = useNavigate();
     
-    // const { data, error } = supabase
-    // .from('publishers')
-    // .select('publisher_id')
-    // console.log('the publisher is', data)
     const [supportEvidence, setSupportEvidence] = useState([]);
     const [referenceSources, setReferenceSources] = useState([]);
     const [relevanceDisplay, setRelevanceDisplay] = useState([]);
@@ -36,30 +27,6 @@ function Features() {
 
 
     useEffect(() => {
-
-    // Fetch data from Supabase
-        // const fetchData = async () => {
-        //     try {
-        //         const { data, error } = await supabase
-        //             .from('publishers')
-        //             .select('homepage_url');
-
-        //         if (error) {
-        //             throw error;
-        //         }
-
-        //         setPublishers(data);
-        //     } catch (error) {
-        //         console.error('Error fetching data:', error.message);
-        //         setError(error);
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
-
-        // fetchData();
-        
-
         // Load the Google API client library
         const script = document.createElement("script");
         script.src = "https://apis.google.com/js/api.js";
@@ -78,24 +45,6 @@ function Features() {
         document.body.appendChild(script);
       }, []);
 
-    //   function populateTable(data) {
-    //         let supportData = [];
-    //         let referenceData = [];
-
-    //         data.forEach((item, index) => {
-    //             // Alternating the class names for each cell
-    //             let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
-
-    //             // For support evidence, use paragraph
-    //             supportData.push({ content: item.paragraph, className });
-
-    //             // For reference & sources, use title and URL
-    //             referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-    //         });
-
-    //         setSupportEvidence(supportData);
-    //         setReferenceSources(referenceData);
-    //     }
 
       const handleSignOutClick = () => {
         // Sign out from your application
@@ -313,44 +262,6 @@ function Features() {
         }
     }
     
-
-    // const handleSignInClick = () => {
-    //     gapi.auth2
-    //       .getAuthInstance()
-    //       .signIn()
-    //       .then((data) => {
-    //         axios
-    //           .post(
-    //             "http://localhost:4004/api/v1/auth",
-    //             { idToken: data.xc.id_token },
-    //             {
-    //               headers: {
-    //                 "Content-Type": "application/json",
-    //                 Accept: "application/json",
-    //               },
-    //             }
-    //           )
-    //           .then((data) => {
-    //             console.log(data);
-    //             // Save the JWT token to local storage
-    //             localStorage.setItem("token", data.data.token);
-    //             localStorage.setItem("tyloEmail",data.data.user.email)
-    //             console.log("email",data.data.user.email)
-    //             console.log("name", data.data.user.name)
-    //             console.log("username", data.data.user.username)
-    //             setToken(data.data.token);
-    //             if (data.data.user.name){
-    //               localStorage.setItem("name", data.data.user.name)
-    //               localStorage.setItem("username", data.data.user.username)
-    
-    //             //   navigate("/welcome?profile_completed=true");
-    //             }
-    //             // else{navigate("/welcome?profile_completed=false");}
-                
-    //           });
-    //         console.log("User signed in.", data.xc.id_token);
-    //       });
-    //   };
 
     console.log('Feature component about to render JSX');
     return (
