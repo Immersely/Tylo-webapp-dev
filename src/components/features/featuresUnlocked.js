@@ -241,7 +241,7 @@ function Features() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${process.env.REACT_APP_OPEN_AI_KEY}` 
+                    "Authorization": `Bearer ${combined}` 
                     // Replace with your actual API key
                 },
                 body: JSON.stringify({
