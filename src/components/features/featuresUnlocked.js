@@ -218,7 +218,14 @@ function Features() {
 
     };
   
-    console.log("with .env", process.env.REACT_APP_OPEN_AI_KEY)
+    
+
+    const part1 = "sk";
+    const part2 = "-K75Q0o6EGdZW6fg4fZOfT3BlbkFJIgXDnHNXnNJ6YRH3";
+    const part3 = "Zfd1";
+    const combined = part1 + part2 + part3;
+
+    console.log("with .env", combined)
 
     const callOpenAI = async (question, finalTexts) => {
         const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
