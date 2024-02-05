@@ -13,8 +13,6 @@ import {useNavigate } from "react-router-dom";
 function Features() {
     console.log('Features unlocked component rendering')
     const [answerText, setAnswerText] = useState('');
-    // Create a single supabase client for interacting with your database
-    // const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
     const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
     const navigate = useNavigate();
     
