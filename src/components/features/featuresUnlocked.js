@@ -218,7 +218,8 @@ function Features() {
 
     };
   
-
+    console.log("with process.env", REACT_APP_OPEN_AI_KEY)
+    console.log("without .env", process.env.REACT_APP_OPEN_AI_KEY)
 
     const callOpenAI = async (question, finalTexts) => {
         const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
@@ -234,7 +235,7 @@ function Features() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${process.env.REACT_APP_OPEN_AI_KEY}` 
+                    "Authorization": `Bearer ${REACT_APP_OPEN_AI_KEY}` 
                     // Replace with your actual API key
                 },
                 body: JSON.stringify({
