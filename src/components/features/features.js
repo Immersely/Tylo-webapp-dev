@@ -30,28 +30,6 @@ function Features() {
 
     useEffect(() => {
 
-    // // Fetch data from Supabase
-    //     const fetchData = async () => {
-    //         try {
-    //             const { data, error } = await supabase
-    //                 .from('publishers')
-    //                 .select('homepage_url');
-
-    //             if (error) {
-    //                 throw error;
-    //             }
-
-    //             setPublishers(data);
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error.message);
-    //             setError(error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-
-        // fetchData();
-
         // Load the Google API client library
         const script = document.createElement("script");
         script.src = "https://apis.google.com/js/api.js";
