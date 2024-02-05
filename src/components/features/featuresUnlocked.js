@@ -208,7 +208,7 @@ function Features() {
         var encodedValue = encodeURIComponent(textareaValue);
 
         // Construct the URL with the textarea content
-        var url = `http://34.171.46.125:8080/query?question=${encodedValue}`;
+        var url = ` https://34.149.203.168/query_arxiv/arxiv?question=${encodedValue}`;
 
         // Send the request to the server
         fetch(url)
@@ -238,7 +238,7 @@ function Features() {
                 setJsonData(data);
                 const texts = jsonData.map((item, idx) => `Answer ${idx}: ${item.paragraph}`);
                 const finalTexts = texts.join("\n");
-                // console.log("context", finalTexts )
+                console.log("context", finalTexts )
 
                 let supportData = [];
                 let referenceData = [];
@@ -287,7 +287,8 @@ function Features() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer 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` // Replace with your actual API key
+                    "Authorization": `Bearer ${process.env.REACT_APP_OPEN_AI_KEY}` 
+                    // Replace with your actual API key
                 },
                 body: JSON.stringify({
                     model: "gpt-4-1106-preview",
