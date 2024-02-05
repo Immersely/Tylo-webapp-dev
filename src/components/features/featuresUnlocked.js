@@ -238,7 +238,7 @@ function Features() {
                     // Replace with your actual API key
                 },
                 body: JSON.stringify({
-                    model: "gpt-4-1106-preview",
+                    model: "gpt-3.5-turbo-16k",
                     messages: prompt,
                     temperature: 0.7,
                     max_tokens: 4096,
