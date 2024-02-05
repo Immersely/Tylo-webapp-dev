@@ -218,8 +218,7 @@ function Features() {
 
     };
   
-    console.log("with process.env", REACT_APP_OPEN_AI_KEY)
-    console.log("without .env", process.env.REACT_APP_OPEN_AI_KEY)
+    console.log("with .env", process.env.REACT_APP_OPEN_AI_KEY)
 
     const callOpenAI = async (question, finalTexts) => {
         const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
