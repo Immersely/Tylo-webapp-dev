@@ -270,7 +270,7 @@ function Features() {
             });
 
     };
-    console.log("outsideJson",jsonData)
+  
 
 
     const callOpenAI = async (question, finalTexts) => {
