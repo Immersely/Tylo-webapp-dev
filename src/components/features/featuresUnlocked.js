@@ -147,7 +147,8 @@ function Features() {
     
 
     const handleInquireClick = () => {
-        
+        setAnswerText("Loading ...");
+        setJsonData([]);
         // Get the value from the textarea
         var textareaValue = document.querySelector('.inquire-textbox').value;
 
@@ -155,18 +156,19 @@ function Features() {
         var encodedValue = encodeURIComponent(textareaValue);
 
         // Construct the URL with the textarea content
-        var url = ` https://34.149.203.168/query_arxiv/arxiv?question=${encodedValue}`;
-
+        var url1 = `https://34.149.203.168/query_arxiv/arxiv?question=${encodedValue}`;
+        var url2 = `https://34.149.203.168/query_pubmed/pubmed?question=${encodedValue}`;
+        
         // Send the request to the server
-        fetch(url)
-            .then(response => {
-                // Make sure the response is OK and parse it as JSON
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Network response was not ok.');
-            })
-            .then(data => {
+        Promise.all([fetch(url1), fetch(url2)])
+        .then(responses => Promise.all(responses.map(res => {
+            if (res.ok) return res.json();
+            throw new Error('Network response was not ok.');
+        })))
+            .then(dataArray => {
+
+                const data = dataArray.flat(); // Combine arrays if both URLs return arrays
+
                 console.log(data);
 
                 const minRelevance = Math.min(...data.map(item => item.relevance));
@@ -182,9 +184,17 @@ function Features() {
                     const green = 225;
                     return `rgb(${yellowIntensity}, ${green}, 0)`;
                 };
+                
+                let finalTexts = "";
                 setJsonData(data);
-                const texts = jsonData.map((item, idx) => `Answer ${idx}: ${item.paragraph}`);
-                const finalTexts = texts.join("\n");
+                let texts = "";
+
+                jsonData.sort((a, b) => b.relevance - a.relevance);
+                // Limit to the most relevant 30 items
+                const top30Items = jsonData.slice(0, 30);
+
+                texts = top30Items.map((item, idx) => `Answer ${idx}: ${item.paragraph}`);
+                finalTexts = texts.join("\n");
                 console.log("context", finalTexts )
 
                 let supportData = [];
@@ -209,7 +219,11 @@ function Features() {
                 setReferenceSources(referenceData);
                 setRelevanceDisplay(relevanceDisplay);
 
+                
                 callOpenAI(textareaValue, finalTexts);
+                // setJsonData([]);
+                finalTexts = "";
+
                 // setAnswerText('output here'); // Update the answer text
             })
             .catch(error => {
@@ -228,6 +242,9 @@ function Features() {
     console.log("with .env", combined)
 
     const callOpenAI = async (question, finalTexts) => {
+
+        setAnswerText(""); // Clears the answer text box content
+        
         const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
         const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
     
@@ -261,9 +278,10 @@ function Features() {
 
             const data = await response.json();
             setAnswerText(data.choices[0].message.content); // Update the answer state
-            console.log()
         } catch (error) {
             console.error("Error calling OpenAI API:", error);
+            // Optionally, set answerText to a default error message
+            setAnswerText("An error occurred while fetching the answer. Please try again.");
         }
     }
     
@@ -325,7 +343,7 @@ function Features() {
             <div className="support-frame-162">
                 <div className="support-frame-126">
                     <p className="support-text-blue">Support Evidence</p>
-                    <p className="mini-grey-text">(20 Items Found)</p>
+                    <p className="mini-grey-text">({jsonData.length} Items Found)</p>
                     <div className="dropdown-box">
                         <select className="inquire-text-1" onChange={handleFilterChange}>
                             <option value="all">All</option>
