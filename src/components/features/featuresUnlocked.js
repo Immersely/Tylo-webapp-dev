@@ -158,9 +158,10 @@ function Features() {
         // Construct the URL with the textarea content
         var url1 = `https://34.149.203.168/query_arxiv/arxiv?question=${encodedValue}`;
         var url2 = `https://34.149.203.168/query_pubmed/pubmed?question=${encodedValue}`;
-        
+        var url3 = `https://34.149.203.168/google_query/google?question=${encodedValue}`;
+
         // Send the request to the server
-        Promise.all([fetch(url1), fetch(url2)])
+        Promise.all([fetch(url1), fetch(url2), fetch(url3)])
         .then(responses => Promise.all(responses.map(res => {
             if (res.ok) return res.json();
             throw new Error('Network response was not ok.');
