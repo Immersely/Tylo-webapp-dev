@@ -21,6 +21,8 @@ function Features() {
     const [relevanceDisplay, setRelevanceDisplay] = useState([]);
     const [jsonData, setJsonData] = useState([]);
     const [isDyslexiaFontEnabled, setIsDyslexiaFontEnabled] = useState(false);
+    const [isRequesting, setIsRequesting] = useState(false);
+
 
 
 
@@ -147,6 +149,7 @@ function Features() {
     
 
     const handleInquireClick = () => {
+        setIsRequesting(true);
         setAnswerText("Loading ...");
         setJsonData([]);
         // Get the value from the textarea
@@ -187,8 +190,9 @@ function Features() {
                 };
                 
                 let finalTexts = "";
-                setJsonData(data);
                 let texts = "";
+                setJsonData(data);
+                
 
                 jsonData.sort((a, b) => b.relevance - a.relevance);
                 // Limit to the most relevant 30 items
@@ -224,6 +228,7 @@ function Features() {
                 callOpenAI(textareaValue, finalTexts);
                 // setJsonData([]);
                 finalTexts = "";
+                setIsRequesting(false);
 
                 // setAnswerText('output here'); // Update the answer text
             })
@@ -240,7 +245,7 @@ function Features() {
     const part3 = "Zfd1";
     const combined = part1 + part2 + part3;
 
-    console.log("with .env", combined)
+    // console.log("with .env", combined)
 
     const callOpenAI = async (question, finalTexts) => {
 
@@ -318,13 +323,15 @@ function Features() {
                     <p className="inquire-text-1">
                         The more specific, the better
                     </p>
-                        <textarea className="inquire-textbox" placeholder="Enter your inquiry here">
-                        
-                        </textarea>
-                        <div className="inquire-button_unlocked" onClick={handleInquireClick}>
-                            <span className="sign-in-text">Inquire</span>
-                        </div>
-                    
+                    <div className="textarea-container">
+                        <textarea className="inquire-textbox" placeholder="Enter your inquiry here"></textarea>
+                            <div
+                                className={`inquire-button_unlocked ${isRequesting ? 'inquire-button_disabled' : ''}`}
+                                onClick={!isRequesting ? handleInquireClick : undefined}
+                            >
+                                <span className="sign-in-text">{isRequesting ? 'Processing...' : 'Inquire'}</span>
+                            </div>
+                    </div>    
                 </div>
                 <div className="answer-text-box"
                 style={{
