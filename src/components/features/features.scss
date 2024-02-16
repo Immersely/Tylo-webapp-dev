@@ -262,6 +262,10 @@
 
 
   .inquire-button {
+    position: absolute; /* Positions the button absolutely within .textarea-container */
+    right: 10px; /* Distance from the right edge of the container */
+    bottom: 20px; /* Distance from the bottom edge of the container */
+    z-index: 2; /* Ensures the button is above the textarea */
     display: flex;
     width: 250px;
     height: 70.834px;

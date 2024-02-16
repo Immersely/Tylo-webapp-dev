@@ -125,10 +125,12 @@ function Features() {
                     <p className="inquire-text-1">
                         The more specific, the better
                     </p>
+                    <div className="textarea-container">
                     <div className="inquire-textbox">
                         <div className="inquire-button">
                             <span className="sign-in-text">Inquire</span>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div className="answer-text-box">
