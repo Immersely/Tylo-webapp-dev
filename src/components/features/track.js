@@ -14,17 +14,17 @@ import { createClient } from '@supabase/supabase-js';
 
 function Track() {
     console.log('Track component rendering')
-    const [answerText, setAnswerText] = useState('');
+    // const [answerText, setAnswerText] = useState('');
     const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
     const navigate = useNavigate();
     
-    const [supportEvidence, setSupportEvidence] = useState([]);
-    const [referenceSources, setReferenceSources] = useState([]);
-    const [relevanceDisplay, setRelevanceDisplay] = useState([]);
-    const [jsonData, setJsonData] = useState([]);
-    const [itemCount, setItemCount] = useState([]);
-    const [isDyslexiaFontEnabled, setIsDyslexiaFontEnabled] = useState(false);
-    const [isRequesting, setIsRequesting] = useState(false);
+    // const [supportEvidence, setSupportEvidence] = useState([]);
+    // const [referenceSources, setReferenceSources] = useState([]);
+    // const [relevanceDisplay, setRelevanceDisplay] = useState([]);
+    // const [jsonData, setJsonData] = useState([]);
+    // const [itemCount, setItemCount] = useState([]);
+    // const [isDyslexiaFontEnabled, setIsDyslexiaFontEnabled] = useState(false);
+    // const [isRequesting, setIsRequesting] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     /*********  Tracker stuff ********************/
@@ -96,183 +96,183 @@ function Track() {
         // navigate('/signin'); // Example using react-router
     };
 
-    const handleFilterChange = (event) => {
-        // Get the selected value
-        const selectedFilter = event.target.value;
+    // const handleFilterChange = (event) => {
+    //     // Get the selected value
+    //     const selectedFilter = event.target.value;
     
-        // Call the function to filter the data
-        filterData(selectedFilter);
-    };
+    //     // Call the function to filter the data
+    //     filterData(selectedFilter);
+    // };
 
-    const filterData = (filterCriteria) => {
-        let filteredData = [];
+    // const filterData = (filterCriteria) => {
+    //     let filteredData = [];
 
-        const sortedData = itemCount.sort((a, b) => b.relevance - a.relevance);
+    //     const sortedData = itemCount.sort((a, b) => b.relevance - a.relevance);
 
 
     
-        switch (filterCriteria) {
-            case 'all':
-                filteredData = sortedData.slice(0, itemCount.length
-                    );; // Assuming 'data' is your original data array
-                break;
-            case 'top10':
-                filteredData = sortedData.slice(0, 10); // Get the first 10 items
-                break;
-            case 'top20':
-                filteredData = sortedData.slice(0, 20); // Get the first 20 items
-                break;
-            default:
-                filteredData = sortedData; // Default to showing all
-        }
+    //     switch (filterCriteria) {
+    //         case 'all':
+    //             filteredData = sortedData.slice(0, itemCount.length
+    //                 );; // Assuming 'data' is your original data array
+    //             break;
+    //         case 'top10':
+    //             filteredData = sortedData.slice(0, 10); // Get the first 10 items
+    //             break;
+    //         case 'top20':
+    //             filteredData = sortedData.slice(0, 20); // Get the first 20 items
+    //             break;
+    //         default:
+    //             filteredData = sortedData; // Default to showing all
+    //     }
     
-        updateDisplay(filteredData);
+    //     updateDisplay(filteredData);
         
-    };
+    // };
 
     
-    const handleDyslexiaFontToggle = (event) => {
-        setIsDyslexiaFontEnabled(event.target.checked);
-    };
+    // const handleDyslexiaFontToggle = (event) => {
+    //     setIsDyslexiaFontEnabled(event.target.checked);
+    // };
 
-    const updateDisplay = (filteredData) => {
-        // Your logic to update the UI
-        // This might involve clearing the existing displayed data
-        // and then iterating over 'filteredData' to display each item
+    // const updateDisplay = (filteredData) => {
+    //     // Your logic to update the UI
+    //     // This might involve clearing the existing displayed data
+    //     // and then iterating over 'filteredData' to display each item
 
-        // Clear existing data
-        setSupportEvidence([]);
-        setReferenceSources([]);
+    //     // Clear existing data
+    //     setSupportEvidence([]);
+    //     setReferenceSources([]);
 
-        // const minRelevance = Math.min(...filteredData.map(item => item.relevance));
-        //         const maxRelevance = Math.max(...filteredData.map(item => item.relevance));
+    //     // const minRelevance = Math.min(...filteredData.map(item => item.relevance));
+    //     //         const maxRelevance = Math.max(...filteredData.map(item => item.relevance));
 
 
-                // Function to calculate color based on relevance
-                const getColorForRelevance = (relevance) => {
-                    if (relevance >= 0.55) {
-                        return "rgb(0, 225, 0)"; // Green
-                    } else if (relevance >= 0.5 && relevance < 0.55) {
-                        return "rgb(255, 225, 0)"; // Yellow
-                    } else {
-                        return "rgb(255, 0, 0)"; // Red
-                    }
-                };
+    //             // Function to calculate color based on relevance
+    //             const getColorForRelevance = (relevance) => {
+    //                 if (relevance >= 0.55) {
+    //                     return "rgb(0, 225, 0)"; // Green
+    //                 } else if (relevance >= 0.5 && relevance < 0.55) {
+    //                     return "rgb(255, 225, 0)"; // Yellow
+    //                 } else {
+    //                     return "rgb(255, 0, 0)"; // Red
+    //                 }
+    //             };
 
-        let supportData = [];
-        let referenceData = [];
-        let relevanceDisplay = [];
+    //     let supportData = [];
+    //     let referenceData = [];
+    //     let relevanceDisplay = [];
 
-                filteredData.forEach((item, index) => {
-                    let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
-                    const color = getColorForRelevance(item.relevance);
-                    const relevanceStyle = {
-                        backgroundColor: color
-                    };
+    //             filteredData.forEach((item, index) => {
+    //                 let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+    //                 const color = getColorForRelevance(item.relevance);
+    //                 const relevanceStyle = {
+    //                     backgroundColor: color
+    //                 };
                     
-                    supportData.push({ content: item.paragraph, className });
-                    referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-                    relevanceDisplay.push({ style: relevanceStyle, className });
-                });
+    //                 supportData.push({ content: item.paragraph, className });
+    //                 referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
+    //                 relevanceDisplay.push({ style: relevanceStyle, className });
+    //             });
 
-                setSupportEvidence(supportData);
-                setReferenceSources(referenceData);
-                setRelevanceDisplay(relevanceDisplay);
-    };
+    //             setSupportEvidence(supportData);
+    //             setReferenceSources(referenceData);
+    //             setRelevanceDisplay(relevanceDisplay);
+    // };
     
 
-    const handleInquireClick = () => {
-        setIsRequesting(true);
-        setAnswerText("Loading ...");
-        setJsonData([]);
-        let finalTexts = "";
-        let texts = "";
-        // Get the value from the textarea
-        var textareaValue = document.querySelector('.inquire-textbox').value;
+    // const handleInquireClick = () => {
+    //     setIsRequesting(true);
+    //     setAnswerText("Loading ...");
+    //     setJsonData([]);
+    //     let finalTexts = "";
+    //     let texts = "";
+    //     // Get the value from the textarea
+    //     var textareaValue = document.querySelector('.inquire-textbox').value;
 
-        // Encode the textarea content to be used in a URL
-        var encodedValue = encodeURIComponent(textareaValue);
+    //     // Encode the textarea content to be used in a URL
+    //     var encodedValue = encodeURIComponent(textareaValue);
 
-        // Construct the URL with the textarea content
-        var url1 = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedValue}`;
-        var url2 = `https://archive.tylo.ai/query_pubmed/pubmed?question=${encodedValue}`;
-        var url3 = `https://archive.tylo.ai/google_query/google?question=${encodedValue}`;
+    //     // Construct the URL with the textarea content
+    //     var url1 = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedValue}`;
+    //     var url2 = `https://archive.tylo.ai/query_pubmed/pubmed?question=${encodedValue}`;
+    //     var url3 = `https://archive.tylo.ai/google_query/google?question=${encodedValue}`;
 
-        // Send the request to the server
-        Promise.all([fetch(url1), fetch(url2), fetch(url3)])
-        .then(responses => Promise.all(responses.map(res => {
-            if (res.ok) return res.json();
-            throw new Error('Network response was not ok.');
-        })))
-            .then(dataArray => {
+    //     // Send the request to the server
+    //     Promise.all([fetch(url1), fetch(url2), fetch(url3)])
+    //     .then(responses => Promise.all(responses.map(res => {
+    //         if (res.ok) return res.json();
+    //         throw new Error('Network response was not ok.');
+    //     })))
+    //         .then(dataArray => {
 
-                const data = dataArray.flat(); // Combine arrays if both URLs return arrays
+    //             const data = dataArray.flat(); // Combine arrays if both URLs return arrays
 
-                console.log(data);
+    //             console.log(data);
 
-                const minRelevance = Math.min(...data.map(item => item.relevance));
-                const maxRelevance = Math.max(...data.map(item => item.relevance));
+    //             const minRelevance = Math.min(...data.map(item => item.relevance));
+    //             const maxRelevance = Math.max(...data.map(item => item.relevance));
 
 
-                // Function to calculate color based on relevance
-                const getColorForRelevance = (relevance) => {
-                    const ratio = (relevance - minRelevance) / (maxRelevance - minRelevance);
-                    // Convert ratio to a color between yellow and green
-                    const greenIntensity = Math.floor(255 * ratio);
-                    const yellowIntensity = 255 - greenIntensity;
-                    const green = 225;
-                    return `rgb(${yellowIntensity}, ${green}, 0)`;
-                };
+    //             // Function to calculate color based on relevance
+    //             const getColorForRelevance = (relevance) => {
+    //                 const ratio = (relevance - minRelevance) / (maxRelevance - minRelevance);
+    //                 // Convert ratio to a color between yellow and green
+    //                 const greenIntensity = Math.floor(255 * ratio);
+    //                 const yellowIntensity = 255 - greenIntensity;
+    //                 const green = 225;
+    //                 return `rgb(${yellowIntensity}, ${green}, 0)`;
+    //             };
                 
                
-                setJsonData(data);
-                setItemCount(data)
+    //             setJsonData(data);
+    //             setItemCount(data)
                 
 
-                jsonData.sort((a, b) => b.relevance - a.relevance);
-                // Limit to the most relevant 30 items
-                const top30Items = jsonData.slice(0, 30);
+    //             jsonData.sort((a, b) => b.relevance - a.relevance);
+    //             // Limit to the most relevant 30 items
+    //             const top30Items = jsonData.slice(0, 30);
 
-                texts = top30Items.map((item, idx) => `${item.paragraph}`);
-                finalTexts = texts.join("\n");
-                console.log("context", finalTexts )
+    //             texts = top30Items.map((item, idx) => `${item.paragraph}`);
+    //             finalTexts = texts.join("\n");
+    //             console.log("context", finalTexts )
 
-                let supportData = [];
-                let referenceData = [];
-                let relevanceDisplay = [];
+    //             let supportData = [];
+    //             let referenceData = [];
+    //             let relevanceDisplay = [];
 
-                data.forEach((item, index) => {
-                    let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+    //             data.forEach((item, index) => {
+    //                 let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
                     
-                    const color = getColorForRelevance(item.relevance);
-                    const relevanceStyle = {
-                        backgroundColor: color
-                    };
+    //                 const color = getColorForRelevance(item.relevance);
+    //                 const relevanceStyle = {
+    //                     backgroundColor: color
+    //                 };
 
-                    supportData.push({ content: item.paragraph, className });
-                    referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-                    relevanceDisplay.push({ style: relevanceStyle, className });
-                });
+    //                 supportData.push({ content: item.paragraph, className });
+    //                 referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
+    //                 relevanceDisplay.push({ style: relevanceStyle, className });
+    //             });
                
 
-                setSupportEvidence(supportData);
-                setReferenceSources(referenceData);
-                setRelevanceDisplay(relevanceDisplay);
+    //             setSupportEvidence(supportData);
+    //             setReferenceSources(referenceData);
+    //             setRelevanceDisplay(relevanceDisplay);
 
                 
-                callOpenAI(textareaValue, finalTexts);
-                // setJsonData([]);
-                finalTexts = "";
-                setJsonData([]);
-                setIsRequesting(false);
+    //             callOpenAI(textareaValue, finalTexts);
+    //             // setJsonData([]);
+    //             finalTexts = "";
+    //             setJsonData([]);
+    //             setIsRequesting(false);
 
-                // setAnswerText('output here'); // Update the answer text
-            })
-            .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
-            });
+    //             // setAnswerText('output here'); // Update the answer text
+    //         })
+    //         .catch(error => {
+    //             console.error('There has been a problem with your fetch operation:', error);
+    //         });
 
-    };
+    // };
   
     
 
@@ -287,49 +287,49 @@ function Track() {
     /******************************************** Open AI calls *******************************************************************/
     /* systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
     `Provide an answer to the question, like you are an expert. If specific details are not available, infer general conclusions based on the context without explicitly mentioning it in your response. Include numerical data and specific figures when relevant and available. Do not add information beyond what is given, and avoid referencing the context directly in your answer.`*/
-    const callOpenAI = async (question, finalTexts) => {
+    // const callOpenAI = async (question, finalTexts) => {
 
-        setAnswerText(""); // Clears the answer text box content
+    //     setAnswerText(""); // Clears the answer text box content
         
-        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response.`;
-        const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
+    //     const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response.`;
+    //     const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
     
-        const prompt = [
-            { "role": "system", "content": systemPrompt },
-            { "role": "user", "content": userPrompt }
-        ];
+    //     const prompt = [
+    //         { "role": "system", "content": systemPrompt },
+    //         { "role": "user", "content": userPrompt }
+    //     ];
     
-        try {
-            const response = await fetch("https://api.openai.com/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${combined}` 
-                    // Replace with your actual API key
-                },
-                body: JSON.stringify({
-                    model: "gpt-3.5-turbo-16k",
-                    messages: prompt,
-                    temperature: 0.7,
-                    max_tokens: 4096,
-                    top_p: 1,
-                    frequency_penalty: 0,
-                    presence_penalty: 0
-                })
-            });
+    //     try {
+    //         const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `Bearer ${combined}` 
+    //                 // Replace with your actual API key
+    //             },
+    //             body: JSON.stringify({
+    //                 model: "gpt-3.5-turbo-16k",
+    //                 messages: prompt,
+    //                 temperature: 0.7,
+    //                 max_tokens: 4096,
+    //                 top_p: 1,
+    //                 frequency_penalty: 0,
+    //                 presence_penalty: 0
+    //             })
+    //         });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
 
-            const data = await response.json();
-            setAnswerText(data.choices[0].message.content); // Update the answer state
-        } catch (error) {
-            console.error("Error calling OpenAI API:", error);
-            // Optionally, set answerText to a default error message
-            setAnswerText("An error occurred while fetching the answer. Please try again.");
-        }
-    }
+    //         const data = await response.json();
+    //         setAnswerText(data.choices[0].message.content); // Update the answer state
+    //     } catch (error) {
+    //         console.error("Error calling OpenAI API:", error);
+    //         // Optionally, set answerText to a default error message
+    //         setAnswerText("An error occurred while fetching the answer. Please try again.");
+    //     }
+    // }
 
     const trackerOpenAI = async (Callprompt, finalTexts) => {
   
@@ -487,9 +487,9 @@ function Track() {
             console.error('There has been a problem with your fetch operation:', error);
         }
     };
-    const handlePatent = async () => {
-        return `${patentHeader} of ${patentBody}`;
-    };
+    // const handlePatent = async () => {
+    //     return `${patentHeader} of ${patentBody}`;
+    // };
     const handleUseCase = async () => {
         let fullQuery = `${useCaseHeader} of ${useCaseBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
@@ -542,9 +542,9 @@ function Track() {
         setBodyResearcher(recentParagraph);
     };
 
-    const handleOrganization = () => {
-        return `${organizationHeader} of ${organizationBody}`;
-    };
+    // const handleOrganization = () => {
+    //     return `${organizationHeader} of ${organizationBody}`;
+    // };
     const handleNews = async () => {
         let fullQuery = `${newsHeader} of ${newsBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
@@ -821,9 +821,7 @@ function Track() {
             <div className="track-frame-154">
                 <div className="vector-68"></div>
                 <div className="track-frame-150">
-                    {/* <div className="track-frame-151">
-                        <h2 className="track-text-date">01/12</h2>
-                    </div> */}
+                    
                     <div className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
@@ -892,9 +890,7 @@ function Track() {
                 </div>
 
                 <div className="track-frame-150">
-                    {/* <div className="track-frame-151">
-                        <h2 className="track-text-date">01/12</h2>
-                    </div> */}
+                    
                     <div className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
