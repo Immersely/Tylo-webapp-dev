@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 // import ReactDOM from "react-dom";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 // import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
@@ -22,7 +22,7 @@ function Features() {
     // const supabase = createClient('https://kcfgjenxuummtzdtprsh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmdqZW54dXVtbXR6ZHRwcnNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5Nzg3NjMsImV4cCI6MjAxNzU1NDc2M30.F8A-w41SZeMzbkWTYl2ROoSqB05b-nHPwa-tAKl_PJY')
 
     const navigate = useNavigate();
-    
+    const [showInstructions, setShowInstructions] = useState(false);
     // const { data, error } = supabase
     // .from('publishers')
     // .select('publisher_id')
@@ -107,24 +107,98 @@ function Features() {
                             <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                     </div>
+                    <div className="login-button" onClick={handleSignInClick}>
+                        <span className="login-text" >Login / Signup</span>
+                    </div>
                 </div>
 
           <div className="gradient-rectangle">
-            <h2 className="feature-title">Deeptech innovation Assistant</h2>
+            <h2 className="feature-title">Spend Less, Innovate More</h2>
             <p className="feature-content">
                 Sign in to unlock full features
             </p>
-            <div className="sign-in" onClick={handleSignInClick}>
-                <span className="sign-in-text" >Sign up/in</span>
+            <div className="tab-horizontal-container">
+                <div className="sign-in" >
+                    <span className="sign-in-text" >Inquire</span>
+                </div>
+                <div className="sign-in-disabled" >
+                    <span className="sign-in-text-disabled" >Track</span>
+                </div>
             </div>
           </div>
           <div className="feature-page-1">
             <div className="Inquire_feature-frame-108">
                 <h2 className="inquire-header">Inquire Anything</h2>
                 <div className="inquire-frame-95">
-                    <p className="inquire-text-1">
-                        The more specific, the better
-                    </p>
+                    <div className="helper-container">
+                        <p className="inquire-text-1">
+                            The start point of your evidence-based innovation
+                        </p>
+                        <div className="instructions-container">
+                            <div className="instructions">
+                                Instructions 
+                            </div>
+                            <div className="instructions-toggle dropdown-button" onClick={(e) => { e.stopPropagation(); setShowInstructions(!showInstructions); }}>
+                                    {showInstructions ?  '▲' : '▼'}
+                            </div>
+                        </div>
+                    </div>
+                    {showInstructions && (
+                    <div className="instruction-card">
+                        <div className="inst-top-col">
+                            <div className="inst-item">
+                                <h1 className="inst-card-H">What is it for</h1>
+                                <div className="inst-card-p">
+                                    <ul className="inst-card-ul">
+                                        <li>Get an answer to deeptech questions</li>
+                                        <li>Learn innovative technology topics or concepts</li>
+                                        <li>Find evidence for hypothesis & assumptions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="inst-item">
+                                <h1 className="inst-card-H">What is it not a good fit for</h1>
+                                <div className="inst-card-p">
+                                   topics especially for short or general questions, it might not be your best bet. and anything that can hardly find clues from science publication and patent ocean
+                                </div>
+                            </div>
+                            <div className="inst-item">
+                                <h1 className="inst-card-H">Responding time</h1>
+                                <div className="inst-card-p">
+                                    typically 10 to 40 seconds
+                                </div>
+                            </div>
+                        </div>
+                        <div className="inst-top-col">
+                            <div className="inst-item">
+                                <h1 className="inst-card-H">Optimise your input</h1>
+                                <div className="inst-card-p">
+                                    <ul className="inst-card-ul">
+                                        <li>Be specific</li>
+                                        <li>In the deep tech fields</li>
+                                        <li>Include a ‘?’ mark for questions </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="inst-item">
+                                <h1 className="inst-card-H">Input examples</h1>
+                                <div className="inst-card-p">
+                                    <ul className="inst-card-ul">
+                                        <li>Buprenorphine use in adolescent opiate addiction</li>
+                                        <li>Best practices for designing robust optical computing hardware</li>
+                                        <li>How to create an efficient k-means clustering algorithm on a Riemannian manifold ? </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="inst-item">
+                                <h1 className="inst-card-H">Output accuracy</h1>
+                                <div className="inst-card-p">
+                                    Like any AI, there's a margin for error. While we achieve a solid 99% success rate (output very reasonable, logic and contextual related answers) in internal tests, we encourage you to double-check information
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    )}
                     <div className="textarea-container">
                     <div className="inquire-textbox">
                         <div className="inquire-button">
@@ -206,104 +280,7 @@ function Features() {
             
           </div>
           <div className="feature-page-2">
-            <div className="track-frame-main">
-                <h2 className="inquire-header">Track anything</h2>
-            </div>
-            <div className="track-frame-154">
-                <div className="vector-68"></div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">01/12</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">Research:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">22/11</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">Collaboration:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">21/11</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">Patent:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">20/11</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">Use Case:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">16/11</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">Proof of concept:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">15/11</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">X company:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="track-frame-150">
-                    <div className="track-frame-151">
-                        <h2 className="track-text-date">12/11</h2>
-                    </div>
-                    <div className="track-frame-15">
-                        <div className="track-frame-15-card">
-                            <div className="track-frame-43">
-                                <h2 className="track-text-header">X researcher:</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
           </div>
-            {/* <div>
-                <h2>Publishers</h2>
-                {publishers.map(publisher => (
-                    <div key={publisher.homepage_url}>{publisher.homepage_url}</div>
-                ))}
-            </div> */}
         </div>
     );
 }

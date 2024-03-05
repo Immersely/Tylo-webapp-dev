@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import ReactDOM from "react-dom";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
-// import Tracker_close from "../../assets/images/tracker-close.svg";
+import Tracker_close from "../../assets/images/tracker-close.svg";
 // import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 // import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
 import "../features/features.scss";
@@ -9,10 +9,11 @@ import { gapi } from "gapi-script";
 // import axios from "axios";
 import {useNavigate } from "react-router-dom";
 // import { setToken } from "../../services/userService";
-// import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
-function Inquire() {
-    console.log('Inquire unlocked component rendering')
+
+function Track() {
+    console.log('Track component rendering')
     const [answerText, setAnswerText] = useState('');
     const googleProfileImageUrl = localStorage.getItem("googleProfileImageUrl");
     const navigate = useNavigate();
@@ -24,41 +25,34 @@ function Inquire() {
     const [itemCount, setItemCount] = useState([]);
     const [isDyslexiaFontEnabled, setIsDyslexiaFontEnabled] = useState(false);
     const [isRequesting, setIsRequesting] = useState(false);
-    // const [showModal, setShowModal] = useState(false);
-
-
-    // Function to handle click event
-    const navigateToFeatures = () => {
-        navigate('/track'); // Navigate to /#features
-    };
-
+    const [showModal, setShowModal] = useState(false);
 
     /*********  Tracker stuff ********************/
-    // const [researchHeader, setResearchHeader] = useState('');
-    // const [researchBody, setResearchBody] = useState('');
-    // const [patentHeader, setPatentHeader] = useState('');
-    // const [patentBody, setPatentBody] = useState('');
-    // const [useCaseHeader, setUseCaseHeader] = useState('');
-    // const [useCaseBody, setUseCaseBody] = useState('');
-    // const [researcherHeader, setResearcherHeader] = useState('');
-    // const [researcherBody, setResearcherBody] = useState('');
-    // const [organizationHeader, setOrganizationHeader] = useState('');
-    // const [organizationBody, setOrganizationBody] = useState('');
-    // const [newsHeader, setNewsHeader] = useState('');
-    // const [newsBody, setNewsBody] = useState('');
+    const [researchHeader, setResearchHeader] = useState('');
+    const [researchBody, setResearchBody] = useState('');
+    const [patentHeader, setPatentHeader] = useState('');
+    const [patentBody, setPatentBody] = useState('');
+    const [useCaseHeader, setUseCaseHeader] = useState('');
+    const [useCaseBody, setUseCaseBody] = useState('');
+    const [researcherHeader, setResearcherHeader] = useState('');
+    const [researcherBody, setResearcherBody] = useState('');
+    const [organizationHeader, setOrganizationHeader] = useState('');
+    const [organizationBody, setOrganizationBody] = useState('');
+    const [newsHeader, setNewsHeader] = useState('');
+    const [newsBody, setNewsBody] = useState('');
 
-    // const [showMore, setShowMore] = useState(false);
+    const [showMore, setShowMore] = useState(false);
 
-    // const [trackTitleResearch, setTrackTitleResearch] = useState('Title Here');
-    // const [bodyResearch, setBodyResearch] = useState('Body Here');
-    // const [titleUseCase, setTitleUseCase] = useState('Title here');
-    // const [bodyUseCase, setBodyUseCase] = useState('Body here');
-    // const [titleNews,setTitleNews] = useState('Title Here');
-    // const [bodyNews, setBodyNews] = useState('Body Here');
-    // const [titleResearcher, setTitleResearcher] = useState('Title here');
-    // const [bodyResearcher, setBodyResearcher] = useState('Body here');
+    const [trackTitleResearch, setTrackTitleResearch] = useState('Title Here');
+    const [bodyResearch, setBodyResearch] = useState('Body Here');
+    const [titleUseCase, setTitleUseCase] = useState('Title here');
+    const [bodyUseCase, setBodyUseCase] = useState('Body here');
+    const [titleNews,setTitleNews] = useState('Title Here');
+    const [bodyNews, setBodyNews] = useState('Body Here');
+    const [titleResearcher, setTitleResearcher] = useState('Title here');
+    const [bodyResearcher, setBodyResearcher] = useState('Body here');
 
-    // const supabase = createClient('https://cyurqurlcxlyihpxzxyk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5dXJxdXJsY3hseWlocHh6eHlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgxNDEwNDQsImV4cCI6MjAwMzcxNzA0NH0.CdUPlN6gZQ6aA4kFiZuBXoAc4W_zXj4ywH0oaDAV70o')
+    const supabase = createClient('https://cyurqurlcxlyihpxzxyk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5dXJxdXJsY3hseWlocHh6eHlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgxNDEwNDQsImV4cCI6MjAwMzcxNzA0NH0.CdUPlN6gZQ6aA4kFiZuBXoAc4W_zXj4ywH0oaDAV70o')
 
 
 
@@ -337,273 +331,272 @@ function Inquire() {
         }
     }
 
-    // const trackerOpenAI = async (Callprompt, finalTexts) => {
+    const trackerOpenAI = async (Callprompt, finalTexts) => {
   
-    //     const systemPrompt = `Answer the following prompt using the context given `;
-    //     const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
+        const systemPrompt = `Answer the following prompt using the context given `;
+        const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
     
-    //     const prompt = [
-    //         { "role": "system", "content": systemPrompt },
-    //         { "role": "user", "content": userPrompt }
-    //     ];
+        const prompt = [
+            { "role": "system", "content": systemPrompt },
+            { "role": "user", "content": userPrompt }
+        ];
     
-    //     try {
-    //         const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `Bearer ${combined}` 
-    //                 // Replace with your actual API key
-    //             },
-    //             body: JSON.stringify({
-    //                 model: "gpt-3.5-turbo-16k",
-    //                 messages: prompt,
-    //                 temperature: 0.7,
-    //                 max_tokens: 4096,
-    //                 top_p: 1,
-    //                 frequency_penalty: 0,
-    //                 presence_penalty: 0
-    //             })
-    //         });
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${combined}` 
+                    // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo-16k",
+                    messages: prompt,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                })
+            });
 
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-    //         const data = await response.json();
-    //         return data.choices[0].message.content;
-    //     } catch (error) {
-    //         console.error("Error calling OpenAI API:", error);
-    //         return null;
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("Error calling OpenAI API:", error);
+            return null;
             
-    //     }
-    // }
+        }
+    }
 
     /*************************************************************************************************** */
 
     
     /************************************ Supabase call ************************************/
 
-    // async function fetchRecentPaperByAuthor(authorName) {
-    //     // Initialize variables to store the most recent paper details
-    //     let recentYear = 0;
-    //     let recentId = 0;
-    //     let recentTitle = '';
-    //     let recentParagraph = '';
+    async function fetchRecentPaperByAuthor(authorName) {
+        // Initialize variables to store the most recent paper details
+        let recentYear = 0;
+        let recentId = 0;
+        let recentTitle = '';
+        let recentParagraph = '';
     
-    //     // Loop through the years from 2023 to 2010
-    //     for (let year = 2023; year >= 2010; year--) {
-    //         const tableName = `arxiv_${year}`; // Construct the table name based on the year
+        // Loop through the years from 2023 to 2010
+        for (let year = 2023; year >= 2010; year--) {
+            const tableName = `arxiv_${year}`; // Construct the table name based on the year
     
-    //         let { data, error } = await supabase
-    //             .from(tableName) // Use the constructed table name
-    //             .select('id, title, paragraph') // Retrieve the necessary fields
-    //             .ilike('authors', `%${authorName}%`) // Use case-insensitive search for the author's name
-    //             .order('id', { ascending: false }); // Order by 'id' descending to get the most recent paper first
+            let { data, error } = await supabase
+                .from(tableName) // Use the constructed table name
+                .select('id, title, paragraph') // Retrieve the necessary fields
+                .ilike('authors', `%${authorName}%`) // Use case-insensitive search for the author's name
+                .order('id', { ascending: false }); // Order by 'id' descending to get the most recent paper first
     
-    //         if (error) {
-    //             console.error(`Error fetching data from ${tableName}:`, error);
-    //             continue; // Skip to the next year if there's an error
-    //         }
+            if (error) {
+                console.error(`Error fetching data from ${tableName}:`, error);
+                continue; // Skip to the next year if there's an error
+            }
     
-    //         // Check if any papers were found for this year and author
-    //         if (data.length > 0) {
-    //             // Assuming that the first record is the most recent one
-    //             const mostRecentPaper = data[0];
-    //             // Update if this is the most recent paper overall
-    //             if (year > recentYear || mostRecentPaper.id > recentId) {
-    //                 recentYear = year;
-    //                 recentId = mostRecentPaper.id;
-    //                 recentTitle = mostRecentPaper.title;
-    //                 recentParagraph = mostRecentPaper.paragraph;
-    //             }
-    //         }
-    //     }
+            // Check if any papers were found for this year and author
+            if (data.length > 0) {
+                // Assuming that the first record is the most recent one
+                const mostRecentPaper = data[0];
+                // Update if this is the most recent paper overall
+                if (year > recentYear || mostRecentPaper.id > recentId) {
+                    recentYear = year;
+                    recentId = mostRecentPaper.id;
+                    recentTitle = mostRecentPaper.title;
+                    recentParagraph = mostRecentPaper.paragraph;
+                }
+            }
+        }
     
-    //     // Check if a recent paper was found and log the details
-    //     if (recentId > 0) {
-    //         console.log(`Most recent paper by ${authorName} found in arxiv_${recentYear}:`, {
-    //             Title: recentTitle,
-    //             Paragraph: recentParagraph
-    //         });
-    //     } else {
-    //         console.log(`No papers found by author: ${authorName}`);
-    //     }
-    //     return { recentTitle, recentParagraph };
-    // }
+        // Check if a recent paper was found and log the details
+        if (recentId > 0) {
+            console.log(`Most recent paper by ${authorName} found in arxiv_${recentYear}:`, {
+                Title: recentTitle,
+                Paragraph: recentParagraph
+            });
+        } else {
+            console.log(`No papers found by author: ${authorName}`);
+        }
+        return { recentTitle, recentParagraph };
+    }
 
     /********************************************************************************************************* */
    
    
-    // const openModal = () => setShowModal(true);
-    // const closeModal = () => setShowModal(false);
+    const openModal = () => setShowModal(true);
+    const closeModal = () => setShowModal(false);
 
 
-    // const onResearchSubmit = async () => {
-    //     closeModal();
-    //     await handleResearch();
-    //     await handleUseCase();
-    //     await handleNews(); 
-    //     await handleResearcher();
-    // };
+    const onResearchSubmit = async () => {
+        closeModal();
+        await handleResearch();
+        await handleUseCase();
+        await handleNews(); 
+        await handleResearcher();
+    };
 
-    // const handleResearch = async () => {
-    //    // Combine the research header and body to form the full query
-    //     let fullQuery = `${researchHeader} of ${researchBody}`;
-    //     let encodedQuery = encodeURIComponent(fullQuery);
+    const handleResearch = async () => {
+       // Combine the research header and body to form the full query
+        let fullQuery = `${researchHeader} of ${researchBody}`;
+        let encodedQuery = encodeURIComponent(fullQuery);
 
-    //     // Construct the URL with the query
-    //     let apiUrl = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedQuery}`;
+        // Construct the URL with the query
+        let apiUrl = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedQuery}`;
 
-    //     try {
-    //         // Await the response directly within the async function
-    //         const response = await fetch(apiUrl);
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok.');
-    //         }
+        try {
+            // Await the response directly within the async function
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
 
-    //         const articles = await response.json();
-    //         if (articles && articles.length > 0) {
-    //             // Find the article with the highest relevance
-    //             let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
+            const articles = await response.json();
+            if (articles && articles.length > 0) {
+                // Find the article with the highest relevance
+                let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
 
-    //             // Extract and use the necessary details from the article
-    //             const details = {
-    //                 title: highestRelevanceArticle.title,
-    //                 id: highestRelevanceArticle.id,
-    //                 articleUrl: highestRelevanceArticle.article_url,
-    //                 paragraph: highestRelevanceArticle.paragraph
-    //             };
-
-               
-
-    //             // Now call trackerOpenAI asynchronously within the async context of handleResearch
-    //             const summaryData = await trackerOpenAI('Summarise the context like an article', details.paragraph);
-    //              setTrackTitleResearch(details.title);
-    //             // Update state with the returned data
-    //             if (summaryData) {
-    //                 const fullText = summaryData; // Full text from OpenAI
-    //                 setBodyResearch(fullText); // Update state with the full text
-    //             } else {
-    //                 console.error("OpenAI response is empty or not in the expected format");
-    //             }
-                
-    //         }
-    //     } catch (error) {
-    //         console.error('There has been a problem with your fetch operation:', error);
-    //     }
-    // };
-    // const handlePatent = async () => {
-    //     return `${patentHeader} of ${patentBody}`;
-    // };
-    // const handleUseCase = async () => {
-    //     let fullQuery = `${useCaseHeader} of ${useCaseBody}`;
-    //     let encodedQuery = encodeURIComponent(fullQuery);
-
-    //     // Construct the URL with the query
-    //     let apiUrl = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedQuery}`;
-
-    //     try {
-    //         // Await the response directly within the async function
-    //         const response = await fetch(apiUrl);
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok.');
-    //         }
-
-    //         const articles = await response.json();
-    //         if (articles && articles.length > 0) {
-    //             // Find the article with the highest relevance
-    //             let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
-
-    //             // Extract and use the necessary details from the article
-    //             const details = {
-    //                 title: highestRelevanceArticle.title,
-    //                 id: highestRelevanceArticle.id,
-    //                 articleUrl: highestRelevanceArticle.article_url,
-    //                 paragraph: highestRelevanceArticle.paragraph
-    //             };
-
-    //             // Now call trackerOpenAI asynchronously within the async context of handleResearch
-    //             const summaryData = await trackerOpenAI('give me a use case and be direct and confident', details.paragraph);
-    //             setTitleUseCase(details.title);
-    //             // Update state with the returned data
-    //             if (summaryData) {
-    //                 const fullText = summaryData; // Full text from OpenAI
-    //                 setBodyUseCase(fullText); // Update state with the full text
-    //             } else {
-    //                 console.error("OpenAI response is empty or not in the expected format");
-    //             }
-                
-    //         }
-    //     } catch (error) {
-    //         console.error('There has been a problem with your fetch operation:', error);
-    //     }
-    // };
-    // const handleResearcher = async () => {
-    //     // Call the function and wait for the result
-    //     const { recentTitle, recentParagraph } = await fetchRecentPaperByAuthor(researcherHeader);
-
-    //     // Set the title and paragraph for the researcher
-    //     setTitleResearcher(recentTitle);
-    //     setBodyResearcher(recentParagraph);
-    // };
-
-    // const handleOrganization = () => {
-    //     return `${organizationHeader} of ${organizationBody}`;
-    // };
-    // const handleNews = async () => {
-    //     let fullQuery = `${newsHeader} of ${newsBody}`;
-    //     let encodedQuery = encodeURIComponent(fullQuery);
-
-    //     // Construct the URL with the query
-    //     let apiUrl = `https://archive.tylo.ai/google_query/google?question=${encodedQuery}`;
-
-    //     try {
-    //         // Await the response directly within the async function
-    //         const response = await fetch(apiUrl);
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok.');
-    //         }
-
-    //         const articles = await response.json();
-    //         if (articles && articles.length > 0) {
-    //             // Find the article with the highest relevance
-    //             let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
-
-    //             // Extract and use the necessary details from the article
-    //             const details = {
-    //                 title: highestRelevanceArticle.title,
-    //                 id: highestRelevanceArticle.id,
-    //                 articleUrl: highestRelevanceArticle.article_url,
-    //                 full_text: highestRelevanceArticle.full_text
-    //             };
+                // Extract and use the necessary details from the article
+                const details = {
+                    title: highestRelevanceArticle.title,
+                    id: highestRelevanceArticle.id,
+                    articleUrl: highestRelevanceArticle.article_url,
+                    paragraph: highestRelevanceArticle.paragraph
+                };
 
                
 
-    //             // Now call trackerOpenAI asynchronously within the async context of handleResearch
-    //             const summaryData = await trackerOpenAI('Summarise this news article', details.full_text);
-    //             setTitleNews(details.title);
-    //             // Update state with the returned data
-    //             if (summaryData) {
-    //                 const fullText = summaryData; // Full text from OpenAI
-    //                 setBodyNews(fullText); // Update state with the full text
-    //             } else {
-    //                 console.error("OpenAI response is empty or not in the expected format");
-    //             }
+                // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                const summaryData = await trackerOpenAI('Summarise the context like an article', details.paragraph);
+                 setTrackTitleResearch(details.title);
+                // Update state with the returned data
+                if (summaryData) {
+                    const fullText = summaryData; // Full text from OpenAI
+                    setBodyResearch(fullText); // Update state with the full text
+                } else {
+                    console.error("OpenAI response is empty or not in the expected format");
+                }
                 
-    //         }
-    //     } catch (error) {
-    //         console.error('There has been a problem with your fetch operation:', error);
-    //     }
-    // };
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    };
+    const handlePatent = async () => {
+        return `${patentHeader} of ${patentBody}`;
+    };
+    const handleUseCase = async () => {
+        let fullQuery = `${useCaseHeader} of ${useCaseBody}`;
+        let encodedQuery = encodeURIComponent(fullQuery);
 
-    // const firstSentence = bodyResearch.split(/[.!?]+/)[0] + '.';
-    // const firstSentence2 = bodyUseCase.split(/[.!?]+/)[0] + '.';
-    // const firstSentence3 = bodyNews.split(/[.!?]+/)[0] + '.';
-    // const firstSentence4 = bodyResearcher.split(/[.!?]+/)[0] + '.';
+        // Construct the URL with the query
+        let apiUrl = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedQuery}`;
 
+        try {
+            // Await the response directly within the async function
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
 
-    console.log('Inquire component about to render JSX');
+            const articles = await response.json();
+            if (articles && articles.length > 0) {
+                // Find the article with the highest relevance
+                let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
+
+                // Extract and use the necessary details from the article
+                const details = {
+                    title: highestRelevanceArticle.title,
+                    id: highestRelevanceArticle.id,
+                    articleUrl: highestRelevanceArticle.article_url,
+                    paragraph: highestRelevanceArticle.paragraph
+                };
+
+                // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                const summaryData = await trackerOpenAI('give me a use case and be direct and confident', details.paragraph);
+                setTitleUseCase(details.title);
+                // Update state with the returned data
+                if (summaryData) {
+                    const fullText = summaryData; // Full text from OpenAI
+                    setBodyUseCase(fullText); // Update state with the full text
+                } else {
+                    console.error("OpenAI response is empty or not in the expected format");
+                }
+                
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    };
+    const handleResearcher = async () => {
+        // Call the function and wait for the result
+        const { recentTitle, recentParagraph } = await fetchRecentPaperByAuthor(researcherHeader);
+
+        // Set the title and paragraph for the researcher
+        setTitleResearcher(recentTitle);
+        setBodyResearcher(recentParagraph);
+    };
+
+    const handleOrganization = () => {
+        return `${organizationHeader} of ${organizationBody}`;
+    };
+    const handleNews = async () => {
+        let fullQuery = `${newsHeader} of ${newsBody}`;
+        let encodedQuery = encodeURIComponent(fullQuery);
+
+        // Construct the URL with the query
+        let apiUrl = `https://archive.tylo.ai/google_query/google?question=${encodedQuery}`;
+
+        try {
+            // Await the response directly within the async function
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
+            const articles = await response.json();
+            if (articles && articles.length > 0) {
+                // Find the article with the highest relevance
+                let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
+
+                // Extract and use the necessary details from the article
+                const details = {
+                    title: highestRelevanceArticle.title,
+                    id: highestRelevanceArticle.id,
+                    articleUrl: highestRelevanceArticle.article_url,
+                    full_text: highestRelevanceArticle.full_text
+                };
+
+               
+
+                // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                const summaryData = await trackerOpenAI('Summarise this news article', details.full_text);
+                setTitleNews(details.title);
+                // Update state with the returned data
+                if (summaryData) {
+                    const fullText = summaryData; // Full text from OpenAI
+                    setBodyNews(fullText); // Update state with the full text
+                } else {
+                    console.error("OpenAI response is empty or not in the expected format");
+                }
+                
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    };
+
+    const firstSentence = bodyResearch.split(/[.!?]+/)[0] + '.';
+    const firstSentence2 = bodyUseCase.split(/[.!?]+/)[0] + '.';
+    const firstSentence3 = bodyNews.split(/[.!?]+/)[0] + '.';
+    const firstSentence4 = bodyResearcher.split(/[.!?]+/)[0] + '.';
+
+    console.log('Track component about to render JSX');
     return (
         <div className="feature-page">
             
@@ -618,119 +611,24 @@ function Inquire() {
                         </div>
                     </div>
                     <img src={googleProfileImageUrl} alt="Profile Icon" className="profile-icon" />
-                    <div className="login-button" onClick={handleSignOutClick}>
-                        <span className="login-text" >Sign Out</span>
-                    </div>
+                        <div className="login-button" onClick={handleSignOutClick}>
+                            <span className="login-text" >Sign Out</span>
+                        </div>
                 </div>
 
           <div className="gradient-rectangle">
-            <h2 className="feature-title">Deeptech innovation Assistant</h2>
-            
+            <h2 className="feature-title">Spend Less, Innovate More</h2>
             <div className="tab-horizontal-container">
-                <div className="sign-in" >
-                    <span className="sign-in-text" >Inquire</span>
+                <div className="sign-in-disabled" >
+                    <a href="/#features" className="sign-in-text-disabled" >Inquire</a>
                 </div>
-                <div className="sign-in-disabled" onClick={navigateToFeatures}>
-                    <div  className="sign-in-text-disabled" >Track</div>
+                <div className="sign-in" >
+                    <span className="sign-in-text" >Track</span>
                 </div>
             </div>
           </div>
           <div className="feature-page-2">
-            <div className="Inquire_feature-frame-108">
-                <h2 className="inquire-header">Inquire Anything</h2>
-                <div className="inquire-frame-95">
-                    <p className="inquire-text-1">
-                        The more specific, the better
-                    </p>
-                    <div className="textarea-container">
-                        <textarea className="inquire-textbox" placeholder="Enter your inquiry here"></textarea>
-                            <div
-                                className={`inquire-button_unlocked ${isRequesting ? 'inquire-button_disabled' : ''}`}
-                                onClick={!isRequesting ? handleInquireClick : undefined}
-                            >
-                                <span className="sign-in-text">{isRequesting ? 'Processing...' : 'Inquire'}</span>
-                            </div>
-                    </div>    
-                </div>
-                <div className="answer-text-box"
-                style={{
-                    ...isDyslexiaFontEnabled && { backgroundColor: '#FFFFE0' }, // Only apply this style if isDyslexiaFontEnabled is true
-                }}
-                >
-                    <p className="answer-header">Answer:</p>
-                    <p className="answer-text"
-                    style={{
-                        ...isDyslexiaFontEnabled && { fontFamily: '"OpenDyslexic", sans-serif' }, // Only apply this style if isDyslexiaFontEnabled is true
-                    }}
-                    >
-                        {answerText}
-                    </p>
-                </div>
-            </div>
-            <div className="support-frame-162">
-                <div className="support-frame-126">
-                    <p className="support-text-blue">Support Evidence</p>
-                    <p className="mini-grey-text">({itemCount.length} Items Found)</p>
-                    <div className="dropdown-box">
-                        <select className="inquire-text-1" onChange={handleFilterChange}>
-                            <option value="all">All</option>
-                            <option value="top10">Top 10</option>
-                            <option value="top20">Top 20</option>
-                        </select>
-                    </div>
-                    <p className="support-text-blue">Sort By</p>
-                    <div className="dropdown-box">
-                        <p className="inquire-text-1">
-                            Year
-                        </p>
-                    </div>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={isDyslexiaFontEnabled}
-                            onChange={handleDyslexiaFontToggle}
-                        />
-                        Use Dyslexia-Friendly Font
-                    </label>
-
-                </div>
-                <div className="support-frame-107">
-                    <div className="support-frame-95">
-                        <div className="support-frame-135">
-                            <p className="support-text">Support evidence</p>
-                        </div>
-                        {supportEvidence.map((item, index) => (
-                            <div key={index} className={item.className}>
-                                {item.content}
-                            </div>
-                        ))}    
-                    </div>
-                    <div className="support-frame-95">
-                        <div className="support-frame-135">
-                            <p className="support-text">Reference & sources</p>
-                        </div>
-                        {referenceSources.map((item, index) => (
-                            <div key={index} className={item.className}>
-                                {item.content}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="support-frame-95">
-                        <div className="support-frame-135">
-                            <p className="support-text">Relevance</p>
-                        </div>
-                        {relevanceDisplay.map((item, index) => (
-                            <div key={index} className={`${item.className} relevance-circle`} style={item.style}></div>
-                        ))}
-                      
-                    </div>
-                </div>
-            </div>
-            
-          </div>
-          {/* <div className="feature-page-2">
-            <div className="track-frame-main">
+          <div className="track-frame-main">
                 <h2 className="inquire-header">Track anything</h2>
                 <div className="buttons-container">
                     <div className="track-button-1">
@@ -741,6 +639,7 @@ function Inquire() {
                     </div>
                 </div>
             </div>
+             {/* <!-- Tracker Modal --> */}
             <div id="trackerModal" style={{display: showModal ? 'block' : 'none'}} class="backdrop-background" >
             <div className="customise-tracker-background">
                 <div className="customise-tracker-container">
@@ -922,6 +821,9 @@ function Inquire() {
             <div className="track-frame-154">
                 <div className="vector-68"></div>
                 <div className="track-frame-150">
+                    {/* <div className="track-frame-151">
+                        <h2 className="track-text-date">01/12</h2>
+                    </div> */}
                     <div className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
@@ -990,6 +892,9 @@ function Inquire() {
                 </div>
 
                 <div className="track-frame-150">
+                    {/* <div className="track-frame-151">
+                        <h2 className="track-text-date">01/12</h2>
+                    </div> */}
                     <div className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
@@ -1057,11 +962,10 @@ function Inquire() {
                     </div>
                 </div>
             </div>
-          
-          </div> */}
-        
+            
+          </div>
         </div>
     );
 }
 
-export default Inquire;
+export default Track;
