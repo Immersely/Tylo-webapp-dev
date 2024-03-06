@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 // import ReactDOM from "react-dom";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import Tracker_close from "../../assets/images/tracker-close.svg";
+import Tracker from "../../assets/images/Customize your tracker.PNG";
+import forYou from "../../assets/images/For_You.PNG";
 // import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 // import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
 import "../features/features.scss";
@@ -26,6 +28,7 @@ function Track() {
     // const [isDyslexiaFontEnabled, setIsDyslexiaFontEnabled] = useState(false);
     // const [isRequesting, setIsRequesting] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showInstructions, setShowInstructions] = useState(false);
 
     /*********  Tracker stuff ********************/
     const [researchHeader, setResearchHeader] = useState('');
@@ -95,185 +98,6 @@ function Track() {
         // This depends on your routing setup, for example using react-router
         // navigate('/signin'); // Example using react-router
     };
-
-    // const handleFilterChange = (event) => {
-    //     // Get the selected value
-    //     const selectedFilter = event.target.value;
-    
-    //     // Call the function to filter the data
-    //     filterData(selectedFilter);
-    // };
-
-    // const filterData = (filterCriteria) => {
-    //     let filteredData = [];
-
-    //     const sortedData = itemCount.sort((a, b) => b.relevance - a.relevance);
-
-
-    
-    //     switch (filterCriteria) {
-    //         case 'all':
-    //             filteredData = sortedData.slice(0, itemCount.length
-    //                 );; // Assuming 'data' is your original data array
-    //             break;
-    //         case 'top10':
-    //             filteredData = sortedData.slice(0, 10); // Get the first 10 items
-    //             break;
-    //         case 'top20':
-    //             filteredData = sortedData.slice(0, 20); // Get the first 20 items
-    //             break;
-    //         default:
-    //             filteredData = sortedData; // Default to showing all
-    //     }
-    
-    //     updateDisplay(filteredData);
-        
-    // };
-
-    
-    // const handleDyslexiaFontToggle = (event) => {
-    //     setIsDyslexiaFontEnabled(event.target.checked);
-    // };
-
-    // const updateDisplay = (filteredData) => {
-    //     // Your logic to update the UI
-    //     // This might involve clearing the existing displayed data
-    //     // and then iterating over 'filteredData' to display each item
-
-    //     // Clear existing data
-    //     setSupportEvidence([]);
-    //     setReferenceSources([]);
-
-    //     // const minRelevance = Math.min(...filteredData.map(item => item.relevance));
-    //     //         const maxRelevance = Math.max(...filteredData.map(item => item.relevance));
-
-
-    //             // Function to calculate color based on relevance
-    //             const getColorForRelevance = (relevance) => {
-    //                 if (relevance >= 0.55) {
-    //                     return "rgb(0, 225, 0)"; // Green
-    //                 } else if (relevance >= 0.5 && relevance < 0.55) {
-    //                     return "rgb(255, 225, 0)"; // Yellow
-    //                 } else {
-    //                     return "rgb(255, 0, 0)"; // Red
-    //                 }
-    //             };
-
-    //     let supportData = [];
-    //     let referenceData = [];
-    //     let relevanceDisplay = [];
-
-    //             filteredData.forEach((item, index) => {
-    //                 let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
-    //                 const color = getColorForRelevance(item.relevance);
-    //                 const relevanceStyle = {
-    //                     backgroundColor: color
-    //                 };
-                    
-    //                 supportData.push({ content: item.paragraph, className });
-    //                 referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-    //                 relevanceDisplay.push({ style: relevanceStyle, className });
-    //             });
-
-    //             setSupportEvidence(supportData);
-    //             setReferenceSources(referenceData);
-    //             setRelevanceDisplay(relevanceDisplay);
-    // };
-    
-
-    // const handleInquireClick = () => {
-    //     setIsRequesting(true);
-    //     setAnswerText("Loading ...");
-    //     setJsonData([]);
-    //     let finalTexts = "";
-    //     let texts = "";
-    //     // Get the value from the textarea
-    //     var textareaValue = document.querySelector('.inquire-textbox').value;
-
-    //     // Encode the textarea content to be used in a URL
-    //     var encodedValue = encodeURIComponent(textareaValue);
-
-    //     // Construct the URL with the textarea content
-    //     var url1 = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedValue}`;
-    //     var url2 = `https://archive.tylo.ai/query_pubmed/pubmed?question=${encodedValue}`;
-    //     var url3 = `https://archive.tylo.ai/google_query/google?question=${encodedValue}`;
-
-    //     // Send the request to the server
-    //     Promise.all([fetch(url1), fetch(url2), fetch(url3)])
-    //     .then(responses => Promise.all(responses.map(res => {
-    //         if (res.ok) return res.json();
-    //         throw new Error('Network response was not ok.');
-    //     })))
-    //         .then(dataArray => {
-
-    //             const data = dataArray.flat(); // Combine arrays if both URLs return arrays
-
-    //             console.log(data);
-
-    //             const minRelevance = Math.min(...data.map(item => item.relevance));
-    //             const maxRelevance = Math.max(...data.map(item => item.relevance));
-
-
-    //             // Function to calculate color based on relevance
-    //             const getColorForRelevance = (relevance) => {
-    //                 const ratio = (relevance - minRelevance) / (maxRelevance - minRelevance);
-    //                 // Convert ratio to a color between yellow and green
-    //                 const greenIntensity = Math.floor(255 * ratio);
-    //                 const yellowIntensity = 255 - greenIntensity;
-    //                 const green = 225;
-    //                 return `rgb(${yellowIntensity}, ${green}, 0)`;
-    //             };
-                
-               
-    //             setJsonData(data);
-    //             setItemCount(data)
-                
-
-    //             jsonData.sort((a, b) => b.relevance - a.relevance);
-    //             // Limit to the most relevant 30 items
-    //             const top30Items = jsonData.slice(0, 30);
-
-    //             texts = top30Items.map((item, idx) => `${item.paragraph}`);
-    //             finalTexts = texts.join("\n");
-    //             console.log("context", finalTexts )
-
-    //             let supportData = [];
-    //             let referenceData = [];
-    //             let relevanceDisplay = [];
-
-    //             data.forEach((item, index) => {
-    //                 let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
-                    
-    //                 const color = getColorForRelevance(item.relevance);
-    //                 const relevanceStyle = {
-    //                     backgroundColor: color
-    //                 };
-
-    //                 supportData.push({ content: item.paragraph, className });
-    //                 referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-    //                 relevanceDisplay.push({ style: relevanceStyle, className });
-    //             });
-               
-
-    //             setSupportEvidence(supportData);
-    //             setReferenceSources(referenceData);
-    //             setRelevanceDisplay(relevanceDisplay);
-
-                
-    //             callOpenAI(textareaValue, finalTexts);
-    //             // setJsonData([]);
-    //             finalTexts = "";
-    //             setJsonData([]);
-    //             setIsRequesting(false);
-
-    //             // setAnswerText('output here'); // Update the answer text
-    //         })
-    //         .catch(error => {
-    //             console.error('There has been a problem with your fetch operation:', error);
-    //         });
-
-    // };
-  
     
 
     const part1 = "sk";
@@ -285,52 +109,6 @@ function Track() {
 
 
     /******************************************** Open AI calls *******************************************************************/
-    /* systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
-    `Provide an answer to the question, like you are an expert. If specific details are not available, infer general conclusions based on the context without explicitly mentioning it in your response. Include numerical data and specific figures when relevant and available. Do not add information beyond what is given, and avoid referencing the context directly in your answer.`*/
-    // const callOpenAI = async (question, finalTexts) => {
-
-    //     setAnswerText(""); // Clears the answer text box content
-        
-    //     const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response.`;
-    //     const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
-    
-    //     const prompt = [
-    //         { "role": "system", "content": systemPrompt },
-    //         { "role": "user", "content": userPrompt }
-    //     ];
-    
-    //     try {
-    //         const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `Bearer ${combined}` 
-    //                 // Replace with your actual API key
-    //             },
-    //             body: JSON.stringify({
-    //                 model: "gpt-3.5-turbo-16k",
-    //                 messages: prompt,
-    //                 temperature: 0.7,
-    //                 max_tokens: 4096,
-    //                 top_p: 1,
-    //                 frequency_penalty: 0,
-    //                 presence_penalty: 0
-    //             })
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
-
-    //         const data = await response.json();
-    //         setAnswerText(data.choices[0].message.content); // Update the answer state
-    //     } catch (error) {
-    //         console.error("Error calling OpenAI API:", error);
-    //         // Optionally, set answerText to a default error message
-    //         setAnswerText("An error occurred while fetching the answer. Please try again.");
-    //     }
-    // }
-
     const trackerOpenAI = async (Callprompt, finalTexts) => {
   
         const systemPrompt = `Answer the following prompt using the context given `;
@@ -630,6 +408,56 @@ function Track() {
           <div className="feature-page-2">
           <div className="track-frame-main">
                 <h2 className="inquire-header">Track anything</h2>
+                <div className="helper-container">
+                        <p className="inquire-text-1">
+                            Stay at the frontier of technology development
+                        </p>
+                        <div className="instructions-container">
+                            <div className="instructions">
+                                Instructions 
+                            </div>
+                            <div className="instructions-toggle dropdown-button" onClick={(e) => { e.stopPropagation(); setShowInstructions(!showInstructions); }}>
+                                    {showInstructions ?  '▲' : '▼'}
+                            </div>
+                        </div>
+                    </div>
+                    {showInstructions && (
+                    <div className="instruction-card-track">
+                        <div className="inst-top-col">
+                            <div className="inst-item_track">
+                                <h1 className="inst-card-H">What is it for</h1>
+                                <div className="inst-item_b">
+                                    <div className="inst-card-p">
+                                        <ul className="inst-card-ul">
+                                            <li>Track specific science innovations</li>
+                                            <li>Surf new industrial use cases</li>
+                                            <li>Patent alerts</li>
+                                            <li>Monitor competitor</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="inst-card-F">Personalised newsfeeds</div>
+                            </div>
+                            <div className="inst-item_track">
+                                <h1 className="inst-card-H">Step 1</h1>
+                                <div className="inst-item_b">
+                                    <img src={Tracker} alt="Tracker" style={{ width: '100%', height: 'auto' }}/>
+                                </div>
+                                <div className="inst-card-F">Set up you tracker</div>
+                            </div>
+                            <div className="inst-item_track">
+                                <h1 className="inst-card-H">Step 2</h1>
+                                <div className="inst-item_b">
+                                    <img src={forYou} alt="For_You" style={{ width: '100%', height: 'auto' }}/>
+                                </div>
+                                <div className="inst-card-F">Receive curated news</div>
+                            </div>
+                        </div>
+                    </div>
+                    )}
+            </div>
+            <div className="track-frame-mainb">
+                <div className="track-for-you">For You</div>
                 <div className="buttons-container">
                     <div className="track-button-1">
                         <h2 className="track-button-1-text">Add Email Push</h2>

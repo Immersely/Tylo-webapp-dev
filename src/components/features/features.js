@@ -230,7 +230,7 @@ function Features() {
                     </div>
                 </div>
                 <div className="support-frame-107">
-                    <div className="support-frame-95">
+                    <div className="support-frame-95a">
                         <div className="support-frame-135">
                             <p className="support-text">Support evidence</p>
                         </div>
@@ -242,7 +242,7 @@ function Features() {
                         <div className="support-frame-135-b"></div>
                         
                     </div>
-                    <div className="support-frame-95">
+                    <div className="support-frame-95a">
                         <div className="support-frame-135">
                             <p className="support-text">Reference & sources</p>
                         </div>
@@ -253,7 +253,7 @@ function Features() {
                         <div className="support-frame-94"> </div>
                         <div className="support-frame-135-b"></div>
                     </div>
-                    <div className="support-frame-95">
+                    <div className="support-frame-95a">
                         <div className="support-frame-135">
                             <p className="support-text">Short Summary</p>
                         </div>
@@ -264,7 +264,7 @@ function Features() {
                         <div className="support-frame-94"> </div>
                         <div className="support-frame-135-b"></div>
                     </div>
-                    <div className="support-frame-95">
+                    <div className="support-frame-95a">
                         <div className="support-frame-135">
                             <p className="support-text">Relevance</p>
                         </div>
