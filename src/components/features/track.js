@@ -29,11 +29,13 @@ function Track() {
     // const [isRequesting, setIsRequesting] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
+    const [selectedHeader, setSelectedHeader] = useState('');
+
 
     /*********  Tracker stuff ********************/
-    const [researchHeader, setResearchHeader] = useState('');
+    const [researchHeader, setResearchHeader] = useState('Research');
     const [researchBody, setResearchBody] = useState('');
-    const [patentHeader, setPatentHeader] = useState('');
+    // const [patentHeader, setPatentHeader] = useState('');
     const [patentBody, setPatentBody] = useState('');
     const [useCaseHeader, setUseCaseHeader] = useState('');
     const [useCaseBody, setUseCaseBody] = useState('');
@@ -54,6 +56,8 @@ function Track() {
     const [bodyNews, setBodyNews] = useState('Body Here');
     const [titleResearcher, setTitleResearcher] = useState('Title here');
     const [bodyResearcher, setBodyResearcher] = useState('Body here');
+    const [titleOrganization, setTitleOrganization] = useState('Title here');
+    const [bodyOrganization, setBodyOrganization] = useState('Body here');
 
     const supabase = createClient('https://cyurqurlcxlyihpxzxyk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5dXJxdXJsY3hseWlocHh6eHlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgxNDEwNDQsImV4cCI6MjAwMzcxNzA0NH0.CdUPlN6gZQ6aA4kFiZuBXoAc4W_zXj4ywH0oaDAV70o')
 
@@ -210,13 +214,60 @@ function Track() {
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
 
+    const handleSelectionChange = (e) => {
+        const selectedValue = e.target.value;
+        setSelectedHeader(selectedValue); // Update the selected value state
+
+        // Call the specific function based on the selected value
+        switch (selectedValue) {
+            case 'Research':
+                setResearchHeader('Research');
+                // handleResearch();
+                break;
+            case 'Use Case':
+                setUseCaseHeader('Use Case');
+                // handleUseCase();
+                break;
+            case 'News':
+                setNewsHeader('News');
+                // handleNews();
+                break;
+            case 'Researcher':
+                setResearcherHeader('Researcher');
+                // handleResearcher();
+                break;
+            case 'Patent':
+                // setPatentHeader('Patent');
+                // handlePatent();
+                break;
+            case 'Organization':
+                setOrganizationHeader('Organization');
+                // handleOrganisation();
+                break;
+            default:
+                console.log('No handler for:', selectedValue);
+        }
+    };
+
 
     const onResearchSubmit = async () => {
         closeModal();
-        await handleResearch();
-        await handleUseCase();
-        await handleNews(); 
-        await handleResearcher();
+        if (researchBody !== ''){
+            await handleResearch();
+        }
+        if (useCaseBody !== ''){
+            await handleUseCase();
+        }
+        if (newsBody !== ''){
+            await handleNews(); 
+        }
+        if (researcherBody !== ''){
+            await handleResearcher();
+        }
+        if (organizationBody !== ''){
+            await handleOrganization();
+        }
+        
     };
 
     const handleResearch = async () => {
@@ -328,8 +379,56 @@ function Track() {
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
-        let apiUrl = `https://archive.tylo.ai/google_query/google?question=${encodedQuery}`;
+        let apiUrl1 = `https://archive.tylo.ai/google_query/google?question=${encodedQuery}`;
+        
 
+        try {
+            // Await the response directly within the async function
+            const response = await fetch(apiUrl1);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
+            const articles = await response.json();
+            if (articles && articles.length > 0) {
+                const filteredArticles = articles.filter(article => article.id.startsWith('news'));
+                // Find the article with the highest relevance
+                if (filteredArticles.length > 0) {
+                    let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
+                
+                    // Extract and use the necessary details from the article
+                    const details = {
+                        title: highestRelevanceArticle.title,
+                        id: highestRelevanceArticle.id,
+                        articleUrl: highestRelevanceArticle.article_url,
+                        full_text: highestRelevanceArticle.full_text
+                    };
+
+                    // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                    const summaryData = await trackerOpenAI('Summarise this news article', details.full_text);
+                    setTitleNews(details.title);
+                    // Update state with the returned data
+                    if (summaryData) {
+                        const fullText = summaryData; // Full text from OpenAI
+                        setBodyNews(fullText); // Update state with the full text
+                    } else {
+                        console.error("OpenAI response is empty or not in the expected format");
+                    }
+                } else {
+                    console.log('No articles found with ID starting with "news"');
+                    // Handle the case where no articles meet the condition, if necessary
+                } 
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    };
+
+    const handleOrganization = async () => {
+        let fullQuery = `${organizationHeader} of ${organizationBody}`;
+        let encodedQuery = encodeURIComponent(fullQuery);
+        let apiUrl = `https://archive.tylo.ai/google_org/google?question=${encodedQuery}latest`;
+       
         try {
             // Await the response directly within the async function
             const response = await fetch(apiUrl);
@@ -339,40 +438,44 @@ function Track() {
 
             const articles = await response.json();
             if (articles && articles.length > 0) {
+                const filteredArticles = articles.filter(article => article.id.startsWith('org'));
                 // Find the article with the highest relevance
-                let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
-
-                // Extract and use the necessary details from the article
-                const details = {
-                    title: highestRelevanceArticle.title,
-                    id: highestRelevanceArticle.id,
-                    articleUrl: highestRelevanceArticle.article_url,
-                    full_text: highestRelevanceArticle.full_text
-                };
-
-               
-
-                // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                const summaryData = await trackerOpenAI('Summarise this news article', details.full_text);
-                setTitleNews(details.title);
-                // Update state with the returned data
-                if (summaryData) {
-                    const fullText = summaryData; // Full text from OpenAI
-                    setBodyNews(fullText); // Update state with the full text
+                if (filteredArticles.length > 0) {
+                    // Find the article with the highest relevance from the filtered list
+                    let highestRelevanceArticle = filteredArticles.reduce((max, article) => max.relevance > article.relevance ? max : article, filteredArticles[0]);
+            
+                    // Extract and use the necessary details from the article
+                    const details = {
+                        title: highestRelevanceArticle.title,
+                        id: highestRelevanceArticle.id,
+                        articleUrl: highestRelevanceArticle.article_url,
+                        full_text: highestRelevanceArticle.full_text
+                    };
+                     // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                    const summaryData = await trackerOpenAI('Summarise info on the organisation in the article', details.title);
+                    setTitleOrganization(details.title);
+                    // Update state with the returned data
+                    if (summaryData) {
+                        const fullText = summaryData; // Full text from OpenAI
+                        setBodyOrganization(fullText); // Update state with the full text
+                    } else {
+                        console.error("OpenAI response is empty or not in the expected format");
+                    }
                 } else {
-                    console.error("OpenAI response is empty or not in the expected format");
-                }
-                
+                    console.log('No articles found with ID starting with "org"');
+                    // Handle the case where no articles meet the condition, if necessary
+                } 
             }
         } catch (error) {
             console.error('There has been a problem with your fetch operation:', error);
         }
-    };
+    }
 
     const firstSentence = bodyResearch.split(/[.!?]+/)[0] + '.';
     const firstSentence2 = bodyUseCase.split(/[.!?]+/)[0] + '.';
     const firstSentence3 = bodyNews.split(/[.!?]+/)[0] + '.';
     const firstSentence4 = bodyResearcher.split(/[.!?]+/)[0] + '.';
+    const firstSentence5 = bodyOrganization.split(/[.!?]+/)[0] + '.';
 
     console.log('Track component about to render JSX');
     return (
@@ -505,13 +608,18 @@ function Track() {
                             <h2 className="item-font">Track</h2>
                         </div>
                         <div className="tracker-142">
-                            <input 
-                                type="text"
+                            <select 
                                 className="tracker-96"
-                                placeholder="Research"
-                                value={researchHeader}
-                                onChange={(e) => setResearchHeader(e.target.value)}
-                            />
+                                value={selectedHeader}
+                                onChange={handleSelectionChange}
+                            >
+                                <option value="Research">Research</option>
+                                <option value="Patent">Patent</option>
+                                <option value="Use Case">Use Case</option>
+                                <option value="Researcher">Researcher</option>
+                                <option value="Organization">Organization</option>
+                                <option value="News">News</option>
+                            </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
                                     type="text"
@@ -521,13 +629,18 @@ function Track() {
                                 />
                         </div>
                         <div className="tracker-142">
-                            <input 
-                                type="text"
+                            <select 
                                 className="tracker-96"
-                                placeholder="Patent"
-                                value={patentHeader}
-                                onChange={(e) => setPatentHeader(e.target.value)}
-                            />
+                                value={selectedHeader}
+                                onChange={handleSelectionChange}
+                            >
+                                <option value="Patent">Patent</option>
+                                <option value="Research">Research</option>
+                                <option value="Use Case">Use Case</option>
+                                <option value="Researcher">Researcher</option>
+                                <option value="Organization">Organization</option>
+                                <option value="News">News</option>
+                            </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
                                     type="text"
@@ -537,13 +650,19 @@ function Track() {
                                 />
                         </div>
                         <div className="tracker-142">
-                            <input 
-                                type="text"
+                            <select 
                                 className="tracker-96"
-                                placeholder="Use Case"
-                                value={useCaseHeader}
-                                onChange={(e) => setUseCaseHeader(e.target.value)}
-                            />
+                                value={selectedHeader}
+                                onChange={handleSelectionChange}
+                            >
+                                <option value="Use Case">Use Case</option>
+                                <option value="Research">Research</option>
+                                <option value="Patent">Patent</option>
+                                
+                                <option value="Researcher">Researcher</option>
+                                <option value="Organization">Organization</option>
+                                <option value="News">News</option>
+                            </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
                                     type="text"
@@ -553,13 +672,19 @@ function Track() {
                                 />
                         </div>
                         <div className="tracker-142">
-                            <input 
-                                type="text"
+                            <select 
                                 className="tracker-96"
-                                placeholder="Researcher"
-                                value={researcherHeader}
-                                onChange={(e) => setResearcherHeader(e.target.value)}
-                            />
+                                value={selectedHeader}
+                                onChange={handleSelectionChange}
+                            >
+                                <option value="Researcher">Researcher</option>
+                                <option value="Research">Research</option>
+                                <option value="Patent">Patent</option>
+                                <option value="Use Case">Use Case</option>
+                                
+                                <option value="Organization">Organization</option>
+                                <option value="News">News</option>
+                            </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
                                     type="text"
@@ -569,13 +694,19 @@ function Track() {
                                 />
                         </div>
                         <div className="tracker-142">
-                            <input 
-                                type="text"
+                            <select 
                                 className="tracker-96"
-                                placeholder="Organization"
-                                value={organizationHeader}
-                                onChange={(e) => setOrganizationHeader(e.target.value)}
-                            />
+                                value={selectedHeader}
+                                onChange={handleSelectionChange}
+                            >
+                                <option value="Organization">Organization</option>
+                                <option value="Research">Research</option>
+                                <option value="Patent">Patent</option>
+                                <option value="Use Case">Use Case</option>
+                                <option value="Researcher">Researcher</option>
+                                
+                                <option value="News">News</option>
+                            </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
                                     type="text"
@@ -585,13 +716,19 @@ function Track() {
                                 />
                         </div>
                         <div className="tracker-142">
-                            <input 
-                                type="text"
+                            <select 
                                 className="tracker-96"
-                                placeholder="News"
-                                value={newsHeader}
-                                onChange={(e) => setNewsHeader(e.target.value)}
-                            />
+                                value={selectedHeader}
+                                onChange={handleSelectionChange}
+                            >
+                                <option value="News">News</option>
+                                <option value="Research">Research</option>
+                                <option value="Patent">Patent</option>
+                                <option value="Use Case">Use Case</option>
+                                <option value="Researcher">Researcher</option>
+                                <option value="Organization">Organization</option>
+                                
+                            </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
                                     type="text"
@@ -774,10 +911,15 @@ function Track() {
                                 </div>
                                 <h2 className="track-text-date">01/12/24</h2>
                             </div>
-                            <h2 className="track-title-font">Title Here</h2>
+                            <h2 className="track-title-font">{titleOrganization}</h2>
                             <div className="track-body">
                             <body className="track-body-font">
-                                    Body Here.
+                                {showMore ? bodyOrganization : firstSentence5}
+                                        {bodyOrganization !== firstSentence5 && (
+                                            <button onClick={() => setShowMore(!showMore)} className="view-more-button">
+                                                {showMore ? 'View Less' : 'View More'}
+                                            </button>
+                                        )}
                                     <span className="track-ref-font"> (Ref here)</span>
                                 </body>
                             </div>
