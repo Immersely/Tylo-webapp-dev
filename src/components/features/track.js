@@ -61,7 +61,7 @@ function Track() {
     // const [patentBody, setPatentBody] = useState('');
     const [useCaseHeader, setUseCaseHeader] = useState('Use case');
     // const [researcherHeader, setResearcherHeader] = useState('');
-    const [organizationHeader, setOrganizationHeader] = useState('Organization');
+    // const [organizationHeader, setOrganizationHeader] = useState('Organization');
     const [newsHeader, setNewsHeader] = useState('News');
 
     const [trackTitleResearch, setTrackTitleResearch] = useState('Title Here');
@@ -526,7 +526,6 @@ function Track() {
     };
 
     const handleOrganization = async (currentBody) => {
-        setOrganizationHeader('Organization');
 
         let fullQuery = `Advancements in ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
