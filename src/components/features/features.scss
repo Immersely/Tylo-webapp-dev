@@ -797,6 +797,15 @@
     align-self: stretch;
   }
 
+  .track-frame-group {
+    display: flex;
+    flex-direction: row; /* Or column, depending on your design */
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px; /* Space between cards */
+    margin-bottom: 20px; /* Space below each group, adjust as needed */
+}
+
   .track-frame-151 {
     display: flex;
     width: 123px;

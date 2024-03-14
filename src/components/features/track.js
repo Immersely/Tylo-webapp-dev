@@ -29,22 +29,40 @@ function Track() {
     // const [isRequesting, setIsRequesting] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
-    const [selectedHeader, setSelectedHeader] = useState('');
+
+    /** Selection dropdoen */
+    // const [selectedHeader, setSelectedHeader] = useState('');
+    const [selectionCounts, setSelectionCounts] = useState({
+        Research: 0,
+        UseCase: 0,
+        News: 0,
+        Researcher: 0,
+        Patent: 0,
+        Organization: 0
+    });
+    const [currentBody1, setCurrentBody1] = useState('');
+    const [currentBody2, setCurrentBody2] = useState('');
+    const [currentBody3, setCurrentBody3] = useState('');
+    const [currentBody4, setCurrentBody4] = useState('');
+    const [currentBody5, setCurrentBody5] = useState('');
+    const [currentBody6, setCurrentBody6] = useState('');
+    const [selectedOption1, setSelectedOption1] = useState('Research');
+    const [selectedOption2, setSelectedOption2] = useState('Patent');
+    const [selectedOption3, setSelectedOption3] = useState('Use case');
+    const [selectedOption4, setSelectedOption4] = useState('Researcher');
+    const [selectedOption5, setSelectedOption5] = useState('Organization');
+    const [selectedOption6, setSelectedOption6] = useState('News');
+
 
 
     /*********  Tracker stuff ********************/
     const [researchHeader, setResearchHeader] = useState('Research');
-    const [researchBody, setResearchBody] = useState('');
     // const [patentHeader, setPatentHeader] = useState('');
-    const [patentBody, setPatentBody] = useState('');
-    const [useCaseHeader, setUseCaseHeader] = useState('');
-    const [useCaseBody, setUseCaseBody] = useState('');
-    const [researcherHeader, setResearcherHeader] = useState('');
-    const [researcherBody, setResearcherBody] = useState('');
-    const [organizationHeader, setOrganizationHeader] = useState('');
-    const [organizationBody, setOrganizationBody] = useState('');
-    const [newsHeader, setNewsHeader] = useState('');
-    const [newsBody, setNewsBody] = useState('');
+    // const [patentBody, setPatentBody] = useState('');
+    const [useCaseHeader, setUseCaseHeader] = useState('Use case');
+    // const [researcherHeader, setResearcherHeader] = useState('');
+    const [organizationHeader, setOrganizationHeader] = useState('Organization');
+    const [newsHeader, setNewsHeader] = useState('News');
 
     const [showMore, setShowMore] = useState(false);
 
@@ -81,6 +99,7 @@ function Track() {
           });
         };
         document.body.appendChild(script);
+        
       }, []);
 
 
@@ -214,65 +233,128 @@ function Track() {
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
 
-    const handleSelectionChange = (e) => {
-        const selectedValue = e.target.value;
-        setSelectedHeader(selectedValue); // Update the selected value state
-
-        // Call the specific function based on the selected value
-        switch (selectedValue) {
-            case 'Research':
-                setResearchHeader('Research');
-                // handleResearch();
+    const handleSelectionChange = (optionNumber, event) => {
+        console.log('selector called')
+        const newValue = event.target.value;
+        switch (optionNumber) {
+            case 1:
+                setSelectedOption1(newValue);
+                console.log('new vale is', newValue )
                 break;
-            case 'Use Case':
-                setUseCaseHeader('Use Case');
-                // handleUseCase();
+            case 2:
+                setSelectedOption2(newValue);
                 break;
-            case 'News':
-                setNewsHeader('News');
-                // handleNews();
+            case 3:
+                setSelectedOption3(newValue);
                 break;
-            case 'Researcher':
-                setResearcherHeader('Researcher');
-                // handleResearcher();
+            case 4:
+                setSelectedOption4(newValue);
                 break;
-            case 'Patent':
-                // setPatentHeader('Patent');
-                // handlePatent();
+            case 5:
+                setSelectedOption5(newValue);
                 break;
-            case 'Organization':
-                setOrganizationHeader('Organization');
-                // handleOrganisation();
+            case 6:
+                setSelectedOption6(newValue);
                 break;
             default:
-                console.log('No handler for:', selectedValue);
+                // Handle unexpected option number
+                break;
         }
-    };
+        // const newSelections = { ...selections, [identifier]: event.target.value };
+        // setSelections(newSelections);
+        
 
+        // Call the specific function based on the selected value
+        // switch (newValue) {
+        //     case 'Research':
+        //         setResearchHeader('Research');
+        //         // handleResearch();
+        //         break;
+        //     case 'Use Case':
+        //         setUseCaseHeader('Use Case');
+        //         // handleUseCase();
+        //         break;
+        //     case 'News':
+        //         setNewsHeader('News');
+        //         // handleNews();
+        //         break;
+        //     case 'Researcher':
+        //         setResearcherHeader('Researcher');
+        //         // handleResearcher();
+        //         break;
+        //     case 'Patent':
+        //         // setPatentHeader('Patent');
+        //         // handlePatent();
+        //         break;
+        //     case 'Organization':
+        //         setOrganizationHeader('Organization');
+        //         // handleOrganisation();
+        //         break;
+        //     default:
+        //         console.log('No handler for:', newValue);
+        // }
+    };
+    
 
     const onResearchSubmit = async () => {
         closeModal();
-        if (researchBody !== ''){
-            await handleResearch();
-        }
-        if (useCaseBody !== ''){
-            await handleUseCase();
-        }
-        if (newsBody !== ''){
-            await handleNews(); 
-        }
-        if (researcherBody !== ''){
-            await handleResearcher();
-        }
-        if (organizationBody !== ''){
-            await handleOrganization();
+        
+        const newSelectionCounts = { ...selectionCounts };
+        const selectedOptions = [selectedOption1, selectedOption2, selectedOption3, selectedOption4, selectedOption5, selectedOption6];
+        const currentBodys = [currentBody1, currentBody2, currentBody3, currentBody4, currentBody5, currentBody6]
+        // const newCards = [];
+        console.log('selected option is', selectedOption1 )
+        for (let i = 0; i < 5; i++){
+            const selectedOption = selectedOptions[i];
+            const currentBody = currentBodys[i].trim();
+            console.log('selected option',[i], 'is', selectedOption )
+            console.log('Current body',[i], 'is', currentBody )
+
+            if (currentBody !== '') { // Only proceed if the body is not empty
+                switch (selectedOption) {
+                    case 'Research':
+                        await handleResearch(currentBody);
+                        newSelectionCounts.Research += 1;
+                        break;
+                    case 'Use Case':
+                        await handleUseCase(currentBody);
+                        newSelectionCounts.UseCase += 1;
+                        break;
+                    case 'News':
+                        await handleNews(currentBody);
+                        newSelectionCounts.News += 1;
+                        break;
+                    case 'Researcher':
+                        await handleResearcher(currentBody);
+                        newSelectionCounts.Researcher += 1;
+                        break;
+                    case 'Organization':
+                        await handleOrganization(currentBody);
+                        newSelectionCounts.Organization += 1;
+                        break;
+                    default:
+                        // Fallback logic or handling for unexpected selectedOption values
+                        break;
+                    // case 'Patent':
+                    //     await handlePatent(currentBody);
+                    //     newSelectionCounts.Patent += 1;
+                    //     break;
+                    // Add more cases if there are more than these types
+                }
+            }
         }
         
+
+       
+        setSelectionCounts(newSelectionCounts);  // Update the overall count state
     };
 
-    const handleResearch = async () => {
+    const handleResearch = async (currentBody) => {
+        // console.log('Research function running using ', currentBody)
+        setResearchHeader('Research');
+       
        // Combine the research header and body to form the full query
-        let fullQuery = `${researchHeader} of ${researchBody}`;
+        let fullQuery = `${researchHeader} of ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
@@ -303,6 +385,7 @@ function Track() {
                 // Now call trackerOpenAI asynchronously within the async context of handleResearch
                 const summaryData = await trackerOpenAI('Summarise the context like an article', details.paragraph);
                  setTrackTitleResearch(details.title);
+                 console.log('outputbased on ',currentBody)
                 // Update state with the returned data
                 if (summaryData) {
                     const fullText = summaryData; // Full text from OpenAI
@@ -319,8 +402,9 @@ function Track() {
     // const handlePatent = async () => {
     //     return `${patentHeader} of ${patentBody}`;
     // };
-    const handleUseCase = async () => {
-        let fullQuery = `${useCaseHeader} of ${useCaseBody}`;
+    const handleUseCase = async (currentBody) => {
+        setUseCaseHeader('Use Case');
+        let fullQuery = `${useCaseHeader} of ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
@@ -362,9 +446,10 @@ function Track() {
             console.error('There has been a problem with your fetch operation:', error);
         }
     };
-    const handleResearcher = async () => {
+    const handleResearcher = async (currentBody) => {
+        // setResearcherHeader('Researcher');
         // Call the function and wait for the result
-        const { recentTitle, recentParagraph } = await fetchRecentPaperByAuthor(researcherHeader);
+        const { recentTitle, recentParagraph } = await fetchRecentPaperByAuthor(currentBody);
 
         // Set the title and paragraph for the researcher
         setTitleResearcher(recentTitle);
@@ -374,8 +459,9 @@ function Track() {
     // const handleOrganization = () => {
     //     return `${organizationHeader} of ${organizationBody}`;
     // };
-    const handleNews = async () => {
-        let fullQuery = `${newsHeader} of ${newsBody}`;
+    const handleNews = async (currentBody) => {
+        setNewsHeader('News');
+        let fullQuery = `${newsHeader} of ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
@@ -424,8 +510,10 @@ function Track() {
         }
     };
 
-    const handleOrganization = async () => {
-        let fullQuery = `${organizationHeader} of ${organizationBody}`;
+    const handleOrganization = async (currentBody) => {
+        setOrganizationHeader('Organization');
+
+        let fullQuery = `${organizationHeader} of ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
         let apiUrl = `https://archive.tylo.ai/google_org/google?question=${encodedQuery}latest`;
        
@@ -470,6 +558,15 @@ function Track() {
             console.error('There has been a problem with your fetch operation:', error);
         }
     }
+
+    function chunkArray(array, size) {
+        const chunkedArray = [];
+        for (let i = 0; i < array.length; i += size) {
+            chunkedArray.push(array.slice(i, i + size));
+        }
+        return chunkedArray;
+    }
+    
 
     const firstSentence = bodyResearch.split(/[.!?]+/)[0] + '.';
     const firstSentence2 = bodyUseCase.split(/[.!?]+/)[0] + '.';
@@ -610,8 +707,8 @@ function Track() {
                         <div className="tracker-142">
                             <select 
                                 className="tracker-96"
-                                value={selectedHeader}
-                                onChange={handleSelectionChange}
+                                value={selectedOption1}
+                                onChange={(e) => handleSelectionChange(1, e)}
                             >
                                 <option value="Research">Research</option>
                                 <option value="Patent">Patent</option>
@@ -624,15 +721,15 @@ function Track() {
                                 <input 
                                     type="text"
                                     className="tracker-94"
-                                    value={researchBody}
-                                    onChange={(e) => setResearchBody(e.target.value)}
+                                    value={currentBody1}
+                                    onChange={(e) => setCurrentBody1(e.target.value)}
                                 />
                         </div>
                         <div className="tracker-142">
                             <select 
                                 className="tracker-96"
-                                value={selectedHeader}
-                                onChange={handleSelectionChange}
+                                value={selectedOption2}
+                                onChange={(e) => handleSelectionChange(2, e)}
                             >
                                 <option value="Patent">Patent</option>
                                 <option value="Research">Research</option>
@@ -645,15 +742,15 @@ function Track() {
                                 <input 
                                     type="text"
                                     className="tracker-94"
-                                    value={patentBody}
-                                    onChange={(e) => setPatentBody(e.target.value)}
+                                    value={currentBody2}
+                                    onChange={(e) => setCurrentBody2(e.target.value)}
                                 />
                         </div>
                         <div className="tracker-142">
                             <select 
                                 className="tracker-96"
-                                value={selectedHeader}
-                                onChange={handleSelectionChange}
+                                value={selectedOption3}
+                                onChange={(e) => handleSelectionChange(3, e)}
                             >
                                 <option value="Use Case">Use Case</option>
                                 <option value="Research">Research</option>
@@ -667,15 +764,15 @@ function Track() {
                                 <input 
                                     type="text"
                                     className="tracker-94"
-                                    value={useCaseBody}
-                                    onChange={(e) => setUseCaseBody(e.target.value)}
+                                    value={currentBody3}
+                                    onChange={(e) => setCurrentBody3(e.target.value)}
                                 />
                         </div>
                         <div className="tracker-142">
                             <select 
                                 className="tracker-96"
-                                value={selectedHeader}
-                                onChange={handleSelectionChange}
+                                value={selectedOption4}
+                                onChange={(e) => handleSelectionChange(4, e)}
                             >
                                 <option value="Researcher">Researcher</option>
                                 <option value="Research">Research</option>
@@ -689,15 +786,15 @@ function Track() {
                                 <input 
                                     type="text"
                                     className="tracker-94"
-                                    value={researcherBody}
-                                    onChange={(e) => setResearcherBody(e.target.value)}
+                                    value={currentBody4}
+                                    onChange={(e) => setCurrentBody4(e.target.value)}
                                 />
                         </div>
                         <div className="tracker-142">
                             <select 
                                 className="tracker-96"
-                                value={selectedHeader}
-                                onChange={handleSelectionChange}
+                                value={selectedOption5}
+                                onChange={(e) => handleSelectionChange(5, e)}
                             >
                                 <option value="Organization">Organization</option>
                                 <option value="Research">Research</option>
@@ -711,15 +808,15 @@ function Track() {
                                 <input 
                                     type="text"
                                     className="tracker-94"
-                                    value={organizationBody}
-                                    onChange={(e) => setOrganizationBody(e.target.value)}
+                                    value={currentBody5}
+                                    onChange={(e) => setCurrentBody5(e.target.value)}
                                 />
                         </div>
                         <div className="tracker-142">
                             <select 
                                 className="tracker-96"
-                                value={selectedHeader}
-                                onChange={handleSelectionChange}
+                                value={selectedOption6}
+                                onChange={(e) => handleSelectionChange(6, e)}
                             >
                                 <option value="News">News</option>
                                 <option value="Research">Research</option>
@@ -733,8 +830,8 @@ function Track() {
                                 <input 
                                     type="text"
                                     className="tracker-94"
-                                    value={newsBody}
-                                    onChange={(e) => setNewsBody(e.target.value)}
+                                    value={currentBody6}
+                                    onChange={(e) => setCurrentBody6(e.target.value)}
                                 />
                         </div>
                     </div>
@@ -786,32 +883,38 @@ function Track() {
             <div className="track-frame-154">
                 <div className="vector-68"></div>
                 <div className="track-frame-150">
-                    
-                    <div className="track-frame-15-card">
-                        <div className="track-frame-42"> 
-                            <div className="track-frame-207">
-                                <div className="track-frame-43">
-                                    <h2 className="track-text-header">Research</h2>
+                    {chunkArray(Array.from({ length: selectionCounts.Research }), 3).map((group, groupIndex) => (
+                       <div key={groupIndex} className="track-frame-group">
+                            {group.map((_, index) => (
+                                <div key={index} className="track-frame-15-card">
+                                    <div className="track-frame-42"> 
+                                        <div className="track-frame-207">
+                                            <div className="track-frame-43">
+                                                <h2 className="track-text-header">Research</h2>
+                                            </div>
+                                            <h2 className="track-text-date">01/12/24</h2>
+                                        </div>
+                                        <h2 className="track-title-font">{trackTitleResearch}</h2>
+                                        <div className="track-body">
+                                            <body className="track-body-font">
+                                                {showMore ? bodyResearch : firstSentence}
+                                                {bodyResearch !== firstSentence && (
+                                                    <button onClick={() => setShowMore(!showMore)} className="view-more-button">
+                                                        {showMore ? 'View Less' : 'View More'}
+                                                    </button>
+                                                )}
+                                                <span className="track-ref-font"> (Ref here)</span>
+                                            </body>
+                                            
+                                        </div>
+                                        
+                                    </div>
                                 </div>
-                                <h2 className="track-text-date">01/12/24</h2>
-                            </div>
-                            <h2 className="track-title-font">{trackTitleResearch}</h2>
-                            <div className="track-body">
-                                <body className="track-body-font">
-                                    {showMore ? bodyResearch : firstSentence}
-                                    {bodyResearch !== firstSentence && (
-                                        <button onClick={() => setShowMore(!showMore)} className="view-more-button">
-                                            {showMore ? 'View Less' : 'View More'}
-                                        </button>
-                                    )}
-                                    <span className="track-ref-font"> (Ref here)</span>
-                                </body>
-                                
-                            </div>
-                            
+                            ))}
                         </div>
-                    </div>
-                    <div className="track-frame-15-card">
+                    ))}
+                    {Array.from({ length: selectionCounts.UseCase }).map((_, index) => (
+                    <div key={index} className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
                                 <div className="track-frame-43">
@@ -834,7 +937,9 @@ function Track() {
                             
                         </div>
                     </div>
-                    <div className="track-frame-15-card">
+                    ))}
+                    {Array.from({ length: selectionCounts.Patent }).map((_, index) => (
+                    <div key={index} className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
                                 <div className="track-frame-43">
@@ -852,11 +957,12 @@ function Track() {
                             
                         </div>
                     </div>
+                    ))}
                 </div>
 
                 <div className="track-frame-150">
-                    
-                    <div className="track-frame-15-card">
+                    {Array.from({ length: selectionCounts.Researcher }).map((_, index) => (
+                    <div key={index} className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
                                 <div className="track-frame-43">
@@ -880,7 +986,9 @@ function Track() {
                             
                         </div>
                     </div>
-                    <div className="track-frame-15-card">
+                    ))}
+                    {Array.from({ length: selectionCounts.News }).map((_, index) => (
+                    <div key={index} className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
                                 <div className="track-frame-43">
@@ -903,7 +1011,9 @@ function Track() {
                             
                         </div>
                     </div>
-                    <div className="track-frame-15-card">
+                    ))}
+                    {Array.from({ length: selectionCounts.Organization }).map((_, index) => (
+                    <div key={index} className="track-frame-15-card">
                         <div className="track-frame-42"> 
                             <div className="track-frame-207">
                                 <div className="track-frame-43">
@@ -926,6 +1036,7 @@ function Track() {
                             
                         </div>
                     </div>
+                    ))}
                 </div>
             </div>
             
