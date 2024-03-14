@@ -64,8 +64,6 @@ function Track() {
     const [organizationHeader, setOrganizationHeader] = useState('Organization');
     const [newsHeader, setNewsHeader] = useState('News');
 
-    const [showMore, setShowMore] = useState(false);
-
     const [trackTitleResearch, setTrackTitleResearch] = useState('Title Here');
     const [bodyResearch, setBodyResearch] = useState('Body Here');
     const [titleUseCase, setTitleUseCase] = useState('Title here');
@@ -354,7 +352,7 @@ function Track() {
         setResearchHeader('Research');
        
        // Combine the research header and body to form the full query
-        let fullQuery = `${researchHeader} of ${currentBody}`;
+        let fullQuery = `${researchHeader} in ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
@@ -369,27 +367,46 @@ function Track() {
 
             const articles = await response.json();
             if (articles && articles.length > 0) {
-                // Find the article with the highest relevance
-                let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
+                // Taking the top three, might set a hard threshold later
+                const topArticles = articles.sort((a, b) => b.relevance - a.relevance).slice(0, 3);
 
-                // Extract and use the necessary details from the article
-                const details = {
-                    title: highestRelevanceArticle.title,
-                    id: highestRelevanceArticle.id,
-                    articleUrl: highestRelevanceArticle.article_url,
-                    paragraph: highestRelevanceArticle.paragraph
-                };
+                // Map over these articles to create a structured summary request
+                const summaries = await Promise.all(topArticles.map((article, index) => 
+                    trackerOpenAI(`Summarize this like an expert`, article.paragraph).then(summary => 
+                        ({ 
+                            title: article.title, 
+                            summary, 
+                            url: article.article_url // Include the article URL
+                        })
+                    )
+                ));
+
+                // Construct the summary in a format with numbers, bullet points, and URLs
+                let summaryText = summaries.map((item, index) => 
+                    `${index + 1}. ${item.title}: \n${item.summary}\n - URL: ${item.url}`
+                ).join('\n\n'); // Separate each article block with two newlines for clarity
+
+                // // Find the article with the highest relevance
+                // let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
+
+                // // Extract and use the necessary details from the article
+                // const details = {
+                //     title: highestRelevanceArticle.title,
+                //     id: highestRelevanceArticle.id,
+                //     articleUrl: highestRelevanceArticle.article_url,
+                //     paragraph: highestRelevanceArticle.paragraph
+                // };
 
                
 
-                // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                const summaryData = await trackerOpenAI('Summarise the context like an article', details.paragraph);
-                 setTrackTitleResearch(details.title);
-                 console.log('outputbased on ',currentBody)
+                // // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                // const summaryData = await trackerOpenAI('Summarise the context like an article', details.paragraph);
+                 setTrackTitleResearch(`Research into ${currentBody}`);
+                 
                 // Update state with the returned data
-                if (summaryData) {
-                    const fullText = summaryData; // Full text from OpenAI
-                    setBodyResearch(fullText); // Update state with the full text
+                if (summaryText) {
+                    setBodyResearch(summaryText); // Update state with the full text
+                    console.log(`output text ${bodyResearch}`)
                 } else {
                     console.error("OpenAI response is empty or not in the expected format");
                 }
@@ -419,6 +436,7 @@ function Track() {
 
             const articles = await response.json();
             if (articles && articles.length > 0) {
+                
                 // Find the article with the highest relevance
                 let highestRelevanceArticle = articles.reduce((max, article) => max.relevance > article.relevance ? max : article, articles[0]);
 
@@ -456,9 +474,6 @@ function Track() {
         setBodyResearcher(recentParagraph);
     };
 
-    // const handleOrganization = () => {
-    //     return `${organizationHeader} of ${organizationBody}`;
-    // };
     const handleNews = async (currentBody) => {
         setNewsHeader('News');
         let fullQuery = `${newsHeader} of ${currentBody}`;
@@ -513,7 +528,7 @@ function Track() {
     const handleOrganization = async (currentBody) => {
         setOrganizationHeader('Organization');
 
-        let fullQuery = `${organizationHeader} of ${currentBody}`;
+        let fullQuery = `Advancements in ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
         let apiUrl = `https://archive.tylo.ai/google_org/google?question=${encodedQuery}latest`;
        
@@ -559,20 +574,7 @@ function Track() {
         }
     }
 
-    function chunkArray(array, size) {
-        const chunkedArray = [];
-        for (let i = 0; i < array.length; i += size) {
-            chunkedArray.push(array.slice(i, i + size));
-        }
-        return chunkedArray;
-    }
-    
-
-    const firstSentence = bodyResearch.split(/[.!?]+/)[0] + '.';
-    const firstSentence2 = bodyUseCase.split(/[.!?]+/)[0] + '.';
-    const firstSentence3 = bodyNews.split(/[.!?]+/)[0] + '.';
-    const firstSentence4 = bodyResearcher.split(/[.!?]+/)[0] + '.';
-    const firstSentence5 = bodyOrganization.split(/[.!?]+/)[0] + '.';
+  
 
     console.log('Track component about to render JSX');
     return (
@@ -667,6 +669,7 @@ function Track() {
                     </div>
                 </div>
             </div>
+
              {/* <!-- Tracker Modal --> */}
             <div id="trackerModal" style={{display: showModal ? 'block' : 'none'}} class="backdrop-background" >
             <div className="customise-tracker-background">
@@ -883,9 +886,7 @@ function Track() {
             <div className="track-frame-154">
                 <div className="vector-68"></div>
                 <div className="track-frame-150">
-                    {chunkArray(Array.from({ length: selectionCounts.Research }), 3).map((group, groupIndex) => (
-                       <div key={groupIndex} className="track-frame-group">
-                            {group.map((_, index) => (
+                    {Array.from({ length: selectionCounts.Research }).map((_, index) => (
                                 <div key={index} className="track-frame-15-card">
                                     <div className="track-frame-42"> 
                                         <div className="track-frame-207">
@@ -896,22 +897,15 @@ function Track() {
                                         </div>
                                         <h2 className="track-title-font">{trackTitleResearch}</h2>
                                         <div className="track-body">
-                                            <body className="track-body-font">
-                                                {showMore ? bodyResearch : firstSentence}
-                                                {bodyResearch !== firstSentence && (
-                                                    <button onClick={() => setShowMore(!showMore)} className="view-more-button">
-                                                        {showMore ? 'View Less' : 'View More'}
-                                                    </button>
-                                                )}
+                                            <section className="track-body-font">
+                                                {bodyResearch}
                                                 <span className="track-ref-font"> (Ref here)</span>
-                                            </body>
+                                            </section>
                                             
                                         </div>
                                         
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                </div>  
                     ))}
                     {Array.from({ length: selectionCounts.UseCase }).map((_, index) => (
                     <div key={index} className="track-frame-15-card">
@@ -924,15 +918,10 @@ function Track() {
                             </div>
                             <h2 className="track-title-font">{titleUseCase}</h2>
                             <div className="track-body">
-                                <body className="track-body-font">
-                                    {showMore ? bodyUseCase : firstSentence2}
-                                        {bodyUseCase !== firstSentence2 && (
-                                            <button onClick={() => setShowMore(!showMore)} className="view-more-button">
-                                                {showMore ? 'View Less' : 'View More'}
-                                            </button>
-                                        )}
+                                <section className="track-body-font">
+                                    {bodyUseCase}
                                     <span className="track-ref-font"> (Ref here)</span>
-                                </body>
+                                </section>
                             </div>
                             
                         </div>
@@ -949,10 +938,10 @@ function Track() {
                             </div>
                             <h2 className="track-title-font">Title Here</h2>
                             <div className="track-body">
-                            <body className="track-body-font">
+                                <section className="track-body-font">
                                     Body Here.
                                     <span className="track-ref-font"> (Ref here)</span>
-                                </body>
+                                </section>
                             </div>
                             
                         </div>
@@ -972,15 +961,10 @@ function Track() {
                             </div>
                             <h2 className="track-title-font">{titleResearcher}</h2>
                             <div className="track-body">
-                                <body className="track-body-font">
-                                    {showMore ? bodyResearcher : firstSentence4}
-                                        {bodyResearcher !== firstSentence4 && (
-                                            <button onClick={() => setShowMore(!showMore)} className="view-more-button">
-                                                {showMore ? 'View Less' : 'View More'}
-                                            </button>
-                                        )}
+                                <section className="track-body-font">
+                                    {bodyResearcher}
                                     <span className="track-ref-font"> (Ref here)</span>
-                                </body>
+                                </section>
                                 
                             </div>
                             
@@ -998,15 +982,10 @@ function Track() {
                             </div>
                             <h2 className="track-title-font">{titleNews}</h2>
                             <div className="track-body">
-                                <body className="track-body-font">
-                                    {showMore ? bodyNews : firstSentence3}
-                                        {bodyNews !== firstSentence3 && (
-                                            <button onClick={() => setShowMore(!showMore)} className="view-more-button">
-                                                {showMore ? 'View Less' : 'View More'}
-                                            </button>
-                                        )}
+                                <section className="track-body-font">
+                                    {bodyNews}
                                     <span className="track-ref-font"> (Ref here)</span>
-                                </body>
+                                </section>
                             </div>
                             
                         </div>
@@ -1023,15 +1002,10 @@ function Track() {
                             </div>
                             <h2 className="track-title-font">{titleOrganization}</h2>
                             <div className="track-body">
-                            <body className="track-body-font">
-                                {showMore ? bodyOrganization : firstSentence5}
-                                        {bodyOrganization !== firstSentence5 && (
-                                            <button onClick={() => setShowMore(!showMore)} className="view-more-button">
-                                                {showMore ? 'View Less' : 'View More'}
-                                            </button>
-                                        )}
+                                <section className="track-body-font">
+                                    {bodyOrganization}
                                     <span className="track-ref-font"> (Ref here)</span>
-                                </body>
+                                </section>
                             </div>
                             
                         </div>

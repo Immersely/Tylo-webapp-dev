@@ -735,7 +735,7 @@
     // align-items: center;
 }
   
-  /**************************** Track content *********************************/
+  /**************************************** Track content ************************************************/
   .track-frame-main{
     display: flex;
     // flex-direction: row;
@@ -797,14 +797,7 @@
     align-self: stretch;
   }
 
-  .track-frame-group {
-    display: flex;
-    flex-direction: row; /* Or column, depending on your design */
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 20px; /* Space between cards */
-    margin-bottom: 20px; /* Space below each group, adjust as needed */
-}
+  
 
   .track-frame-151 {
     display: flex;
@@ -821,15 +814,19 @@
 
   .track-frame-15-card {
     display: flex;
+    width: 33%;
     padding: 20px;
     justify-content: center;
     align-items: flex-start;
     gap: 30px;
-    flex: 1 0 0;
+    flex: 1 0 auto;
     border-radius: 20px;
     background: var(--white, #FFF);
     box-shadow: 0px 4px 4px 0px rgba(198, 198, 198, 0.25);
+    
   }
+
+  
 
   .track-frame-42 {
     display: flex;
@@ -955,12 +952,21 @@
   }
 
   .track-body {
-    height: 74px;
+    // height: 80px;
+    max-height: 80px;
+    // overflow: hidden; /* Hide vertical overflow */
+    text-overflow: ellipsis;
+    // overflow-x: hidden; /* Hide horizontal overflow */
     align-self: stretch;
     overflow-x: hidden; /* Hide horizontal overflow */
     white-space: normal;
     text-overflow: ellipsis;
+    transition: max-height 0.5s ease;
   }
+
+  .track-frame-15-card:hover .track-body {
+    max-height: 500px; /* Adjust based on the maximum content size expected */
+}
 
   .view-more-button {
     background-color: transparent;
@@ -973,18 +979,17 @@
 }
 
   .track-body-font {
-    // overflow: hidden;
+    overflow: hidden;
     // overflow-y: auto;
     color: var(--Gray, #858585);
     text-overflow: ellipsis;
-    white-space: wrap;
+    white-space: pre-wrap;
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    text-transform: capitalize;
-    display: block;
+    // display: block;
   }
 
   .track-ref-font {
