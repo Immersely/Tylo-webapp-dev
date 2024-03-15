@@ -74,6 +74,12 @@ function Track() {
     const [bodyResearcher, setBodyResearcher] = useState('Body here');
     const [titleOrganization, setTitleOrganization] = useState('Title here');
     const [bodyOrganization, setBodyOrganization] = useState('Body here');
+    const [titlePatent, setTitlePatent] = useState('Title here');
+    const [bodyPatent, setBodyPatent] = useState('Body here');
+
+    const [refPatent, setRefPatent] = useState('');
+
+
 
     const supabase = createClient('https://cyurqurlcxlyihpxzxyk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5dXJxdXJsY3hseWlocHh6eHlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgxNDEwNDQsImV4cCI6MjAwMzcxNzA0NH0.CdUPlN6gZQ6aA4kFiZuBXoAc4W_zXj4ywH0oaDAV70o')
 
@@ -237,7 +243,7 @@ function Track() {
         switch (optionNumber) {
             case 1:
                 setSelectedOption1(newValue);
-                console.log('new vale is', newValue )
+                // console.log('new vale is', newValue )
                 break;
             case 2:
                 setSelectedOption2(newValue);
@@ -333,10 +339,10 @@ function Track() {
                     default:
                         // Fallback logic or handling for unexpected selectedOption values
                         break;
-                    // case 'Patent':
-                    //     await handlePatent(currentBody);
-                    //     newSelectionCounts.Patent += 1;
-                    //     break;
+                    case 'Patent':
+                        await handlePatent(currentBody);
+                        newSelectionCounts.Patent += 1;
+                        break;
                     // Add more cases if there are more than these types
                 }
             }
@@ -525,11 +531,71 @@ function Track() {
         }
     };
 
+    const extractTextForGPT = (fullText, maxLength = 16000) => {
+        // Check if the full text is shorter than the maximum length
+        if (fullText.length <= maxLength) {
+            return fullText;
+        }
+        // If the text is longer, return the first 'maxLength' characters
+        return fullText.substring(0, maxLength);
+    };
+
+    const handlePatent = async (currentBody) => {
+        let encodedQuery = encodeURIComponent(currentBody);
+        let apiUrl = `https://archive.tylo.ai/google_patent/google?question=${encodedQuery}`
+    
+        try {
+            // Await the response directly within the async function
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
+            const articles = await response.json();
+            if (articles && articles.length > 0) {
+                const filteredArticles = articles.filter(article => article.id.startsWith('patent'));
+                // Find the article with the highest relevance
+                if (filteredArticles.length > 0) {
+                    // Find the article with the highest relevance from the filtered list
+                    let highestRelevanceArticle = filteredArticles.reduce((max, article) => max.relevance > article.relevance ? max : article, filteredArticles[0]);
+            
+                    // Extract and use the necessary details from the article
+                    const details = {
+                        title: highestRelevanceArticle.title,
+                        id: highestRelevanceArticle.id,
+                        articleUrl: highestRelevanceArticle.article_url,
+                        full_text: highestRelevanceArticle.full_text
+                    };
+                    
+                    const extractedText = extractTextForGPT(details.full_text, 16000);
+                    console.log('extracted text ', extractedText);
+                     // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                    const summaryData = await trackerOpenAI('Present this patent information professionally, add abstract, Introduction, Description of Invention, Key Features, conclusions etc', extractedText);
+                    console.log('full text', details.full_text);
+                    setTitlePatent(`Patent information on ${currentBody}`);
+                    // Update state with the returned data
+                    if (summaryData) {
+                        const fullText = summaryData; // Full text from OpenAI
+                        setBodyPatent(fullText); // Update state with the full text
+                        setRefPatent(details.articleUrl);
+                    } else {
+                        console.error("OpenAI response is empty or not in the expected format");
+                    }
+                } else {
+                    console.log('No articles found with ID starting with "org"');
+                    // Handle the case where no articles meet the condition, if necessary
+                } 
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+
     const handleOrganization = async (currentBody) => {
 
-        let fullQuery = `Advancements in ${currentBody}`;
+        let fullQuery = `Latest Advancements in ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
-        let apiUrl = `https://archive.tylo.ai/google_org/google?question=${encodedQuery}latest`;
+        let apiUrl = `https://archive.tylo.ai/google_org/google?question=${encodedQuery}`;
        
         try {
             // Await the response directly within the async function
@@ -935,11 +1001,11 @@ function Track() {
                                 </div>
                                 <h2 className="track-text-date">01/12/24</h2>
                             </div>
-                            <h2 className="track-title-font">Title Here</h2>
+                            <h2 className="track-title-font">{titlePatent}</h2>
                             <div className="track-body">
                                 <section className="track-body-font">
-                                    Body Here.
-                                    <span className="track-ref-font"> (Ref here)</span>
+                                    {bodyPatent}
+                                    <span className="track-ref-font">({refPatent})</span>
                                 </section>
                             </div>
                             
