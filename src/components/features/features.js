@@ -100,7 +100,7 @@ function Features() {
                 <div className="feature-page-icon">
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
-                        <div className="top-bar-tab">
+                        <div className="top-bar-tab-current_page">
                             <a href="/#" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                         <div className="top-bar-tab">

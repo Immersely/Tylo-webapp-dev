@@ -7,7 +7,7 @@ import "../about/about.scss";
 // import { gapi } from "gapi-script";
 // import axios from "axios";
 // import { setToken } from "../../services/userService";
-// import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 const faqData = [
     { question: "1. What is Tylo AI?", answer: "Tylo AI is a venture capital-backed start-up specializing in providing highly personalized deep-tech ideas and solutions for enterprise innovation and research and development (R&D) teams." },
@@ -39,9 +39,6 @@ function About() {
         console.log("Button", buttonNumber, "clicked");
         // You can add more logic here depending on what you want the button to do
       }
-
-
-
     //   useEffect(() => {
     //     // Load the Google API client library
     //     const script = document.createElement("script");
@@ -61,6 +58,15 @@ function About() {
     //     document.body.appendChild(script);
     //   }, []);
 
+    const navigate = useNavigate();
+    const handleFeaturesClick = () => {
+        // Check if the user is signed in
+        const isSignedIn = localStorage.getItem('token'); // Example check, adjust based on your authentication logic
+
+        // Navigate based on whether the user is signed in
+        navigate(isSignedIn ? '/features' : '/');
+    };
+
   
 
     return (
@@ -70,9 +76,9 @@ function About() {
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
                         <div className="top-bar-tab">
-                            <a href="/#" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                        <span onClick={handleFeaturesClick} className="top-bar-text_default" style={{cursor: 'pointer'}}>Features</span> {/* Link to the Features page */}
                         </div>
-                        <div className="top-bar-tab">
+                        <div className="top-bar-tab-current_page">
                             <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                     </div>

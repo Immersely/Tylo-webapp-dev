@@ -78,6 +78,11 @@ function Track() {
     const [bodyPatent, setBodyPatent] = useState('Body here');
 
     const [refPatent, setRefPatent] = useState('');
+    const [refUseCase, setRefUseCase] = useState('');
+    const [refNews, setRefNews] = useState('');
+    const [refOrg, setRefOrg] = useState('');
+
+
 
 
 
@@ -117,10 +122,11 @@ function Track() {
         if (auth2 != null) {
             auth2.signOut().then(auth2.disconnect().then(() => {
                 console.log('User signed out of Google.');
+                navigate('/#');
             }));
         }
 
-        navigate(-1); // -1 takes you one page back in the history
+        navigate('/#'); // -1 takes you one page back in the history
         // Redirect the user to the sign-in page or another appropriate page
         // This depends on your routing setup, for example using react-router
         // navigate('/signin'); // Example using react-router
@@ -264,39 +270,7 @@ function Track() {
                 // Handle unexpected option number
                 break;
         }
-        // const newSelections = { ...selections, [identifier]: event.target.value };
-        // setSelections(newSelections);
         
-
-        // Call the specific function based on the selected value
-        // switch (newValue) {
-        //     case 'Research':
-        //         setResearchHeader('Research');
-        //         // handleResearch();
-        //         break;
-        //     case 'Use Case':
-        //         setUseCaseHeader('Use Case');
-        //         // handleUseCase();
-        //         break;
-        //     case 'News':
-        //         setNewsHeader('News');
-        //         // handleNews();
-        //         break;
-        //     case 'Researcher':
-        //         setResearcherHeader('Researcher');
-        //         // handleResearcher();
-        //         break;
-        //     case 'Patent':
-        //         // setPatentHeader('Patent');
-        //         // handlePatent();
-        //         break;
-        //     case 'Organization':
-        //         setOrganizationHeader('Organization');
-        //         // handleOrganisation();
-        //         break;
-        //     default:
-        //         console.log('No handler for:', newValue);
-        // }
     };
     
 
@@ -315,6 +289,13 @@ function Track() {
             console.log('Current body',[i], 'is', currentBody )
 
             if (currentBody !== '') { // Only proceed if the body is not empty
+
+                // Reset the count for the selected option before updating
+                if (newSelectionCounts[selectedOption] !== undefined) {
+                    // This will clear previous entries for the category by resetting its count
+                    newSelectionCounts[selectedOption] = 0;
+                }
+
                 switch (selectedOption) {
                     case 'Research':
                         await handleResearch(currentBody);
@@ -455,12 +436,13 @@ function Track() {
                 };
 
                 // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                const summaryData = await trackerOpenAI('give me a use case and be direct and confident', details.paragraph);
+                const summaryData = await trackerOpenAI('Present a use case and be direct and confident like an professional on', details.paragraph);
                 setTitleUseCase(details.title);
                 // Update state with the returned data
                 if (summaryData) {
                     const fullText = summaryData; // Full text from OpenAI
                     setBodyUseCase(fullText); // Update state with the full text
+                    setRefUseCase(details.articleUrl);
                 } else {
                     console.error("OpenAI response is empty or not in the expected format");
                 }
@@ -512,12 +494,13 @@ function Track() {
                     };
 
                     // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                    const summaryData = await trackerOpenAI('Summarise this news article', details.full_text);
+                    const summaryData = await trackerOpenAI('Summarise this like a news article', details.full_text);
                     setTitleNews(details.title);
                     // Update state with the returned data
                     if (summaryData) {
                         const fullText = summaryData; // Full text from OpenAI
                         setBodyNews(fullText); // Update state with the full text
+                        setRefNews(details.articleUrl)
                     } else {
                         console.error("OpenAI response is empty or not in the expected format");
                     }
@@ -620,12 +603,13 @@ function Track() {
                         full_text: highestRelevanceArticle.full_text
                     };
                      // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                    const summaryData = await trackerOpenAI('Summarise info on the organisation in the article', details.title);
-                    setTitleOrganization(details.title);
+                    const summaryData = await trackerOpenAI('Present the information on the organisation like an expert', details.title);
+                    setTitleOrganization(`Organization information on ${currentBody}`);
                     // Update state with the returned data
                     if (summaryData) {
                         const fullText = summaryData; // Full text from OpenAI
                         setBodyOrganization(fullText); // Update state with the full text
+                        setRefOrg(details.articleUrl)
                     } else {
                         console.error("OpenAI response is empty or not in the expected format");
                     }
@@ -649,7 +633,7 @@ function Track() {
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
                         <div className="top-bar-tab">
-                            <a href="/#" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                            <a href="/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                         <div className="top-bar-tab">
                             <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
@@ -985,7 +969,7 @@ function Track() {
                             <div className="track-body">
                                 <section className="track-body-font">
                                     {bodyUseCase}
-                                    <span className="track-ref-font"> (Ref here)</span>
+                                    <span className="track-ref-font"> ({refUseCase})</span>
                                 </section>
                             </div>
                             
@@ -1028,7 +1012,7 @@ function Track() {
                             <div className="track-body">
                                 <section className="track-body-font">
                                     {bodyResearcher}
-                                    <span className="track-ref-font"> (Ref here)</span>
+                                    <span className="track-ref-font"></span>
                                 </section>
                                 
                             </div>
@@ -1049,7 +1033,7 @@ function Track() {
                             <div className="track-body">
                                 <section className="track-body-font">
                                     {bodyNews}
-                                    <span className="track-ref-font"> (Ref here)</span>
+                                    <span className="track-ref-font"> ({refNews})</span>
                                 </section>
                             </div>
                             
@@ -1069,7 +1053,7 @@ function Track() {
                             <div className="track-body">
                                 <section className="track-body-font">
                                     {bodyOrganization}
-                                    <span className="track-ref-font"> (Ref here)</span>
+                                    <span className="track-ref-font"> ({refOrg})</span>
                                 </section>
                             </div>
                             

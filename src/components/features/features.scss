@@ -10,10 +10,10 @@
     display: flex;
     width: 100%;
     height: 100px;
-    padding: 28px 60px;
+    padding: 28px 60px 28px 200px;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    // gap: 10px;
     flex-shrink: 0;
     box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);  
 }
@@ -100,8 +100,41 @@
   flex-shrink: 0;
 }
 
+.top-bar-tab-current_page {
+  // position: relative;
+  display: flex;
+  width: 118px;
+  height: 47px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--Primary, #4476F1);
+}
+
 .top-bar-text, .top-bar-tab a {
   color: var(--Secondary, #0D1542);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none; // Removes underline from links
+}
+
+.top-bar-text_default {
+  color: var(--Secondary, #0D1542);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none; // Removes underline from links
+}
+
+.top-bar-text, .top-bar-tab-current_page a {
+  color: var(--Primary, #4476F1); 
   font-family: 'Inter', sans-serif;
   font-size: 18px;
   font-style: normal;
@@ -265,9 +298,8 @@
     font-family: 'Inter', sans-serif;
     font-size: 24px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     line-height: normal;
-    text-transform: capitalize;
   }
 
   .inquire-frame-95 {
@@ -406,7 +438,7 @@
   }
 
   .inst-card-H {
-    flex: 1 0 0;
+    flex: 0;
     align-self: stretch;
     color: var(--Primary, #4476F1);
     font-family: 'Inter', sans-serif;
@@ -486,6 +518,10 @@
     box-sizing: border-box;
   }
 
+  .inquire-textbox::placeholder {
+    color: #C0BEBE; /* Sets the placeholder text color */
+}
+
 
   .inquire-button {
     position: absolute; /* Positions the button absolutely within .textarea-container */
@@ -544,6 +580,11 @@
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(125, 125, 125, 0.25);
     overflow-y: auto;
+    transition: height 0.5s ease;
+  }
+
+  .answer-text-box:hover {
+    height: 650px; /* Adjust based on the maximum content size expected */
   }
 
   .answer-header {
@@ -563,7 +604,7 @@
     height: 31.289px;
     flex-shrink: 0;
     align-self: stretch;
-    color: black;
+    color: var(--Gray, #858585); 
     font-family: 'Arial', sans-serif;
     font-size: 20px;
     font-style: normal;
@@ -726,10 +767,14 @@
     // white-space: nowrap; /* Prevents the text from wrapping */
   }
 
+  .support-text-content { /* This is a new or existing class for your text content */
+    color: var(--Gray, #858585); /* Set the text color using a CSS variable or fallback */
+  }
+
   .relevance-circle {
-    width: 5px; /* Adjusted size */
-    height: 5px; /* Adjusted size */
-    border-radius: 50%; /* Make it circular */
+    width: 2px; /* Adjusted size */
+    height: 2px; /* Adjusted size */
+    border-radius:50%; /* Make it circular */
     display: flex;
     margin: 26px; /* Adjust spacing around circles */
     // align-items: center;

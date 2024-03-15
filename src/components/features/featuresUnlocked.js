@@ -95,10 +95,11 @@ function Inquire() {
         if (auth2 != null) {
             auth2.signOut().then(auth2.disconnect().then(() => {
                 console.log('User signed out of Google.');
+                navigate('/#');
             }));
         }
 
-        navigate(-1); // -1 takes you one page back in the history
+        navigate('/#'); // -1 takes you one page back in the history
         // Redirect the user to the sign-in page or another appropriate page
         // This depends on your routing setup, for example using react-router
         // navigate('/signin'); // Example using react-router
@@ -299,7 +300,7 @@ function Inquire() {
 
         setAnswerText(""); // Clears the answer text box content
         
-        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response.`;
+        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response and present it like a professional, make it structured and long.`;
         const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
     
         const prompt = [
@@ -406,8 +407,8 @@ function Inquire() {
                 <div className="feature-page-icon">
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
-                        <div className="top-bar-tab">
-                            <a href="/#" className="top-bar-text">Features</a> {/* Link to the Features page */}
+                        <div className="top-bar-tab-current_page">
+                            <a href="/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                         <div className="top-bar-tab">
                             <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
@@ -563,7 +564,7 @@ function Inquire() {
                             <p className="support-text">Support evidence</p>
                         </div>
                         {supportEvidence.map((item, index) => (
-                            <div key={index} className={item.className}>
+                            <div key={index} className={`support-text-content ${item.className}`}>
                                 {item.content}
                             </div>
                         ))}    
@@ -573,7 +574,7 @@ function Inquire() {
                             <p className="support-text">Reference & sources</p>
                         </div>
                         {referenceSources.map((item, index) => (
-                            <div key={index} className={item.className}>
+                            <div key={index} className={`support-text-content ${item.className}`}>
                                 {item.content}
                             </div>
                         ))}
