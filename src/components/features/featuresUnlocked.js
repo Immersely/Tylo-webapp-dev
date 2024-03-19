@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import ReactHtmlParser from 'html-react-parser'; 
 // import ReactDOM from "react-dom";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 // import Tracker_close from "../../assets/images/tracker-close.svg";
@@ -294,13 +295,26 @@ function Inquire() {
 
 
     /******************************************** Open AI calls *******************************************************************/
+    // function formatAnswerText(rawText) {
+    //     // Highlight dates (simple patterns, customize as needed)
+    //     let formattedText = rawText.replace(/(\d{2}\/\d{2}\/\d{4})/g, '<span class="highlight-date">$1</span>');
+        
+    //     // Highlight percentages
+    //     formattedText = formattedText.replace(/(\d+%)/g, '<span class="highlight-percentage">$1</span>');
+        
+    //     // More patterns can be added here
+    
+    //     return ReactHtmlParser(formattedText); // Safely convert string to HTML
+    // }
+    
+    
     /* systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
     `Provide an answer to the question, like you are an expert. If specific details are not available, infer general conclusions based on the context without explicitly mentioning it in your response. Include numerical data and specific figures when relevant and available. Do not add information beyond what is given, and avoid referencing the context directly in your answer.`*/
     const callOpenAI = async (question, finalTexts) => {
 
         setAnswerText(""); // Clears the answer text box content
         
-        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response and present it like a professional, make it structured and long.`;
+        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below, Add you opinion on the questions supported by evidence and draw conclusions. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response and present it like a professional, make it structured with bullet points or numbered list and long.`;
         const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
     
         const prompt = [
@@ -437,9 +451,9 @@ function Inquire() {
                 <h2 className="inquire-header">Inquire Anything</h2>
                 <div className="inquire-frame-95">
                     <div className="helper-container">
-                        <p className="inquire-text-1">
+                        <h2 className="inquire-text-1">
                             The start point of your evidence-based innovation
-                        </p>
+                        </h2>
                         <div className="instructions-container">
                             <div className="instructions">
                                 Instructions 
@@ -465,13 +479,13 @@ function Inquire() {
                             <div className="inst-item">
                                 <h1 className="inst-card-H">What is it not a good fit for</h1>
                                 <div className="inst-card-p">
-                                   topics especially for short or general questions, it might not be your best bet. and anything that can hardly find clues from science publication and patent ocean
+                                   Topics especially for short or general questions, it might not be your best bet. Anything that can hardly find clues from science publication and patent ocean
                                 </div>
                             </div>
                             <div className="inst-item">
                                 <h1 className="inst-card-H">Responding time</h1>
                                 <div className="inst-card-p">
-                                    typically 10 to 40 seconds
+                                    Typically 30 to 60 seconds
                                 </div>
                             </div>
                         </div>
@@ -492,14 +506,14 @@ function Inquire() {
                                     <ul className="inst-card-ul">
                                         <li>Buprenorphine use in adolescent opiate addiction</li>
                                         <li>Best practices for designing robust optical computing hardware</li>
-                                        <li>How to create an efficient k-means clustering algorithm on a Riemannian manifold ? </li>
+                                        <li>How to create an efficient k-means clustering algorithm on a Riemannian manifold? </li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="inst-item">
                                 <h1 className="inst-card-H">Output accuracy</h1>
                                 <div className="inst-card-p">
-                                    Like any AI, there's a margin for error. While we achieve a solid 99% success rate (output very reasonable, logic and contextual related answers) in internal tests, we encourage you to double-check information
+                                    Like any AI, there's a margin for error. While we achieve a solid 99% success rate (output reasonable, logic and contextual related answers) in internal tests, we encourage you to double-check information
                                 </div>
                             </div>
                         </div>
@@ -518,6 +532,7 @@ function Inquire() {
                 <div className="answer-text-box"
                 style={{
                     ...isDyslexiaFontEnabled && { backgroundColor: '#FFFFE0' }, // Only apply this style if isDyslexiaFontEnabled is true
+                    height: answerText ? '650px' : '316px'
                 }}
                 >
                     <p className="answer-header">Answer:</p>
@@ -526,7 +541,17 @@ function Inquire() {
                         ...isDyslexiaFontEnabled && { fontFamily: '"OpenDyslexic", sans-serif' }, // Only apply this style if isDyslexiaFontEnabled is true
                     }}
                     >
-                        {answerText}
+                            {answerText.split('\n\n').map((paragraph, index) => {
+                                if (paragraph.startsWith('```')) { // Check for code block
+                                    const code = paragraph.slice(3, -3); // Remove backticks
+                                    return <pre key={index}><code>{code}</code></pre>;
+                                } else if (paragraph.includes('- ')) { // Check for list
+                                    const items = paragraph.split('\n').map((item, idx) => <li key={idx}>{item.slice(2)}</li>); // Remove '- '
+                                    return <ul key={index}>{items}</ul>;
+                                } else { // Default to paragraph
+                                    return <p key={index}>{paragraph}</p>;
+                                }
+                            })}
                     </p>
                 </div>
             </div>

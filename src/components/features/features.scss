@@ -148,7 +148,7 @@
 }
 
 .gradient-rectangle {
-    height: 308px;
+    height: 258px;
     width: 100vw; // Makes the rectangle span the entire viewport width
     background: linear-gradient(
       90deg,
@@ -250,7 +250,7 @@
   .feature-title {
     color: var(--Secondary, #0D1542);
     font-family: 'Inter', sans-serif;
-    font-size: 60px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -285,7 +285,7 @@
     align-self: stretch;
     color: var(--Secondary, #0D1542);
     font-family: 'Inter', sans-serif;
-    font-size: 60px;
+    font-size: 40px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -300,6 +300,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
   }
 
   .inquire-frame-95 {
@@ -324,7 +325,7 @@
     display: flex;
     gap: var(--25, 10px); 
     align-items: center; /* Aligns the instructions text and the button vertically */
-    cursor: pointer;
+    
 }
 
 .dropdown-button {
@@ -344,7 +345,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    text-decoration-line: underline;
+    // text-decoration-line: underline;
   }
 
   .inst-item_track{
@@ -398,6 +399,7 @@
     border-radius: 11.733px;
     border: 1.467px solid var(--Line, #EAEAEA);
     background: var(--white, #FFF);
+    cursor: pointer;
   }
 
   .inst-top-col {
@@ -583,9 +585,9 @@
     transition: height 0.5s ease;
   }
 
-  .answer-text-box:hover {
-    height: 650px; /* Adjust based on the maximum content size expected */
-  }
+  // .answer-text-box:hover {
+  //     height: 650px; /* Adjust based on the maximum content size expected */
+  // }
 
   .answer-header {
     height: 31.289px;
@@ -610,6 +612,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: 1.6; /* Line height for better readability */
+    white-space: pre-wrap;
     text-align: justify; /* Justify text for a neat look */
     // text-transform: capitalize;
    

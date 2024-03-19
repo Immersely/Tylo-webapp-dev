@@ -89,6 +89,11 @@ function Track() {
     const supabase = createClient('https://cyurqurlcxlyihpxzxyk.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5dXJxdXJsY3hseWlocHh6eHlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgxNDEwNDQsImV4cCI6MjAwMzcxNzA0NH0.CdUPlN6gZQ6aA4kFiZuBXoAc4W_zXj4ywH0oaDAV70o')
 
 
+    const formatDate = (date) => {
+        const options = { day: '2-digit', month: '2-digit', year: '2-digit' };
+        return new Date(date).toLocaleDateString('en-GB', options); // 'en-GB' uses day/month/year format, adjust if needed
+    };
+    
 
 
     useEffect(() => {
@@ -942,7 +947,7 @@ function Track() {
                                             <div className="track-frame-43">
                                                 <h2 className="track-text-header">Research</h2>
                                             </div>
-                                            <h2 className="track-text-date">01/12/24</h2>
+                                            <h2 className="track-text-date">{formatDate(new Date())}</h2>
                                         </div>
                                         <h2 className="track-title-font">{trackTitleResearch}</h2>
                                         <div className="track-body">
@@ -963,7 +968,7 @@ function Track() {
                                 <div className="track-frame-43">
                                     <h2 className="track-text-header">Use Case</h2>
                                 </div>
-                                <h2 className="track-text-date">01/12/24</h2>
+                                <h2 className="track-text-date">{formatDate(new Date())}</h2>
                             </div>
                             <h2 className="track-title-font">{titleUseCase}</h2>
                             <div className="track-body">
@@ -983,7 +988,7 @@ function Track() {
                                 <div className="track-frame-43">
                                     <h2 className="track-text-header">Patent</h2>
                                 </div>
-                                <h2 className="track-text-date">01/12/24</h2>
+                                <h2 className="track-text-date">{formatDate(new Date())}</h2>
                             </div>
                             <h2 className="track-title-font">{titlePatent}</h2>
                             <div className="track-body">
@@ -1006,7 +1011,7 @@ function Track() {
                                 <div className="track-frame-43">
                                     <h2 className="track-text-header">Researcher</h2>
                                 </div>
-                                <h2 className="track-text-date">01/12/24</h2>
+                                <h2 className="track-text-date">{formatDate(new Date())}</h2>
                             </div>
                             <h2 className="track-title-font">{titleResearcher}</h2>
                             <div className="track-body">
@@ -1027,7 +1032,7 @@ function Track() {
                                 <div className="track-frame-43">
                                     <h2 className="track-text-header">News</h2>
                                 </div>
-                                <h2 className="track-text-date">01/12/24</h2>
+                                <h2 className="track-text-date">{formatDate(new Date())}</h2>
                             </div>
                             <h2 className="track-title-font">{titleNews}</h2>
                             <div className="track-body">
@@ -1047,7 +1052,7 @@ function Track() {
                                 <div className="track-frame-43">
                                     <h2 className="track-text-header">Organization</h2>
                                 </div>
-                                <h2 className="track-text-date">01/12/24</h2>
+                                <h2 className="track-text-date">{formatDate(new Date())}</h2>
                             </div>
                             <h2 className="track-title-font">{titleOrganization}</h2>
                             <div className="track-body">
