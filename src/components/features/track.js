@@ -83,6 +83,17 @@ function Track() {
     const [refOrg, setRefOrg] = useState('');
 
 
+    const [showPreviousContent, setShowPreviousContent] = useState(false);
+    const [savedResearchResults, setSavedResearchResults] = useState([]);
+    const [savedUseCaseResults, setSavedUseCaseResults] = useState([]);
+    const [savedResearcherResults, setSavedResearcherResults] = useState([]);
+    const [savedNewsResults, setSavedNewsResults] = useState([]);
+    const [savedPatentResults, setSavedPatentResults] = useState([]);
+    const [savedOrgResults, setSavedOrgResults] = useState([]);
+
+
+
+
 
 
 
@@ -94,6 +105,10 @@ function Track() {
         return new Date(date).toLocaleDateString('en-GB', options); // 'en-GB' uses day/month/year format, adjust if needed
     };
     
+    /******************************************* Loading saved cards ********************/
+    
+    /*********************************************************************************** */
+  
 
 
     useEffect(() => {
@@ -113,6 +128,67 @@ function Track() {
           });
         };
         document.body.appendChild(script);
+        
+        // Load research results from local storage
+        const loadedResearchResults = JSON.parse(localStorage.getItem('researchResults')) || [];
+        if (loadedResearchResults.length === 0) {
+            console.log('No research results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state`   
+            setSavedResearchResults(loadedResearchResults);
+        }
+
+        const loadedUseCaseResults = JSON.parse(localStorage.getItem('useCaseResults')) || [];
+        if (loadedUseCaseResults.length === 0) {
+            console.log('No Use Case results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state
+            setSavedUseCaseResults(loadedUseCaseResults);
+        }
+
+        const loadedResearcherResults = JSON.parse(localStorage.getItem('researcherResults')) || [];
+        if (loadedResearcherResults.length === 0) {
+            console.log('No Researcher results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state
+            setSavedResearcherResults(loadedResearcherResults);
+        }
+
+        const loadedNewsResults = JSON.parse(localStorage.getItem('newsResults')) || [];
+        if (loadedNewsResults.length === 0) {
+            console.log('No News results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state
+            setSavedNewsResults(loadedNewsResults);
+        }
+
+        const loadedPatentResults = JSON.parse(localStorage.getItem('patentResults')) || [];
+        if (loadedPatentResults.length === 0) {
+            console.log('No Patent results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state
+            setSavedPatentResults(loadedPatentResults);
+        }
+
+        const loadedOrgResults = JSON.parse(localStorage.getItem('orgResults')) || [];
+        if (loadedOrgResults.length === 0) {
+            console.log('No Org results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state
+            setSavedOrgResults(loadedOrgResults);
+        }
         
       }, []);
 
@@ -143,7 +219,8 @@ function Track() {
     const part3 = "Zfd1";
     const combined = part1 + part2 + part3;
 
-  
+
+    
 
 
     /******************************************** Open AI calls *******************************************************************/
@@ -333,9 +410,7 @@ function Track() {
                 }
             }
         }
-        
-
-       
+    
         setSelectionCounts(newSelectionCounts);  // Update the overall count state
     };
 
@@ -399,6 +474,25 @@ function Track() {
                 if (summaryText) {
                     setBodyResearch(summaryText); // Update state with the full text
                     console.log(`output text ${bodyResearch}`)
+
+                    // Save the results to local storage
+                    let existingResults = JSON.parse(localStorage.getItem('researchResults'));
+                    
+                    if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+                        console.log('Correcting the structure of existingResults');
+                        existingResults = [existingResults]; // Make it an array containing the existing object
+                    } else if (!existingResults) {
+                        // If existingResults is neither an array nor an object (e.g., null or undefined)
+                        existingResults = [];
+                    }
+
+                    existingResults.push({
+                        title: `Research into ${currentBody}`,
+                        body: summaryText,
+                        date: new Date().toISOString() // Save the current date and time for each entry
+                    });
+
+                    localStorage.setItem('researchResults', JSON.stringify(existingResults));
                 } else {
                     console.error("OpenAI response is empty or not in the expected format");
                 }
@@ -407,6 +501,7 @@ function Track() {
         } catch (error) {
             console.error('There has been a problem with your fetch operation:', error);
         }
+        
     };
     // const handlePatent = async () => {
     //     return `${patentHeader} of ${patentBody}`;
@@ -448,6 +543,27 @@ function Track() {
                     const fullText = summaryData; // Full text from OpenAI
                     setBodyUseCase(fullText); // Update state with the full text
                     setRefUseCase(details.articleUrl);
+
+                    // Save the results to local storage
+                    let existingResults = JSON.parse(localStorage.getItem('useCaseResults'));
+                    
+                    if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+                        console.log('Correcting the structure of existingResults');
+                        existingResults = [existingResults]; // Make it an array containing the existing object
+                    } else if (!existingResults) {
+                        // If existingResults is neither an array nor an object (e.g., null or undefined)
+                        existingResults = [];
+                    }
+
+                    existingResults.push({
+                        title: `Use Case of ${currentBody}`,
+                        body: summaryData,
+                        date: new Date().toISOString(), // Save the current date and time for each entry
+                        ref: details.articleUrl
+                    });
+
+                    localStorage.setItem('useCaseResults', JSON.stringify(existingResults));
+
                 } else {
                     console.error("OpenAI response is empty or not in the expected format");
                 }
@@ -465,11 +581,28 @@ function Track() {
         // Set the title and paragraph for the researcher
         setTitleResearcher(recentTitle);
         setBodyResearcher(recentParagraph);
+        let existingResults = JSON.parse(localStorage.getItem('researcherResults'));
+                    
+        if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+            console.log('Correcting the structure of existingResults');
+            existingResults = [existingResults]; // Make it an array containing the existing object
+        } else if (!existingResults) {
+             // If existingResults is neither an array nor an object (e.g., null or undefined)
+            existingResults = [];
+        }
+
+        existingResults.push({
+            title: `${recentTitle}`,
+            body: recentParagraph,
+            date: new Date().toISOString() // Save the current date and time for each entry
+        });
+
+        localStorage.setItem('researcherResults', JSON.stringify(existingResults));
     };
 
     const handleNews = async (currentBody) => {
         setNewsHeader('News');
-        let fullQuery = `${newsHeader} of ${currentBody}`;
+        let fullQuery = `${newsHeader} on ${currentBody}`;
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
@@ -506,6 +639,27 @@ function Track() {
                         const fullText = summaryData; // Full text from OpenAI
                         setBodyNews(fullText); // Update state with the full text
                         setRefNews(details.articleUrl)
+
+                        //saver
+                        let existingResults = JSON.parse(localStorage.getItem('newsResults'));
+                                    
+                        if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+                            console.log('Correcting the structure of existingResults');
+                            existingResults = [existingResults]; // Make it an array containing the existing object
+                        } else if (!existingResults) {
+                            // If existingResults is neither an array nor an object (e.g., null or undefined)
+                            existingResults = [];
+                        }
+
+                        existingResults.push({
+                            title: `News on ${currentBody}`,
+                            body: summaryData,
+                            date: new Date().toISOString(), // Save the current date and time for each entry
+                            ref: details.articleUrl
+                        });
+
+                        localStorage.setItem('newsResults', JSON.stringify(existingResults));
+
                     } else {
                         console.error("OpenAI response is empty or not in the expected format");
                     }
@@ -566,6 +720,28 @@ function Track() {
                         const fullText = summaryData; // Full text from OpenAI
                         setBodyPatent(fullText); // Update state with the full text
                         setRefPatent(details.articleUrl);
+
+                        //saver
+                        let existingResults = JSON.parse(localStorage.getItem('patentResults'));
+                                    
+                        if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+                            console.log('Correcting the structure of existingResults');
+                            existingResults = [existingResults]; // Make it an array containing the existing object
+                        } else if (!existingResults) {
+                            // If existingResults is neither an array nor an object (e.g., null or undefined)
+                            existingResults = [];
+                        }
+
+                        existingResults.push({
+                            title: `Patent information on ${currentBody}`,
+                            body: summaryData,
+                            date: new Date().toISOString(), // Save the current date and time for each entry
+                            ref: details.articleUrl
+                        });
+
+                        localStorage.setItem('patentResults', JSON.stringify(existingResults));
+
+
                     } else {
                         console.error("OpenAI response is empty or not in the expected format");
                     }
@@ -615,6 +791,29 @@ function Track() {
                         const fullText = summaryData; // Full text from OpenAI
                         setBodyOrganization(fullText); // Update state with the full text
                         setRefOrg(details.articleUrl)
+
+
+                        //saver
+                        let existingResults = JSON.parse(localStorage.getItem('orgResults'));
+                                    
+                        if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+                            console.log('Correcting the structure of existingResults');
+                            existingResults = [existingResults]; // Make it an array containing the existing object
+                        } else if (!existingResults) {
+                            // If existingResults is neither an array nor an object (e.g., null or undefined)
+                            existingResults = [];
+                        }
+
+                        existingResults.push({
+                            title: `Latest Advancements in ${currentBody}`,
+                            body: summaryData,
+                            date: new Date().toISOString(), // Save the current date and time for each entry
+                            ref: details.articleUrl
+                        });
+
+                        localStorage.setItem('orgResults', JSON.stringify(existingResults));
+
+
                     } else {
                         console.error("OpenAI response is empty or not in the expected format");
                     }
@@ -628,8 +827,12 @@ function Track() {
         }
     }
 
-  
+    /************************************ Saving cards ***************************************/
+   
+    
+    
 
+    /*************************************************************************************** */
     console.log('Track component about to render JSX');
     return (
         <div className="feature-page">
@@ -1066,6 +1269,169 @@ function Track() {
                     </div>
                     ))}
                 </div>
+                <div 
+                    style={{
+                        color: 'var(--Primary, #4476F1)',
+                        textAlign: 'center',
+                        fontFamily: 'Inter',
+                        fontSize: '22px',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        textDecorationLine: 'underline'
+                    }}
+                    onClick={() => setShowPreviousContent(!showPreviousContent)}
+                >
+                    See Previous Content
+                </div>
+                {showPreviousContent && (
+                    <div className="track-frame-154">
+                        <div className="track-frame-150">
+                            {Array.isArray(savedResearchResults) && savedResearchResults.length > 0 ? (
+                                savedResearchResults.map((result, index) => (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">Research</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> (Ref here)</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                            {Array.isArray(savedUseCaseResults) && savedUseCaseResults.length > 0 ? (
+                                savedUseCaseResults.map((result, index) => (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">Researcher</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> ({result.ref})</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                            {Array.isArray(savedResearcherResults) && savedResearcherResults.length > 0 ? (
+                                savedResearcherResults.map((result, index) => (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">Use Case</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> </span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
+                    
+                        <div className="track-frame-150">
+                            {Array.isArray(savedNewsResults) && savedNewsResults.length > 0 ? (
+                                savedNewsResults.map((result, index) => (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">News</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> ({result.ref})</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                            {Array.isArray(savedPatentResults) && savedPatentResults.length > 0 ? (
+                                savedPatentResults.map((result, index) => (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">Patent</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> ({result.ref})</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                            {Array.isArray(savedOrgResults) && savedOrgResults.length > 0 ? (
+                                savedOrgResults.map((result, index) => (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">Organization</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> ({result.ref})</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
+
+                     
+                    </div>
+                )}
             </div>
             
           </div>
