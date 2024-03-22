@@ -772,6 +772,7 @@
 
   .support-text-content { /* This is a new or existing class for your text content */
     color: var(--Gray, #858585); /* Set the text color using a CSS variable or fallback */
+    // white-space: pre-wrap;
   }
 
   .relevance-circle {

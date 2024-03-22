@@ -106,6 +106,23 @@ function Inquire() {
         // navigate('/signin'); // Example using react-router
     };
 
+    function formatUrlDisplayName(url) {
+        try {
+            const newUrl = new URL(url);
+            // Check if the URL's hostname starts with 'www.' or if it's a typical URL with 'https://'
+            if (newUrl.hostname.startsWith('www.')) {
+                return newUrl.hostname.substring(4); // Remove 'www.' from the start
+            } else if (newUrl.protocol === "https:") {
+                return newUrl.hostname; // Use the full hostname
+            } else {
+                return url; // Return the original URL if it's not standard
+            }
+        } catch (error) {
+            return url; // Return the original URL in case of an exception (invalid URL)
+        }
+    }
+    
+
     const handleFilterChange = (event) => {
         // Get the selected value
         const selectedFilter = event.target.value;
@@ -123,8 +140,7 @@ function Inquire() {
     
         switch (filterCriteria) {
             case 'all':
-                filteredData = sortedData.slice(0, itemCount.length
-                    );; // Assuming 'data' is your original data array
+                filteredData = sortedData.slice(0, itemCount.length); // Assuming 'data' is your original data array
                 break;
             case 'top10':
                 filteredData = sortedData.slice(0, 10); // Get the first 10 items
@@ -133,7 +149,7 @@ function Inquire() {
                 filteredData = sortedData.slice(0, 20); // Get the first 20 items
                 break;
             default:
-                filteredData = sortedData; // Default to showing all
+                filteredData = sortedData.slice(0, 10); // Default to showing all
         }
     
         updateDisplay(filteredData);
@@ -158,36 +174,40 @@ function Inquire() {
         //         const maxRelevance = Math.max(...filteredData.map(item => item.relevance));
 
 
-                // Function to calculate color based on relevance
-                const getColorForRelevance = (relevance) => {
-                    if (relevance >= 0.55) {
-                        return "rgb(0, 225, 0)"; // Green
-                    } else if (relevance >= 0.5 && relevance < 0.55) {
-                        return "rgb(255, 225, 0)"; // Yellow
-                    } else {
-                        return "rgb(255, 0, 0)"; // Red
-                    }
-                };
+        // Function to calculate color based on relevance
+        const getColorForRelevance = (relevance) => {
+            if (relevance >= 0.55) {
+                return "rgb(0, 225, 0)"; // Green
+            } else if (relevance >= 0.5 && relevance < 0.55) {
+                return "rgb(255, 225, 0)"; // Yellow
+            } else {
+                return "rgb(255, 0, 0)"; // Red
+            }
+        };
 
         let supportData = [];
         let referenceData = [];
         let relevanceDisplay = [];
 
-                filteredData.forEach((item, index) => {
-                    let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
-                    const color = getColorForRelevance(item.relevance);
-                    const relevanceStyle = {
-                        backgroundColor: color
-                    };
+        filteredData.forEach((item, index) => {
+            let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+            const color = getColorForRelevance(item.relevance);
+            const relevanceStyle = {
+                backgroundColor: color
+            };
                     
-                    supportData.push({ content: item.paragraph, className });
-                    referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-                    relevanceDisplay.push({ style: relevanceStyle, className });
-                });
+            supportData.push({ content: item.paragraph, className });
+            
+            // const linkDisplayName = formatUrlDisplayName(item.article_url);
+            
+            referenceData.push({ title: item.title, url: item.article_url, className });
+            
+            relevanceDisplay.push({ style: relevanceStyle, className });
+        });
 
-                setSupportEvidence(supportData);
-                setReferenceSources(referenceData);
-                setRelevanceDisplay(relevanceDisplay);
+        setSupportEvidence(supportData);
+        setReferenceSources(referenceData);
+        setRelevanceDisplay(relevanceDisplay);
     };
     
 
@@ -220,20 +240,11 @@ function Inquire() {
 
                 console.log(data);
 
-                const minRelevance = Math.min(...data.map(item => item.relevance));
-                const maxRelevance = Math.max(...data.map(item => item.relevance));
+                // const minRelevance = Math.min(...data.map(item => item.relevance));
+                // const maxRelevance = Math.max(...data.map(item => item.relevance));
 
 
-                // Function to calculate color based on relevance
-                const getColorForRelevance = (relevance) => {
-                    const ratio = (relevance - minRelevance) / (maxRelevance - minRelevance);
-                    // Convert ratio to a color between yellow and green
-                    const greenIntensity = Math.floor(255 * ratio);
-                    const yellowIntensity = 255 - greenIntensity;
-                    const green = 225;
-                    return `rgb(${yellowIntensity}, ${green}, 0)`;
-                };
-                
+               
                
                 setJsonData(data);
                 setItemCount(data)
@@ -247,27 +258,7 @@ function Inquire() {
                 finalTexts = texts.join("\n");
                 console.log("context", finalTexts )
 
-                let supportData = [];
-                let referenceData = [];
-                let relevanceDisplay = [];
-
-                data.forEach((item, index) => {
-                    let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
-                    
-                    const color = getColorForRelevance(item.relevance);
-                    const relevanceStyle = {
-                        backgroundColor: color
-                    };
-
-                    supportData.push({ content: item.paragraph, className });
-                    referenceData.push({ content: `${item.title} - ${item.article_url}`, className });
-                    relevanceDisplay.push({ style: relevanceStyle, className });
-                });
-               
-
-                setSupportEvidence(supportData);
-                setReferenceSources(referenceData);
-                setRelevanceDisplay(relevanceDisplay);
+                filterData('all');
 
                 
                 callOpenAI(textareaValue, finalTexts);
@@ -295,27 +286,39 @@ function Inquire() {
 
 
     /******************************************** Open AI calls *******************************************************************/
-    // function formatAnswerText(rawText) {
-    //     // Highlight dates (simple patterns, customize as needed)
-    //     let formattedText = rawText.replace(/(\d{2}\/\d{2}\/\d{4})/g, '<span class="highlight-date">$1</span>');
-        
-    //     // Highlight percentages
-    //     formattedText = formattedText.replace(/(\d+%)/g, '<span class="highlight-percentage">$1</span>');
-        
-    //     // More patterns can be added here
+    const inputPrompt = `You are tasked with providing a detailed answer or summary to a specific question or input using only the evidence provided. Your response should be structured and professional, resembling the work of a consultant. Below are the steps you should follow to accomplish this task effectively:
+
+    1. Read the QUESTION carefully. Understand what is being asked, but do not reiterate the question in your answer. Keep your response natural and direct.
     
-    //     return ReactHtmlParser(formattedText); // Safely convert string to HTML
-    // }
+    2. Examine the EVIDENCE provided. This is the only information you can use to construct your answer. Do not add any details from outside sources.
+    
+    3. Begin formulating your response by considering the following structure:
+       - Introduction: Briefly introduce the topic or issue at hand without restating the QUESTION.
+       - Analysis: Dive into the EVIDENCE, quoting relevant dates, percentages, or formulas to support your analysis. For example, if the EVIDENCE mentions "the company's revenue grew by 20% in 2020," directly quote this in your analysis.
+       - Opinion: Based on the EVIDENCE, share your professional opinion on the matter. Ensure your opinion is supported by the data or details found in the EVIDENCE.
+       - Conclusion: Draw a conclusion that wraps up your analysis and opinion, providing a clear answer or summary to the QUESTION.
+    
+    4. Structure your answer with bullet points or numbered lists to make it easy to follow. Your response should be long and detailed, reflecting a thorough examination of the EVIDENCE.
+    
+    5. Remember, your goal is to present the information like a professional consultant. This means your answer should be well-organized, insightful, and supported by the EVIDENCE.
+    
+    6. Make the answer long.
+    
+    
+    Remember, do not add any information not found in the EVIDENCE, and maintain a professional tone throughout your response, and follow all the steps provided above consistently.`;
     
     
     /* systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below. Use the following text without adding any additional details.`;
-    `Provide an answer to the question, like you are an expert. If specific details are not available, infer general conclusions based on the context without explicitly mentioning it in your response. Include numerical data and specific figures when relevant and available. Do not add information beyond what is given, and avoid referencing the context directly in your answer.`*/
+    `Provide an answer to the question, like you are an expert. If specific details are not available, infer general conclusions based on the context without explicitly mentioning it in your response. Include numerical data and specific figures when relevant and available. Do not add information beyond what is given, and avoid referencing the context directly in your answer.`
+    systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the Evidence below, do not reiterate the question in the answer keep it natural Add you opinion on the questions supported by the Evidence and draw conclusions. Use the following Evidence without adding any additional details, if you see any dates, percentages or formula, quote them in the response and present it like a professional, make it structured with bullet points or numbered list and long.`;*/
+    
+    
     const callOpenAI = async (question, finalTexts) => {
 
-        setAnswerText(""); // Clears the answer text box content
+        setAnswerText("Loading ..."); // Clears the answer text box content
         
-        const systemPrompt = `Answer the following input/question with either a detailed direct answer to the question/input or a detailed summary using the context below, Add you opinion on the questions supported by evidence and draw conclusions. Use the following text without adding any additional details, if you see any dates, percentages or formula, quote them in the response and present it like a professional, make it structured with bullet points or numbered list and long.`;
-        const userPrompt = `Question/Input: ${question}\nContext: ${finalTexts}`;
+        const systemPrompt = inputPrompt;
+        const userPrompt = `Question/Input: ${question}\nEvidence: ${finalTexts}`;
     
         const prompt = [
             { "role": "system", "content": systemPrompt },
@@ -347,6 +350,7 @@ function Inquire() {
 
             const data = await response.json();
             setAnswerText(data.choices[0].message.content); // Update the answer state
+            console.log(data.choices[0].message.content)
         } catch (error) {
             console.error("Error calling OpenAI API:", error);
             // Optionally, set answerText to a default error message
@@ -542,15 +546,9 @@ function Inquire() {
                     }}
                     >
                             {answerText.split('\n\n').map((paragraph, index) => {
-                                if (paragraph.startsWith('```')) { // Check for code block
-                                    const code = paragraph.slice(3, -3); // Remove backticks
-                                    return <pre key={index}><code>{code}</code></pre>;
-                                } else if (paragraph.includes('- ')) { // Check for list
-                                    const items = paragraph.split('\n').map((item, idx) => <li key={idx}>{item.slice(2)}</li>); // Remove '- '
-                                    return <ul key={index}>{items}</ul>;
-                                } else { // Default to paragraph
+                                
                                     return <p key={index}>{paragraph}</p>;
-                                }
+                               
                             })}
                     </p>
                 </div>
@@ -600,7 +598,9 @@ function Inquire() {
                         </div>
                         {referenceSources.map((item, index) => (
                             <div key={index} className={`support-text-content ${item.className}`}>
-                                {item.content}
+                                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                                    {item.title} - {formatUrlDisplayName(item.url)}
+                                </a>
                             </div>
                         ))}
                     </div>
