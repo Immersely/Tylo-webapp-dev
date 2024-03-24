@@ -258,14 +258,62 @@ function Inquire() {
                 finalTexts = texts.join("\n");
                 console.log("context", finalTexts )
 
-                filterData('all');
 
+                const sortedData = data.sort((a, b) => b.relevance - a.relevance);
+                const filteredData = sortedData.slice(0, data.length);
+                updateDisplay(filteredData);
+
+                 // Clear existing data
+                // setSupportEvidence([]);
+                // setReferenceSources([]);
+
+                // // const minRelevance = Math.min(...filteredData.map(item => item.relevance));
+                // //         const maxRelevance = Math.max(...filteredData.map(item => item.relevance));
+
+
+                // // Function to calculate color based on relevance
+                // const getColorForRelevance = (relevance) => {
+                //     if (relevance >= 0.55) {
+                //         return "rgb(0, 225, 0)"; // Green
+                //     } else if (relevance >= 0.5 && relevance < 0.55) {
+                //         return "rgb(255, 225, 0)"; // Yellow
+                //     } else {
+                //         return "rgb(255, 0, 0)"; // Red
+                //     }
+                // };
+
+                // let supportData = [];
+                // let referenceData = [];
+                // let relevanceDisplay = [];
+
+                // filteredData.forEach((item, index) => {
+                //     let className = index % 2 === 0 ? 'support-frame-94' : 'support-frame-135-b';
+                //     const color = getColorForRelevance(item.relevance);
+                //     const relevanceStyle = {
+                //         backgroundColor: color
+                //     };
+                            
+                //     supportData.push({ content: item.paragraph, className });
+                    
+                //     // const linkDisplayName = formatUrlDisplayName(item.article_url);
+                    
+                //     referenceData.push({ title: item.title, url: item.article_url, className });
+                    
+                //     relevanceDisplay.push({ style: relevanceStyle, className });
+                // });
+
+                
+                
                 
                 callOpenAI(textareaValue, finalTexts);
                 // setJsonData([]);
                 finalTexts = "";
                 setJsonData([]);
                 setIsRequesting(false);
+
+                // setSupportEvidence(supportData);
+                // setReferenceSources(referenceData);
+                // setRelevanceDisplay(relevanceDisplay);
 
                 // setAnswerText('output here'); // Update the answer text
             })

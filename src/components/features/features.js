@@ -23,10 +23,21 @@ function Features() {
 
     const navigate = useNavigate();
     const [showInstructions, setShowInstructions] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
     // const { data, error } = supabase
     // .from('publishers')
     // .select('publisher_id')
     // console.log('the publisher is', data)
+
+    const closeModal = (e) => {
+        // Ensure that it's the backdrop that's being clicked, not the modal content
+        if (e.target.classList.contains('modal-backdrop')) {
+            setShowModal(false);
+        }
+    };
 
     useEffect(() => {
 
@@ -93,6 +104,26 @@ function Features() {
           });
       };
 
+      const handleSignUp = () => {
+        axios.post('https://tylo-backend.azurewebsites.net/api/v1/signup', {
+            email: email,
+            password: password, // Ensure your backend endpoint is secure and handles password encryption.
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            console.log('Signup successful', response.data);
+            localStorage.setItem('token', response.data.token);
+            // Additional logic upon successful sign-up, such as redirecting the user
+            navigate('/features');
+        }).catch((error) => {
+            console.error('Signup error', error);
+            // Handle sign-up errors, e.g., display an error message
+        });
+    };
+    
+
     console.log('Feature component about to render JSX');
     return (
         <div className="feature-page">
@@ -107,8 +138,33 @@ function Features() {
                             <a href="/#about" className="top-bar-text">About</a> {/* Link to the About page */}
                         </div>
                     </div>
-                    <div className="login-button" onClick={handleSignInClick}>
-                        <span className="login-text" >Login / Signup</span>
+                    <div className="login-button" >
+                        <span className="login-text" onClick={() => setShowModal(true)}>Login / Signup</span>
+                        {showModal && (
+                            <div className="modal-backdrop" onClick={closeModal}>
+                                <div className="signin-form-modal">
+                                    <div className="signin-header">Sign In</div>
+                                    <div className="signin-text">Don’t have an account?</div>
+                                    <div className="google-signin" onClick={handleSignInClick}>Continue with Google</div>
+                                    <div className="or-frame">
+                                        <div className="or-rec"></div>
+                                        <div className="or-text">or</div>
+                                        <div className="or-rec"></div>
+                                    </div>
+                                    <div className="email-container">
+                                        <label htmlFor="email">Email</label>
+                                        <input id="email" type="email" value={email}  className="text-bar" onChange={(e) => setEmail(e.target.value)}/>
+                                    </div>
+                                    <div className="password-container">
+                                        <label htmlFor="password">Password</label>
+                                        <input id="password" type="password" value={password} className="text-bar" onChange={(e) => setPassword(e.target.value)}/>
+                                    </div>
+                                    <button className="signin-button">
+                                        <span className="signin-button-text" onClick={handleSignUp} >Sign In</span>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -126,7 +182,7 @@ function Features() {
                 </div>
             </div>
           </div>
-          <div className="feature-page-1">
+          <div className="feature-page-2">
             <div className="Inquire_feature-frame-108">
                 <h2 className="inquire-header">Inquire Anything</h2>
                 <div className="inquire-frame-95">

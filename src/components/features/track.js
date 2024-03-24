@@ -110,6 +110,9 @@ function Track() {
     /*********************************************************************************** */
   
 
+    const navigateToFeatures = () => {
+        navigate('/features'); // Navigate to /#features
+    };
 
     useEffect(() => {
         // Load the Google API client library
@@ -225,6 +228,174 @@ function Track() {
 
     /******************************************** Open AI calls *******************************************************************/
     const trackerOpenAI = async (Callprompt, finalTexts) => {
+  
+        const systemPrompt = `Answer the following prompt using the context given `;
+        const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
+    
+        const prompt = [
+            { "role": "system", "content": systemPrompt },
+            { "role": "user", "content": userPrompt }
+        ];
+    
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${combined}` 
+                    // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo-16k",
+                    messages: prompt,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("Error calling OpenAI API:", error);
+            return null;
+            
+        }
+    }
+
+    const trackerOpenAI_1 = async (Callprompt, finalTexts) => {
+  
+        const systemPrompt = `Answer the following prompt using the context given `;
+        const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
+    
+        const prompt = [
+            { "role": "system", "content": systemPrompt },
+            { "role": "user", "content": userPrompt }
+        ];
+    
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${combined}` 
+                    // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo-16k",
+                    messages: prompt,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("Error calling OpenAI API:", error);
+            return null;
+            
+        }
+    }
+
+    const trackerOpenAI_2 = async (Callprompt, finalTexts) => {
+  
+        const systemPrompt = `Answer the following prompt using the context given `;
+        const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
+    
+        const prompt = [
+            { "role": "system", "content": systemPrompt },
+            { "role": "user", "content": userPrompt }
+        ];
+    
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${combined}` 
+                    // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo-16k",
+                    messages: prompt,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("Error calling OpenAI API:", error);
+            return null;
+            
+        }
+    }
+
+    const trackerOpenAI_3 = async (Callprompt, finalTexts) => {
+  
+        const systemPrompt = `Answer the following prompt using the context given `;
+        const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
+    
+        const prompt = [
+            { "role": "system", "content": systemPrompt },
+            { "role": "user", "content": userPrompt }
+        ];
+    
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${combined}` 
+                    // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo-16k",
+                    messages: prompt,
+                    temperature: 0.7,
+                    max_tokens: 4096,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("Error calling OpenAI API:", error);
+            return null;
+            
+        }
+    }
+
+    const trackerOpenAI_4 = async (Callprompt, finalTexts) => {
   
         const systemPrompt = `Answer the following prompt using the context given `;
         const userPrompt = `Prompt: ${Callprompt} \nContext: ${finalTexts}`;
@@ -536,7 +707,7 @@ function Track() {
                 };
 
                 // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                const summaryData = await trackerOpenAI('Present a use case and be direct and confident like an professional on', details.paragraph);
+                const summaryData = await trackerOpenAI_1('Present a use case and be direct and confident like an professional on', details.paragraph);
                 setTitleUseCase(details.title);
                 // Update state with the returned data
                 if (summaryData) {
@@ -632,7 +803,7 @@ function Track() {
                     };
 
                     // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                    const summaryData = await trackerOpenAI('Summarise this like a news article', details.full_text);
+                    const summaryData = await trackerOpenAI_2('Summarise this like a news article', details.full_text);
                     setTitleNews(details.title);
                     // Update state with the returned data
                     if (summaryData) {
@@ -712,7 +883,7 @@ function Track() {
                     const extractedText = extractTextForGPT(details.full_text, 16000);
                     console.log('extracted text ', extractedText);
                      // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                    const summaryData = await trackerOpenAI('Present this patent information professionally, add abstract, Introduction, Description of Invention, Key Features, conclusions etc', extractedText);
+                    const summaryData = await trackerOpenAI_3('Present this patent information professionally, add abstract, Introduction, Description of Invention, Key Features, conclusions etc', extractedText);
                     console.log('full text', details.full_text);
                     setTitlePatent(`Patent information on ${currentBody}`);
                     // Update state with the returned data
@@ -784,7 +955,7 @@ function Track() {
                         full_text: highestRelevanceArticle.full_text
                     };
                      // Now call trackerOpenAI asynchronously within the async context of handleResearch
-                    const summaryData = await trackerOpenAI('Present the information on the organisation like an expert', details.title);
+                    const summaryData = await trackerOpenAI_4('Present the information on the organisation like an expert', details.title);
                     setTitleOrganization(`Organization information on ${currentBody}`);
                     // Update state with the returned data
                     if (summaryData) {
@@ -856,7 +1027,7 @@ function Track() {
           <div className="gradient-rectangle">
             <h2 className="feature-title">Spend Less, Innovate More</h2>
             <div className="tab-horizontal-container">
-                <div className="sign-in-disabled" >
+                <div className="sign-in-disabled" onClick={navigateToFeatures} >
                     <a href="/#features" className="sign-in-text-disabled" >Inquire</a>
                 </div>
                 <div className="sign-in" >
@@ -1288,6 +1459,7 @@ function Track() {
                         <div className="track-frame-150">
                             {Array.isArray(savedResearchResults) && savedResearchResults.length > 0 ? (
                                 savedResearchResults.map((result, index) => (
+                                    result && (
                                     <div key={index} className="track-frame-15-card">
                                         <div className="track-frame-42">
                                             <div className="track-frame-207">
@@ -1305,12 +1477,14 @@ function Track() {
                                             </div>
                                         </div>
                                     </div>
+                                    )
                                 ))
                             ) : (
                                 <div></div>
                             )}
                             {Array.isArray(savedUseCaseResults) && savedUseCaseResults.length > 0 ? (
                                 savedUseCaseResults.map((result, index) => (
+                                    result && (
                                     <div key={index} className="track-frame-15-card">
                                         <div className="track-frame-42">
                                             <div className="track-frame-207">
@@ -1328,12 +1502,14 @@ function Track() {
                                             </div>
                                         </div>
                                     </div>
+                                    )
                                 ))
                             ) : (
                                 <div></div>
                             )}
                             {Array.isArray(savedResearcherResults) && savedResearcherResults.length > 0 ? (
                                 savedResearcherResults.map((result, index) => (
+                                    result && (
                                     <div key={index} className="track-frame-15-card">
                                         <div className="track-frame-42">
                                             <div className="track-frame-207">
@@ -1351,6 +1527,7 @@ function Track() {
                                             </div>
                                         </div>
                                     </div>
+                                    )
                                 ))
                             ) : (
                                 <div></div>
@@ -1360,6 +1537,7 @@ function Track() {
                         <div className="track-frame-150">
                             {Array.isArray(savedNewsResults) && savedNewsResults.length > 0 ? (
                                 savedNewsResults.map((result, index) => (
+                                    result && (
                                     <div key={index} className="track-frame-15-card">
                                         <div className="track-frame-42">
                                             <div className="track-frame-207">
@@ -1377,12 +1555,14 @@ function Track() {
                                             </div>
                                         </div>
                                     </div>
+                                    )
                                 ))
                             ) : (
                                 <div></div>
                             )}
                             {Array.isArray(savedPatentResults) && savedPatentResults.length > 0 ? (
                                 savedPatentResults.map((result, index) => (
+                                    result && (
                                     <div key={index} className="track-frame-15-card">
                                         <div className="track-frame-42">
                                             <div className="track-frame-207">
@@ -1400,12 +1580,14 @@ function Track() {
                                             </div>
                                         </div>
                                     </div>
+                                    )
                                 ))
                             ) : (
                                 <div></div>
                             )}
                             {Array.isArray(savedOrgResults) && savedOrgResults.length > 0 ? (
                                 savedOrgResults.map((result, index) => (
+                                    result && (
                                     <div key={index} className="track-frame-15-card">
                                         <div className="track-frame-42">
                                             <div className="track-frame-207">
@@ -1423,6 +1605,7 @@ function Track() {
                                             </div>
                                         </div>
                                     </div>
+                                    )
                                 ))
                             ) : (
                                 <div></div>

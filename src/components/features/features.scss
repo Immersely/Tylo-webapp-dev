@@ -269,13 +269,139 @@
     // padding: 20px; // Adds padding for better readability
   }
 
+  /****** Sign IN ******/
+
+  .modal-backdrop {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #FFFFFF; 
+    // background: var(--background, #FBFBFB);
+    display: flex;
+    align-items: center; /* Align vertical */
+    justify-content: center; /* Align horizontal */
+}
+
+  .signin-form-modal {
+    display: inline-flex;
+    padding: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: var(--rounded-lg, 8px);
+    background: #FFF;
+
+    /* ds */
+    box-shadow: 0px 4px 4px 0px rgba(183, 183, 183, 0.25);
+  }
+
+  .signin-header {
+    color: var(--Secondary, #0D1542);
+    font-family: Inter, sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .signin-text {
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 133.333% */
+    letter-spacing: 0.4px;
+  }
+
+  .google-signin {
+    display: flex;
+    padding: 12px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--25, 10px);
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Line, #EAEAEA);
+    background: var(--background, #FBFBFB);
+  }
+
+  .or-frame {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .or-rec {
+    width: 136.797px;
+    height: 1px;
+    border: 1px solid var(--Line, #EAEAEA);
+    background: #CBD5E1;
+  }
+
+  .or-text {
+    width: 15px;
+    color: var(--Gray, #858585);
+    text-align: center;
+    font-family: Rubik, sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 160% */
+  }
+
+
+  .email-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--15, 6px);
+  }
+  .text-bar {
+    width: 319px;
+    height: 50px;
+  }
+
+  .password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--15, 6px);
+  }
+
+  .signin-button {
+    display: flex;
+    padding: 13px 123px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--25, 10px);
+    border-radius: 10px;
+    background: var(--Primary, #4476F1);
+  }
+
+  .signin-button-text {
+    color: #FFF;
+    text-align: center;
+    font-family: Inter,  sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 133.333% */
+  }
+
 
   /*************************** Inquire ***************************************/
 
   .Inquire_feature-frame-108 {
     display: flex;
     // width: 1680px;
-    width: 70%;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 30px;
@@ -787,21 +913,22 @@
   /**************************************** Track content ************************************************/
   .track-frame-main{
     display: flex;
+    width: 100%;
     // flex-direction: row;
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    align-self: stretch;
+    // align-self: flex-start;
     justify-content: space-between;
   }
 
   .track-frame-mainb{
     display: flex;
+    width: 100%;
     flex-direction: row;
-    // flex-direction: column;
     align-items: center;
     gap: 24px;
-    align-self: stretch;
+    // align-self: stretch;
     justify-content: space-between;
   }
 
