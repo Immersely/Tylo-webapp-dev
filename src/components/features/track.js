@@ -542,9 +542,8 @@ function Track() {
             console.log('Current body',[i], 'is', currentBody )
 
             if (currentBody !== '') { // Only proceed if the body is not empty
-
-                // Reset the count for the selected option before updating
-                if (newSelectionCounts[selectedOption] !== undefined) {
+                 // Reset the count for the selected option before updating
+                 if (newSelectionCounts[selectedOption] !== undefined) {
                     // This will clear previous entries for the category by resetting its count
                     newSelectionCounts[selectedOption] = 0;
                 }
@@ -579,6 +578,7 @@ function Track() {
                         break;
                     // Add more cases if there are more than these types
                 }
+                
             }
         }
     
@@ -1011,7 +1011,7 @@ function Track() {
                 <div className="feature-page-icon">
                     <img src={Tylo_icon} alt="Tylo Icon" className="tylo-icon" />
                     <div className="tabs">
-                        <div className="top-bar-tab">
+                        <div className="top-bar-tab-current_page">
                             <a href="/#features" className="top-bar-text">Features</a> {/* Link to the Features page */}
                         </div>
                         <div className="top-bar-tab">

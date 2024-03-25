@@ -25,7 +25,12 @@ function Features() {
     const [showInstructions, setShowInstructions] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [org, setOrg] = useState('');
+    const [role, setRole] = useState('');
     const [showModal, setShowModal] = useState(false);
+    // const [signUp, setSignUp] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     // const { data, error } = supabase
     // .from('publishers')
@@ -104,6 +109,46 @@ function Features() {
           });
       };
 
+      const handleSignIn = async () => {
+        // Prevent sign-in if email or password fields are empty
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
+    
+        try {
+            // Make a POST request to your sign-in API endpoint
+            const response = await axios.post('https://tylo-backend.azurewebsites.net/api/v1/auth', {
+                email: email,
+                password: password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+    
+            // Assuming your API returns a token on successful authentication
+            if (response.data.token) {
+                console.log('Sign-in successful', response.data);
+                // Save the received token to local storage or context/state management library
+                localStorage.setItem('token', response.data.token);
+                // Optionally save other user info if needed
+                localStorage.setItem('userEmail', email);
+    
+                // Redirect or change UI upon successful sign-in
+                navigate('/features'); // Or any other target location after successful login
+            } else {
+                // Handle no token returned
+                alert('Login failed: No token received');
+            }
+        } catch (error) {
+            console.error('Sign-in error', error);
+            // Display an error message or handle errors (such as wrong credentials)
+            alert('Login failed: ' + (error.response?.data?.error || 'Unknown Error'));
+        }
+    };
+    
+
       const handleSignUp = () => {
         axios.post('https://tylo-backend.azurewebsites.net/api/v1/signup', {
             email: email,
@@ -139,37 +184,73 @@ function Features() {
                         </div>
                     </div>
                     <div className="login-button" >
-                        <span className="login-text" onClick={() => setShowModal(true)}>Login / Signup</span>
-                        {showModal && (
-                            <div className="modal-backdrop" onClick={closeModal}>
-                                <div className="signin-form-modal">
-                                    <div className="signin-header">Sign In</div>
-                                    <div className="signin-text">Don’t have an account?</div>
-                                    <div className="google-signin" onClick={handleSignInClick}>Continue with Google</div>
-                                    <div className="or-frame">
-                                        <div className="or-rec"></div>
-                                        <div className="or-text">or</div>
-                                        <div className="or-rec"></div>
-                                    </div>
-                                    <div className="email-container">
-                                        <label htmlFor="email">Email</label>
-                                        <input id="email" type="email" value={email}  className="text-bar" onChange={(e) => setEmail(e.target.value)}/>
-                                    </div>
-                                    <div className="password-container">
-                                        <label htmlFor="password">Password</label>
-                                        <input id="password" type="password" value={password} className="text-bar" onChange={(e) => setPassword(e.target.value)}/>
-                                    </div>
-                                    <button className="signin-button">
-                                        <span className="signin-button-text" onClick={handleSignUp} >Sign In</span>
-                                    </button>
+                    <span className="login-text" onClick={() => setShowModal(true)}>Login / Signup</span>
+                    {showModal && (
+                        <div className="modal-backdrop" onClick={closeModal}>
+                            <div className="signin-form-modal" onClick={(e) => e.stopPropagation()}>
+                                <div className="signin-header">{isSignUp ? 'Sign Up' : 'Sign In'}</div>
+                                <div className="signin-text">
+                                    {isSignUp ? 'Already have an account? ' : 'Don’t have an account? '}
+                                    <span 
+                                        style={{color: 'blue', textDecoration: 'underline', cursor: 'pointer'}} 
+                                        onClick={() => setIsSignUp(!isSignUp)}
+                                    >
+                                        {isSignUp ? 'Sign In' : 'Sign Up'}
+                                    </span>
                                 </div>
+                                <div className="google-signin" onClick={handleSignInClick}>
+                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '10px' }}>
+                                        <path d="M16.8541 7.53113H16.25V7.5H9.5V10.5H13.7386C13.1203 12.2464 11.4586 13.5 9.5 13.5C7.01487 13.5 5 11.4851 5 9C5 6.51487 7.01487 4.5 9.5 4.5C10.6471 4.5 11.6908 4.93275 12.4854 5.63962L14.6068 3.51825C13.2673 2.26987 11.4755 1.5 9.5 1.5C5.35812 1.5 2 4.85812 2 9C2 13.1419 5.35812 16.5 9.5 16.5C13.6419 16.5 17 13.1419 17 9C17 8.49713 16.9482 8.00625 16.8541 7.53113Z" fill="#FFC107"/>
+                                        <path d="M2.86523 5.50912L5.32936 7.31625C5.99611 5.6655 7.61086 4.5 9.50048 4.5C10.6476 4.5 11.6912 4.93275 12.4859 5.63962L14.6072 3.51825C13.2677 2.26987 11.476 1.5 9.50048 1.5C6.61973 1.5 4.12148 3.12637 2.86523 5.50912Z" fill="#FA1321"/>
+                                        <path d="M9.50012 16.5C11.4374 16.5 13.1976 15.7586 14.5285 14.553L12.2072 12.5888C11.4542 13.1591 10.5182 13.5 9.50012 13.5C7.54937 13.5 5.89299 12.2561 5.26899 10.5203L2.82324 12.4046C4.06449 14.8335 6.58524 16.5 9.50012 16.5Z" fill="#4CAF50"/>
+                                        <path d="M16.8541 7.53113H16.25V7.5H9.5V10.5H13.7386C13.4416 11.3389 12.902 12.0622 12.206 12.5891L12.2071 12.5884L14.5284 14.5526C14.3641 14.7019 17 12.75 17 9C17 8.49713 16.9482 8.00625 16.8541 7.53113Z" fill="#1976D2"/>
+                                    </svg>
+                                    Continue with Google
+                                    </div>
+                                <div className="or-frame">
+                                    <div className="or-rec"></div>
+                                    <div className="or-text">or</div>
+                                    <div className="or-rec"></div>
+                                </div>
+                                <div className="email-container">
+                                    <label htmlFor="email">Email</label>
+                                    <input id="email" type="email" value={email} className="text-bar" onChange={(e) => setEmail(e.target.value)}/>
+                                </div>
+                                <div className="password-container">
+                                    <label htmlFor="password">Password</label>
+                                    <input id="password" type="password" value={password} className="text-bar" onChange={(e) => setPassword(e.target.value)}/>
+                                </div>
+                                {isSignUp && (
+                                    <>
+                                        <div className="password-container">
+                                            <label htmlFor="confirm-password">Confirm Password</label>
+                                            <input id="confirm-password" type="password" value={confirmPassword} className="text-bar" onChange={(e) => setConfirmPassword(e.target.value)}/>
+                                            {password !== confirmPassword && confirmPassword && (
+                                                <div style={{ color: 'red' }}>Passwords do not match</div>
+                                            )}
+                                        </div>
+                                        <div className="email-container">
+                                            <label htmlFor="organisation">Organisation</label>
+                                            <input id="organisation" type="text" value={org} className="text-bar" onChange={(e) => setOrg(e.target.value)}/>
+                                        </div>
+                                        <div className="email-container">
+                                            <label htmlFor="role">Role</label>
+                                            <input id="role" type="text" value={role} className="text-bar" onChange={(e) => setRole(e.target.value)}/>
+                                        </div>
+                                    </>
+                                )}
+                                <button className="signin-button" onClick={isSignUp ? handleSignUp : handleSignIn}>
+                                    <span className="signin-button-text">{isSignUp ? 'Sign Up' : 'Sign In'}</span>
+                                </button>
                             </div>
-                        )}
+                        </div>
+                    )}
+
                     </div>
                 </div>
 
           <div className="gradient-rectangle">
-            <h2 className="feature-title">Spend Less, Innovate More</h2>
+            <h2 className="feature-title">Deeptech Innovation Assistant</h2>
             <p className="feature-content">
                 Sign in to unlock full features
             </p>
@@ -300,7 +381,7 @@ function Features() {
                     </div>
                     <div className="support-frame-95a">
                         <div className="support-frame-135">
-                            <p className="support-text">Reference & sources</p>
+                            <p className="support-text">Reference </p>
                         </div>
                         <div className="support-frame-94"> </div>
                         <div className="support-frame-135-b"></div>
@@ -309,7 +390,7 @@ function Features() {
                         <div className="support-frame-94"> </div>
                         <div className="support-frame-135-b"></div>
                     </div>
-                    <div className="support-frame-95a">
+                    {/* <div className="support-frame-95a">
                         <div className="support-frame-135">
                             <p className="support-text">Short Summary</p>
                         </div>
@@ -319,7 +400,7 @@ function Features() {
                         <div className="support-frame-135-b"></div>
                         <div className="support-frame-94"> </div>
                         <div className="support-frame-135-b"></div>
-                    </div>
+                    </div> */}
                     <div className="support-frame-95a">
                         <div className="support-frame-135">
                             <p className="support-text">Relevance</p>
