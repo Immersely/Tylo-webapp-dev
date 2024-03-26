@@ -38,7 +38,8 @@ function Track() {
         News: 0,
         Researcher: 0,
         Patent: 0,
-        Organization: 0
+        Organization: 0,
+        Collaboration: 0
     });
     const [currentBody1, setCurrentBody1] = useState('');
     const [currentBody2, setCurrentBody2] = useState('');
@@ -46,13 +47,14 @@ function Track() {
     const [currentBody4, setCurrentBody4] = useState('');
     const [currentBody5, setCurrentBody5] = useState('');
     const [currentBody6, setCurrentBody6] = useState('');
+    const [currentBody7, setCurrentBody7] = useState('');
     const [selectedOption1, setSelectedOption1] = useState('Research');
     const [selectedOption2, setSelectedOption2] = useState('Patent');
     const [selectedOption3, setSelectedOption3] = useState('Use case');
     const [selectedOption4, setSelectedOption4] = useState('Researcher');
     const [selectedOption5, setSelectedOption5] = useState('Organization');
     const [selectedOption6, setSelectedOption6] = useState('News');
-
+    const [selectedOption7, setSelectedOption7] = useState('Collaboration');
 
 
     /*********  Tracker stuff ********************/
@@ -76,12 +78,14 @@ function Track() {
     const [bodyOrganization, setBodyOrganization] = useState('Body here');
     const [titlePatent, setTitlePatent] = useState('Title here');
     const [bodyPatent, setBodyPatent] = useState('Body here');
+    const [titleCollab, setTitleCollab] = useState('Title here');
+    const [bodyCollab, setBodyCollab] = useState('Body here');
 
     const [refPatent, setRefPatent] = useState('');
     const [refUseCase, setRefUseCase] = useState('');
     const [refNews, setRefNews] = useState('');
     const [refOrg, setRefOrg] = useState('');
-
+    const [refCollab, setRefCollab] = useState('');
 
     const [showPreviousContent, setShowPreviousContent] = useState(false);
     const [savedResearchResults, setSavedResearchResults] = useState([]);
@@ -90,8 +94,7 @@ function Track() {
     const [savedNewsResults, setSavedNewsResults] = useState([]);
     const [savedPatentResults, setSavedPatentResults] = useState([]);
     const [savedOrgResults, setSavedOrgResults] = useState([]);
-
-
+    const [savedCollabResults, setSavedCollabResults] = useState([]);
 
 
 
@@ -191,6 +194,16 @@ function Track() {
         } else {
             // If there are results, set them into the state
             setSavedOrgResults(loadedOrgResults);
+        }
+        
+      const loadedCollabResults = JSON.parse(localStorage.getItem('collabResults')) || [];
+        if (loadedCollabResults.length === 0) {
+            console.log('No Collab results found.');
+            // Perform any actions you want when there are no results
+            // For example, you might want to set a flag or load default data
+        } else {
+            // If there are results, set them into the state
+            setSavedCollabResults(loadedCollabResults);
         }
         
       }, []);
@@ -492,6 +505,8 @@ function Track() {
 
     /********************************************************************************************************* */
    
+
+    
    
     const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
@@ -519,6 +534,9 @@ function Track() {
             case 6:
                 setSelectedOption6(newValue);
                 break;
+            case 7:
+                setSelectedOption7(newValue);
+                break;
             default:
                 // Handle unexpected option number
                 break;
@@ -531,11 +549,11 @@ function Track() {
         closeModal();
         
         const newSelectionCounts = { ...selectionCounts };
-        const selectedOptions = [selectedOption1, selectedOption2, selectedOption3, selectedOption4, selectedOption5, selectedOption6];
-        const currentBodys = [currentBody1, currentBody2, currentBody3, currentBody4, currentBody5, currentBody6]
+        const selectedOptions = [selectedOption1, selectedOption2, selectedOption3, selectedOption4, selectedOption5, selectedOption6, selectedOption7];
+        const currentBodys = [currentBody1, currentBody2, currentBody3, currentBody4, currentBody5, currentBody6, currentBody7]
         // const newCards = [];
         console.log('selected option is', selectedOption1 )
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < selectedOptions.length; i++){
             const selectedOption = selectedOptions[i];
             const currentBody = currentBodys[i].trim();
             console.log('selected option',[i], 'is', selectedOption )
@@ -569,12 +587,16 @@ function Track() {
                         await handleOrganization(currentBody);
                         newSelectionCounts.Organization += 1;
                         break;
-                    default:
-                        // Fallback logic or handling for unexpected selectedOption values
-                        break;
                     case 'Patent':
                         await handlePatent(currentBody);
                         newSelectionCounts.Patent += 1;
+                        break;
+                    case 'Collaboration':
+                        await handleCollaboration(currentBody);
+                        newSelectionCounts.Collaboration += 1;
+                        break;
+                    default:
+                        // Fallback logic or handling for unexpected selectedOption values
                         break;
                     // Add more cases if there are more than these types
                 }
@@ -594,7 +616,7 @@ function Track() {
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
-        let apiUrl = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedQuery}`;
+        let apiUrl = `https://archive.tylo.ai/google_query/google?question=${encodedQuery}`;
 
         try {
             // Await the response directly within the async function
@@ -610,7 +632,7 @@ function Track() {
 
                 // Map over these articles to create a structured summary request
                 const summaries = await Promise.all(topArticles.map((article, index) => 
-                    trackerOpenAI(`Summarize this like an expert`, article.paragraph).then(summary => 
+                    trackerOpenAI(`Summarize this like an expert, dont make mention of Google scholar`, article.full_text).then(summary => 
                         ({ 
                             title: article.title, 
                             summary, 
@@ -683,7 +705,7 @@ function Track() {
         let encodedQuery = encodeURIComponent(fullQuery);
 
         // Construct the URL with the query
-        let apiUrl = `https://archive.tylo.ai/query_arxiv/arxiv?question=${encodedQuery}`;
+        let apiUrl = `https://archive.tylo.ai/google_scholar/google?question=${encodedQuery}`;
 
         try {
             // Await the response directly within the async function
@@ -998,6 +1020,78 @@ function Track() {
         }
     }
 
+    const handleCollaboration = async (currentBody) => {
+
+        let fullQuery = `Recent collaborations with ${currentBody}`;
+        let encodedQuery = encodeURIComponent(fullQuery);
+        let apiUrl = `https://archive.tylo.ai/google_org/google?question=${encodedQuery}`;
+       
+        try {
+            // Await the response directly within the async function
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
+            const articles = await response.json();
+            if (articles && articles.length > 0) {
+                const filteredArticles = articles.filter(article => article.id.startsWith('collab'));
+                // Find the article with the highest relevance
+                if (filteredArticles.length > 0) {
+                    // Find the article with the highest relevance from the filtered list
+                    let highestRelevanceArticle = filteredArticles.reduce((max, article) => max.relevance > article.relevance ? max : article, filteredArticles[0]);
+            
+                    // Extract and use the necessary details from the article
+                    const details = {
+                        title: highestRelevanceArticle.title,
+                        id: highestRelevanceArticle.id,
+                        articleUrl: highestRelevanceArticle.article_url,
+                        full_text: highestRelevanceArticle.full_text
+                    };
+                     // Now call trackerOpenAI asynchronously within the async context of handleResearch
+                    const summaryData = await trackerOpenAI_4('Present the information on the Collaborations like an expert', details.title);
+                    setTitleCollab(`Collaboration information on ${currentBody}`);
+                    // Update state with the returned data
+                    if (summaryData) {
+                        const fullText = summaryData; // Full text from OpenAI
+                        setBodyCollab(fullText); // Update state with the full text
+                        setRefCollab(details.articleUrl)
+
+
+                        //saver
+                        let existingResults = JSON.parse(localStorage.getItem('collabResults'));
+                                    
+                        if (!Array.isArray(existingResults) && typeof existingResults === 'object') {
+                            console.log('Correcting the structure of existingResults');
+                            existingResults = [existingResults]; // Make it an array containing the existing object
+                        } else if (!existingResults) {
+                            // If existingResults is neither an array nor an object (e.g., null or undefined)
+                            existingResults = [];
+                        }
+
+                        existingResults.push({
+                            title: `Recent collaborations with ${currentBody}`,
+                            body: summaryData,
+                            date: new Date().toISOString(), // Save the current date and time for each entry
+                            ref: details.articleUrl
+                        });
+
+                        localStorage.setItem('collabResults', JSON.stringify(existingResults));
+
+
+                    } else {
+                        console.error("OpenAI response is empty or not in the expected format");
+                    }
+                } else {
+                    console.log('No articles found with ID starting with "collab"');
+                    // Handle the case where no articles meet the condition, if necessary
+                } 
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+
     /************************************ Saving cards ***************************************/
    
     
@@ -1130,6 +1224,9 @@ function Track() {
                         <div className="item-container-136">
                             <h2 className="item-font-sections">06</h2>
                         </div>
+                        <div className="item-container-136">
+                            <h2 className="item-font-sections">07</h2>
+                        </div>
                     </div>
                     <div className="item-container-100">
                         <div className="tracker-135">
@@ -1147,6 +1244,7 @@ function Track() {
                                 <option value="Researcher">Researcher</option>
                                 <option value="Organization">Organization</option>
                                 <option value="News">News</option>
+                                <option value="Collaboration">Collaboration</option>
                             </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
@@ -1168,6 +1266,7 @@ function Track() {
                                 <option value="Researcher">Researcher</option>
                                 <option value="Organization">Organization</option>
                                 <option value="News">News</option>
+                                <option value="Collaboration">Collaboration</option>
                             </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
@@ -1186,10 +1285,10 @@ function Track() {
                                 <option value="Use Case">Use Case</option>
                                 <option value="Research">Research</option>
                                 <option value="Patent">Patent</option>
-                                
                                 <option value="Researcher">Researcher</option>
                                 <option value="Organization">Organization</option>
                                 <option value="News">News</option>
+                                <option value="Collaboration">Collaboration</option>
                             </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
@@ -1212,6 +1311,7 @@ function Track() {
                                 
                                 <option value="Organization">Organization</option>
                                 <option value="News">News</option>
+                                <option value="Collaboration">Collaboration</option>
                             </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
@@ -1234,6 +1334,7 @@ function Track() {
                                 <option value="Researcher">Researcher</option>
                                 
                                 <option value="News">News</option>
+                                <option value="Collaboration">Collaboration</option>
                             </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
@@ -1255,7 +1356,7 @@ function Track() {
                                 <option value="Use Case">Use Case</option>
                                 <option value="Researcher">Researcher</option>
                                 <option value="Organization">Organization</option>
-                                
+                                <option value="Collaboration">Collaboration</option>
                             </select>
                             <span className="tracker-font-of">Of</span>
                                 <input 
@@ -1265,10 +1366,38 @@ function Track() {
                                     onChange={(e) => setCurrentBody6(e.target.value)}
                                 />
                         </div>
+                        <div className="tracker-142">
+                            <select 
+                                className="tracker-96"
+                                value={selectedOption7}
+                                onChange={(e) => handleSelectionChange(7, e)}
+                            >
+                                <option value="Collaboration">Collaboration</option>
+                                <option value="News">News</option>
+                                <option value="Research">Research</option>
+                                <option value="Patent">Patent</option>
+                                <option value="Use Case">Use Case</option>
+                                <option value="Researcher">Researcher</option>
+                                <option value="Organization">Organization</option>
+                                
+                            </select>
+                            <span className="tracker-font-of">Of</span>
+                                <input 
+                                    type="text"
+                                    className="tracker-94"
+                                    value={currentBody7}
+                                    onChange={(e) => setCurrentBody7(e.target.value)}
+                                />
+                        </div>
                     </div>
                     <div className="item-container-98">
                         <div className="frequency-135">
-                            <h2 className="item-font">Frequency</h2>
+                            <h2 className="item-font">Frequency* (soon)</h2>
+                        </div>
+                        <div className="frequency-136">
+                            <div className="frequency-96">
+                                <h2 className="tracker-font">Weekly</h2>
+                            </div>
                         </div>
                         <div className="frequency-136">
                             <div className="frequency-96">
@@ -1315,7 +1444,8 @@ function Track() {
                 <div className="vector-68"></div>
                 <div className="track-frame-150">
                     {Array.from({ length: selectionCounts.Research }).map((_, index) => (
-                                <div key={index} className="track-frame-15-card">
+                                <div key={index} className="track-frame-15-card" 
+                                >
                                     <div className="track-frame-42"> 
                                         <div className="track-frame-207">
                                             <div className="track-frame-43">
@@ -1433,6 +1563,26 @@ function Track() {
                                 <section className="track-body-font">
                                     {bodyOrganization}
                                     <span className="track-ref-font"> ({refOrg})</span>
+                                </section>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    ))}
+                    {Array.from({ length: selectionCounts.Collaboration }).map((_, index) => (
+                    <div key={index} className="track-frame-15-card">
+                        <div className="track-frame-42"> 
+                            <div className="track-frame-207">
+                                <div className="track-frame-43">
+                                    <h2 className="track-text-header">Collaboration</h2>
+                                </div>
+                                <h2 className="track-text-date">{formatDate(new Date())}</h2>
+                            </div>
+                            <h2 className="track-title-font">{titleCollab}</h2>
+                            <div className="track-body">
+                                <section className="track-body-font">
+                                    {bodyCollab}
+                                    <span className="track-ref-font"> ({refCollab})</span>
                                 </section>
                             </div>
                             
@@ -1593,6 +1743,31 @@ function Track() {
                                             <div className="track-frame-207">
                                                 <div className="track-frame-43">
                                                     <h2 className="track-text-header">Organization</h2>
+                                                </div>
+                                                <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
+                                            </div>
+                                            <h2 className="track-title-font">{result.title}</h2>
+                                            <div className="track-body">
+                                                <section className="track-body-font">
+                                                    {result.body}
+                                                    <span className="track-ref-font"> ({result.ref})</span>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    )
+                                ))
+                            ) : (
+                                <div></div>
+                            )}
+                            {Array.isArray(savedCollabResults) && savedCollabResults.length > 0 ? (
+                                savedCollabResults.map((result, index) => (
+                                    result && (
+                                    <div key={index} className="track-frame-15-card">
+                                        <div className="track-frame-42">
+                                            <div className="track-frame-207">
+                                                <div className="track-frame-43">
+                                                    <h2 className="track-text-header">Collaboration</h2>
                                                 </div>
                                                 <h2 className="track-text-date">{formatDate(new Date(result.date))}</h2>
                                             </div>

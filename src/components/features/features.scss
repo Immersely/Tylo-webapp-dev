@@ -1001,7 +1001,7 @@
     border-radius: 20px;
     background: var(--white, #FFF);
     box-shadow: 0px 4px 4px 0px rgba(198, 198, 198, 0.25);
-    
+    cursor: pointer; /* Makes it clear the card is clickable */
   }
 
   
@@ -1145,6 +1145,11 @@
   .track-frame-15-card:hover .track-body {
     max-height: 500px; /* Adjust based on the maximum content size expected */
 }
+
+.expanded {
+  max-height: 500px; /* Adjust based on the maximum content size expected */
+}
+
 
   .view-more-button {
     background-color: transparent;
