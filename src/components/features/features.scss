@@ -440,8 +440,10 @@
   }
 /***************************** Instructions *******************/
   .helper-container {
+    // flex: 1 0 0;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: var(--25, 10px);
     align-self: stretch;
@@ -1496,4 +1498,107 @@
     border: 1.4px solid var(--Line, #EAEAEA);
     background: var(--background, #FBFBFB);
     cursor: pointer;
+  }
+
+  /**************************************** Footer *****************************/
+  .comment {
+    display: flex;
+    width: 100%;
+    padding: 50px 120px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background: linear-gradient(90deg, rgba(98, 236, 246, 0.10) 0.03%, rgba(67, 122, 239, 0.10) 100.21%);
+  }
+
+  .comment-container {
+    display: flex;
+    align-items: center;
+    gap: var(--25, 10px);
+    align-self: stretch;
+  }
+
+  .comment-text {
+    flex: 1 0 0;
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .message-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+  }
+
+  .message-header {
+    align-self: stretch;
+    color: var(--Secondary, #0D1542);
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .message-box {
+    display: flex;
+    height: 202px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 0.5px solid var(--Gray, #858585);
+    background: #FBFBFB;
+  }
+
+  .submit-button {
+    display: flex;
+    width: 324.568px;
+    height: 70.834px;
+    padding: 10.572px;
+    justify-content: center;
+    align-items: center;
+    gap: 10.572px;
+    border-radius: 10.572px;
+background: var(--Primary, #4476F1);
+  }
+
+  .contact-text-combined {
+    align-self: stretch;
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: Inter;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.contact-email {
+    color: var(--Primary, #4476F1);
+    text-decoration-line: underline;
+}
+
+  .all-rights {
+    display: flex;
+    width: 1920px;
+    padding: 30px 120px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid var(--Line, #EAEAEA);
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);
   }

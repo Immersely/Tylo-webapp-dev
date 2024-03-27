@@ -1793,6 +1793,27 @@ function Track() {
             </div>
             
           </div>
+
+          <div className="comment">
+            <div className="comment-container">
+                <div className="comment-text">Leave a comment</div>
+            </div>
+            <div className="message-frame">
+                <div className="message-header">Message *</div>
+                <div className="message-box"></div>
+            </div>
+            <div className="submit-button">
+                <div className="feature-text-active">Submit</div>
+            </div>
+            <div className="contact-text-combined">
+                Or reach out to us at  
+                <span className="contact-email"> contact@tylo.ai</span>
+            </div>
+
+          </div>
+          <div className="all-rights"></div>
+
+
         </div>
     );
 }

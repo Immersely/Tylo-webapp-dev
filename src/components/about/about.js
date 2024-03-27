@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import Tylo_icon from "../../assets/images/Tylo_logo.svg";
 import Dropdown_open from "../../assets/images/Dropdown_open.svg" ;
 import Dropdown_closed from "../../assets/images/Dropdown_closed.svg";
+// import Tracker_close from "../../assets/images/tracker-close.svg";
+import Tracker from "../../assets/images/Customize your tracker.PNG";
+import forYou from "../../assets/images/For_You.PNG";
 import "../about/about.scss";
 // import { gapi } from "gapi-script";
 // import axios from "axios";
@@ -10,15 +13,12 @@ import "../about/about.scss";
 import {useNavigate } from "react-router-dom";
 
 const faqData = [
-    { question: "1. What is Tylo AI?", answer: "Tylo AI is a venture capital-backed start-up specializing in providing highly personalized deep-tech ideas and solutions for enterprise innovation and research and development (R&D) teams." },
-    { question: "2. How does Tylo AI work?", answer: "Tylo AI operates using a solution engine that continually learns the users' interests. This engine is powered by the next generation of knowledge graph and artificial intelligence (AI) technology, extracting deep connected insights from academic research and patents." },
-    { question: "3. What sets Tylo AI apart from other innovation platforms?", answer: "Tylo AI stands out through its focus on deep-tech solutions and its personalized approach. The use of advanced knowledge graph and AI technology allows for the extraction of highly relevant and connected insights from academic research and patents." },
-    { question: "4. How does Tylo AI personalize its recommendations?", answer: "Tylo AI's solution engine learns from users' preferences over time, adapting and refining recommendations based on their specific interests and needs. This ensures that the solutions provided are tailored to each user's unique requirements." },
-    { question: "5. Who benefits from Tylo AI's services?", answer: "Tylo AI caters to enterprise innovation and R&D teams. Companies looking for cutting-edge deep-tech solutions and ideas to enhance their innovation processes can benefit from Tylo AI's personalized recommendations." },
-    { question: "6. What type of technology powers Tylo AI's solution engine?", answer: "Tylo AI's solution engine is powered by the next generation of knowledge graph and AI technology. This sophisticated technology enables the extraction of deep connected insights from academic research and patents, forming the basis for personalized recommendations." },
-    { question: "7. Is Tylo AI only for large enterprises, or can small businesses benefit as well?", answer: "While Tylo AI is designed to serve enterprise-level innovation and R&D teams, small businesses with a focus on deep-tech solutions can also find value in the personalized recommendations provided by Tylo AI." },
-    { question: "8. How secure is the information processed by Tylo AI?", answer: "Tylo AI prioritizes the security of user information and follows industry best practices to safeguard data. The platform complies with relevant data protection and privacy regulations to ensure the confidentiality and integrity of user data." },
-    { question: "9. Can Tylo AI integrate with existing innovation and R&D workflows?", answer: "Yes, Tylo AI is designed to seamlessly integrate with existing innovation and R&D workflows. This ensures a smooth incorporation of personalized deep-tech ideas and solutions into the user's existing processes." },
+    { question: "1. How Tylo Is Different From Google Scholar and Other Paper/Patent Search Databases?", answer: "Tylo is an information curation platform. We utilise natural language processing (NLP) algorithms to analyse both the full text and metadata of literature, creating a deep-linked knowledge graph rather than just a collection of papers and patents." },
+    { question: "2. How Tylo Is Different From Other AI Research Tools?", answer: "Tylo is an innovation made simple. Our business-focused innovation tool translates technical dragons into plain English, making it easy for anyone to use, regardless of their background." },
+    { question: "3. How Is Tylo Different From GPTs?", answer: "Unlike large language models (LLMs) such as GPTs, Tylo does not rely on complex algorithms that generate unpredictable results. Instead, we curate information based on clear, verifiable evidence stored in our comprehensive knowledge graph." },
+    { question: "4. How Accurate Are the Answers in Tylo?", answer: "Tylo aims for high accuracy, but like any AI, there's a margin for error. While we achieve a solid 99% success rate*, we encourage you to double-check information. That's why we promote transparency by providing source references for all information. This open approach empowers you to verify and trust the information, ultimately shaping your decisions with confidence. *estimated from internal tests, that inquire and tracker function is able to return very reasonable responses to 99% input." },
+    { question: "5. What Is Tylo Not a Good Fit For?", answer: "Tylo shines in the academic world, expertly navigating research papers, patents, and a few other high-credential online resources. But for casual questions or topics especially for short or general questions, it might not be your best bet." },
+    { question: "6. What Are Credits?", answer: "We use a credit system, each inquiry or item in your personalised newsfeed costs one credit. Sign up to get 500 free credits. Once your credits run out, consider a paid plan for unlimited access." },
     // ... add other FAQs here
   ];
 
@@ -57,6 +57,12 @@ function About() {
     //     };
     //     document.body.appendChild(script);
     //   }, []);
+
+    const [activeFeature, setActiveFeature] = useState('Inquire');
+
+    const handleFeatureClick = (feature) => {
+        setActiveFeature(feature);
+    };
 
     const navigate = useNavigate();
     const handleFeaturesClick = () => {
@@ -139,11 +145,153 @@ function About() {
                         </div>
                     </div>
                 </div>
+                <h2 className="key-data-text">Key Data Points</h2>
+                <div className="about-vision">
+                    <div className="key-data">
+                        <svg width="98" height="99" viewBox="0 0 98 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M53.7706 13.057H36.7886C29.1118 13.057 25.2774 13.057 22.8921 15.4423C20.5068 17.8276 20.5068 21.6619 20.5068 29.3388V70.0434C20.5068 77.7203 20.5068 81.5546 22.8921 83.9399C25.2774 86.3252 29.1118 86.3252 36.7886 86.3252H61.2114C68.8882 86.3252 72.7226 86.3252 75.1079 83.9399C77.4932 81.5546 77.4932 77.7203 77.4932 70.0434V36.7796C77.4932 35.1189 77.4932 34.2844 77.1838 33.5395C76.8745 32.7906 76.2883 32.2004 75.1079 31.024L59.5262 15.4423C58.3458 14.2619 57.7596 13.6757 57.0147 13.3664C56.2658 13.057 55.4313 13.057 53.7706 13.057Z" stroke="#0D1542" stroke-width="8.14091"/>
+                            <path d="M36.7886 53.7615H61.2114M36.7886 70.0433H53.0704" stroke="#0D1542" stroke-width="8.14091" stroke-linecap="round"/>
+                            <path d="M53.0704 13.0569V29.3388C53.0704 33.1772 53.0704 35.0944 54.2631 36.287C55.4557 37.4797 57.3729 37.4797 61.2113 37.4797H77.4932" stroke="#0D1542" stroke-width="8.14091"/>
+                        </svg> 
+                        <h2 className="big-blue-text">200M+</h2>
+                        <p className="grey-text">papers</p>
+                    </div>
+                    <div className="key-data">
+                        <svg width="80" height="79" viewBox="0 0 80 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M51.4533 39.6911C59.6342 39.6911 66.1789 46.2358 66.1789 54.4167C66.1789 57.2964 65.3609 60.0125 63.921 62.2704L73.9999 72.4147L69.4513 76.9633L59.2415 66.9171C56.9836 68.3243 54.3003 69.1424 51.4533 69.1424C43.2724 69.1424 36.7277 62.5976 36.7277 54.4167C36.7277 46.2358 43.2724 39.6911 51.4533 39.6911ZM51.4533 46.2358C49.2836 46.2358 47.2028 47.0978 45.6686 48.632C44.1343 50.1662 43.2724 52.247 43.2724 54.4167C43.2724 56.5864 44.1343 58.6673 45.6686 60.2015C47.2028 61.7357 49.2836 62.5976 51.4533 62.5976C53.623 62.5976 55.7039 61.7357 57.2381 60.2015C58.7723 58.6673 59.6342 56.5864 59.6342 54.4167C59.6342 52.247 58.7723 50.1662 57.2381 48.632C55.7039 47.0978 53.623 46.2358 51.4533 46.2358ZM43.2724 13.5122V39.6911L35.0915 32.3283L26.9106 39.6911V13.5122H20.3659V65.87H33.4554C35.2224 68.5206 37.4804 70.7785 40.0982 72.4147H20.3659C18.6301 72.4147 16.9655 71.7252 15.7381 70.4978C14.5107 69.2704 13.8212 67.6058 13.8212 65.87V13.5122C13.8212 11.7765 14.5107 10.1118 15.7381 8.88443C16.9655 7.65706 18.6301 6.96753 20.3659 6.96753H59.6342C61.37 6.96753 63.0347 7.65706 64.262 8.88443C65.4894 10.1118 66.1789 11.7765 66.1789 13.5122V39.0694C64.281 37.2696 62.0885 35.797 59.6342 34.7826V13.5122H43.2724Z" fill="#0D1542"/>
+                        </svg>
+                        <h2 className="big-blue-text">100M+</h2>
+                        <p className="grey-text">patents</p>
+                    </div>
+                    <div className="key-data">
+                        <svg width="74" height="75" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M46.8798 29.7956C49.4222 29.7956 51.4855 31.859 51.4855 34.4013V52.1635C51.4855 56.0032 49.9602 59.6856 47.2451 62.4007C44.53 65.1158 40.8476 66.6411 37.0079 66.6411C33.1682 66.6411 29.4857 65.1158 26.7706 62.4007C24.0556 59.6856 22.5302 56.0032 22.5302 52.1635V34.4013C22.5302 31.859 24.591 29.7956 27.1359 29.7956H46.8798ZM10.0238 29.7956L21.5565 29.7904C20.6081 30.9332 20.0371 32.3417 19.9221 33.8223L19.8958 34.4013V52.1635C19.8958 55.1453 20.6616 57.9508 22.0012 60.3932C20.1982 61.1799 18.2277 61.5051 16.2675 61.3397C14.3073 61.1742 12.4191 60.5231 10.7735 59.4453C9.1279 58.3675 7.77662 56.8968 6.84165 55.166C5.90668 53.4352 5.41746 51.4988 5.41815 49.5316V34.4013C5.41955 33.1798 5.9056 32.0087 6.7696 31.1452C7.6336 30.2817 8.8023 29.7963 10.0238 29.7956ZM52.4619 29.7904L63.9761 29.7956C66.5185 29.7956 68.5818 31.859 68.5818 34.4013V49.5343C68.5826 51.5007 68.0937 53.4363 67.1594 55.1665C66.225 56.8968 64.8745 58.3671 63.2298 59.4449C61.5851 60.5226 59.6979 61.1739 57.7385 61.3399C55.7791 61.506 53.8092 61.1815 52.0066 60.3958L52.154 60.1273C53.283 57.9877 53.9699 55.5769 54.0963 53.0214L54.1173 52.1635V34.4013C54.1173 32.6485 53.4962 31.0431 52.4619 29.7904ZM37 8.74109C38.2096 8.74109 39.4074 8.97935 40.525 9.44226C41.6426 9.90518 42.658 10.5837 43.5134 11.439C44.3687 12.2944 45.0472 13.3098 45.5102 14.4274C45.9731 15.545 46.2113 16.7428 46.2113 17.9525C46.2113 19.1621 45.9731 20.3599 45.5102 21.4775C45.0472 22.5951 44.3687 23.6105 43.5134 24.4659C42.658 25.3212 41.6426 25.9997 40.525 26.4626C39.4074 26.9256 38.2096 27.1638 37 27.1638C34.557 27.1638 32.214 26.1933 30.4866 24.4659C28.7591 22.7384 27.7886 20.3955 27.7886 17.9525C27.7886 15.5094 28.7591 13.1665 30.4866 11.439C32.214 9.71157 34.557 8.74109 37 8.74109ZM58.0624 11.3729C59.0993 11.3729 60.126 11.5771 61.0839 11.9739C62.0418 12.3707 62.9122 12.9523 63.6454 13.6854C64.3785 14.4186 64.9601 15.289 65.3569 16.2469C65.7537 17.2048 65.9579 18.2315 65.9579 19.2684C65.9579 20.3052 65.7537 21.3319 65.3569 22.2898C64.9601 23.2477 64.3785 24.1181 63.6454 24.8513C62.9122 25.5845 62.0418 26.166 61.0839 26.5628C60.126 26.9596 59.0993 27.1638 58.0624 27.1638C55.9684 27.1638 53.9602 26.332 52.4795 24.8513C50.9988 23.3706 50.167 21.3624 50.167 19.2684C50.167 17.1744 50.9988 15.1661 52.4795 13.6854C53.9602 12.2047 55.9684 11.3729 58.0624 11.3729ZM15.9375 11.3729C16.9744 11.3729 18.0011 11.5771 18.959 11.9739C19.9169 12.3707 20.7873 12.9523 21.5205 13.6854C22.2536 14.4186 22.8352 15.289 23.232 16.2469C23.6288 17.2048 23.833 18.2315 23.833 19.2684C23.833 20.3052 23.6288 21.3319 23.232 22.2898C22.8352 23.2477 22.2536 24.1181 21.5205 24.8513C20.7873 25.5845 19.9169 26.166 18.959 26.5628C18.0011 26.9596 16.9744 27.1638 15.9375 27.1638C13.8435 27.1638 11.8353 26.332 10.3546 24.8513C8.87392 23.3706 8.04208 21.3624 8.04208 19.2684C8.04208 17.1744 8.87392 15.1661 10.3546 13.6854C11.8353 12.2047 13.8435 11.3729 15.9375 11.3729Z" fill="#0D1542"/>
+                        </svg> 
+                        <h2 className="big-blue-text">200M+</h2>
+                        <p className="grey-text">researchers</p>
+                    </div>
+                    <div className="key-data">
+                        <svg width="84" height="85" viewBox="0 0 84 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M73.3841 35.7169H66.4099V14.7941H69.897V7.81989H14.103V14.7941H17.5901V35.7169H10.6159C9.69106 35.7169 8.8041 36.0843 8.15014 36.7382C7.49618 37.3922 7.12878 38.2791 7.12878 39.204V70.5881H76.8712V39.204C76.8712 38.2791 76.5038 37.3922 75.8499 36.7382C75.1959 36.0843 74.3089 35.7169 73.3841 35.7169ZM48.9742 63.6138V49.6653H35.0258V63.6138H24.5644V14.7941H59.4356V63.6138H48.9742Z" fill="#0D1542"/>
+                            <path d="M31.5386 21.7684H38.5128V28.7426H31.5386V21.7684ZM45.4871 21.7684H52.4613V28.7426H45.4871V21.7684ZM31.5386 35.7169H38.5128V42.6911H31.5386V35.7169ZM45.4871 35.7169H52.4613V42.6911H45.4871V35.7169Z" fill="#0D1542"/>
+                        </svg>
+                        <h2 className="big-blue-text">100k+</h2>
+                        <p className="grey-text">institutions</p>
+                    </div>
+                </div>
             </div>
-          <div className="about-page-1">
-            
-          </div>
-          <div className="about-page-2">
+        <div className="about-features">
+            <div className="feature-3460">
+                <div className="feature-3461">
+                    <h2 className="feature-i-text">Feature Instructions</h2>
+                    <div className="feature-buttons">
+                        <div className={activeFeature === 'Inquire' ? "feature-buttons-active" : "feature-buttons-passive"} onClick={() => handleFeatureClick('Inquire')}>
+                            <span className={activeFeature === 'Inquire' ? "feature-text-active" : "feature-text-passive"}>Inquire</span>
+                        </div>
+                        <div className={activeFeature === 'Tracker' ? "feature-buttons-active" : "feature-buttons-passive"} onClick={() => handleFeatureClick('Tracker')}>
+                            <span className={activeFeature === 'Tracker' ? "feature-text-active" : "feature-text-passive"}>Tracker</span>
+                        </div>
+                    </div>  
+                </div>
+                <div className="instruction-main">
+                    {activeFeature === 'Inquire' ? (
+                        <div className="instruction-card"> 
+                            <div className="instruction-card">
+                                <div className="inst-top-col">
+                                    <div className="inst-item">
+                                        <h1 className="inst-card-H">A good fit for</h1>
+                                        <div className="inst-card-p">
+                                            <ul className="inst-card-ul">
+                                                <li>Get an answer to deeptech questions</li>
+                                                <li>Learn innovative technology topics or concepts</li>
+                                                <li>Find evidence for hypothesis & assumptions</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="inst-item">
+                                        <h1 className="inst-card-H">Not a good fit for</h1>
+                                        <div className="inst-card-p">
+                                        Topics especially for short or general questions, it might not be your best bet. and anything that can hardly find clues from science publication and patent ocean
+                                        </div>
+                                    </div>
+                                    <div className="inst-item">
+                                        <h1 className="inst-card-H">Responding time</h1>
+                                        <div className="inst-card-p">
+                                            typically 10 to 40 seconds
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="inst-top-col">
+                                    <div className="inst-item">
+                                        <h1 className="inst-card-H">Optimise your input</h1>
+                                        <div className="inst-card-p">
+                                            <ul className="inst-card-ul">
+                                                <li>Be specific</li>
+                                                <li>In the deep tech fields</li>
+                                                <li>Include a ‘?’ mark for questions </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="inst-item">
+                                        <h1 className="inst-card-H">Input examples</h1>
+                                        <div className="inst-card-p">
+                                            <ul className="inst-card-ul">
+                                                <li>Buprenorphine use in adolescent opiate addiction</li>
+                                                <li>Best practices for designing robust optical computing hardware</li>
+                                                <li>How to create an efficient k-means clustering algorithm on a Riemannian manifold ? </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="inst-item">
+                                        <h1 className="inst-card-H">Output accuracy</h1>
+                                        <div className="inst-card-p">
+                                            Like any AI, there's a margin for error. While we achieve a solid 99% success rate (output very reasonable, logic and contextual related answers) in internal tests, we encourage you to double-check information
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="instruction-card-track"> 
+                            <div className="instruction-card-track">
+                                <div className="inst-top-col">
+                                    <div className="inst-item_track">
+                                        <h1 className="inst-card-H">What can you do</h1>
+                                        <div className="inst-item_b">
+                                            <div className="inst-card-p">
+                                                <ul className="inst-card-ul">
+                                                    <li>Track specific science innovations</li>
+                                                    <li>Surf new industrial use cases</li>
+                                                    <li>Patent alerts</li>
+                                                    <li>Monitor competitor</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className="inst-card-F">Personalised newsfeeds</div>
+                                    </div>
+                                    <div className="inst-item_track">
+                                        <h1 className="inst-card-H">Step 1</h1>
+                                        <div className="inst-item_b">
+                                            <img src={Tracker} alt="Tracker" style={{ width: '100%', height: 'auto' }}/>
+                                        </div>
+                                        <div className="inst-card-F">Set up you tracker</div>
+                                    </div>
+                                    <div className="inst-item_track">
+                                        <h1 className="inst-card-H">Step 2</h1>
+                                        <div className="inst-item_b">
+                                            <img src={forYou} alt="For_You" style={{ width: '100%', height: 'auto' }}/>
+                                        </div>
+                                        <div className="inst-card-F">Receive curated news</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                
+            </div> 
+        </div>
+      <div className="about-page-2">
             <div className="faq-frame-175">
                 <h2 className="faq-text-header">FAQ</h2>
                 <div className="faq-header-separator"></div> {/* Line separator */}
@@ -165,7 +313,24 @@ function About() {
                 ))}
             </div>
           </div>
-          
+          <div className="comment">
+            <div className="comment-container">
+                <div className="comment-text">Leave a comment</div>
+            </div>
+            <div className="message-frame">
+                <div className="message-header">Message *</div>
+                <div className="message-box"></div>
+            </div>
+            <div className="submit-button">
+                <div className="feature-text-active">Submit</div>
+            </div>
+            <div className="contact-text-combined">
+                Or reach out to us at  
+                <span className="contact-email"> contact@tylo.ai</span>
+            </div>
+
+          </div>
+          <div className="all-rights"></div>
           
           {/* Other content of your About page goes here */}
         </div>

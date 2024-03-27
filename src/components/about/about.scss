@@ -80,7 +80,7 @@
   align-self: stretch;
   color: var(--Primary, #4476F1);
   text-align: center;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: 46px;
   font-style: normal;
   font-weight: 700;
@@ -99,6 +99,152 @@
   padding: 135px; 
 }
 
+.key-data-text {
+  align-self: stretch;
+  color: var(--Secondary, #0D1542);
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.key-data {
+  display: flex;
+  padding: 43.191px 26.686px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20.015px;
+  flex: 1 0 0;
+  border-radius: 16.679px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 3.336px 3.336px 0px rgba(183, 183, 183, 0.25);
+}
+
+.big-blue-text {
+  align-self: stretch;
+  color: var(--Primary, #4476F1);
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.grey-text {
+  color: var(--Gray, #858585);
+  font-family: Inter, sans-serif;
+  font-size: 30.022px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.about-features {
+  display: flex;
+  padding: 60px 120px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  align-self: stretch;
+  background: #F2FAF7;
+}
+
+.feature-3460 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  align-self: stretch;
+}
+
+.feature-3461 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--25, 10px);
+  align-self: stretch;
+}
+
+.feature-i-text {
+  flex: 1 0 0;
+  color: var(--Secondary, #0D1542);
+  font-family: Inter, sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.feature-buttons {
+  display: flex;
+  height: 96px;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.feature-buttons-active {
+  display: flex;
+  width: 269px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--25, 10px);
+  align-self: stretch;
+  border-radius: 20px;
+background: var(--Primary, #4476F1);
+box-shadow: 0px 4px 4px 0px rgba(184, 184, 184, 0.25);
+}
+
+.feature-text-active {
+  color: var(--background, #FBFBFB);
+text-align: center;
+font-family: Inter, sans-serif;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+text-transform: capitalize;
+}
+
+.feature-text-passive {
+  color: var(--Secondary, #0D1542);
+font-family: Inter, sans-serif;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+text-transform: capitalize;
+}
+
+.feature-buttons-passive {
+  display: flex;
+  width: 269px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--25, 10px);
+  align-self: stretch;
+  border-radius: 20px;
+background: var(--background, #FBFBFB);
+box-shadow: 0px 4px 4px 0px rgba(184, 184, 184, 0.25);
+}
+
+.instruction-main {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  align-self: stretch;
+}
+
 .top-header {
   display: flex;
   width: 1920px;
@@ -111,6 +257,173 @@
   background: var(--white, #FFF);
   box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);
 }
+
+
+/***************************** Instructions *******************/
+.helper-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--25, 10px);
+  align-self: stretch;
+}
+
+.instructions-container {
+  display: flex;
+  gap: var(--25, 10px); 
+  align-items: center; /* Aligns the instructions text and the button vertically */
+  
+}
+
+.dropdown-button {
+  margin-left: 10px; /* Space between the instructions text and the button */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.instructions {
+  flex: 1 0 0;
+  gap: var(--25, 10px); 
+  color: var(--Primary, #4476F1);
+  text-align: right;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  // text-decoration-line: underline;
+}
+
+.inst-item_track{
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  align-self: stretch;
+  border-radius: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--Line, #EAEAEA);
+  background: var(--background, #FBFBFB);
+}
+
+.instruction-card {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  align-self: stretch;
+  border-radius: 20px;
+  border: 1px solid var(--Line, #EAEAEA);
+  background: var(--white, #FFF);
+}
+
+.instruction-card-track {
+  display: flex;
+  padding: 40px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+  align-self: stretch;
+  border-radius: 20px;
+  border: 1px solid var(--Line, #EAEAEA);
+  background: var(--white, #FFF);
+}
+
+.instructions-toggle {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  padding: 1.467px 2.933px;
+  justify-content: center;
+  align-items: center;
+  gap: 1.467px;
+  border-radius: 11.733px;
+  border: 1.467px solid var(--Line, #EAEAEA);
+  background: var(--white, #FFF);
+  cursor: pointer;
+}
+
+.inst-top-col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  align-self: stretch;
+}
+
+.inst-item {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid var(--Line, #EAEAEA);
+}
+
+
+.inst-item_b {
+  display: flex;
+  padding: 20px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 10px;
+  background: var(--white, #FFF);
+  
+  /* ds */
+  box-shadow: 0px 4px 4px 0px rgba(183, 183, 183, 0.25);
+}
+
+.inst-card-H {
+  flex: 0;
+  align-self: stretch;
+  color: var(--Primary, #4476F1);
+  font-family: 'Inter', sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.inst-card-p {
+  align-self: stretch;
+  color: var(--Secondary, #0D1542);
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.inst-card-F {
+  align-self: stretch;
+  color: var(--Secondary, #0D1542);
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.inst-card-ul {
+  list-style-type: disc; /* This adds the bullet point style */
+  padding-left: 20px; /* This adds some space before the bullet points */
+}
+
+/*************************************************************/
 
 .tabs {
   display: flex; // Aligns the tabs horizontally
@@ -275,28 +588,13 @@
     text-transform: capitalize;
   }
 
-  .what-text, .we-offer-text {
-    display: inline-block; // Makes elements align in the same line
-    font-family: 'Inter', sans-serif;
-    font-size: 60px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize; 
-    // margin: 0; // Removes default margin
-  }
+
 
   .spacer {
   margin: 0 10px; // Adjust space between 'What' and 'We Offer'
 }
   
-  .what-text {
-    color: var(--Secondary, #0D1542);
-  }
   
-  .we-offer-text {
-    color: var(--Primary, #4476F1);
-  }
   
   // Center the 'What we offer' text horizontally
   .offer-header {
@@ -304,16 +602,7 @@
     margin-top: 28%;
   }
 
-  .what-we-offer-content {
-    color: var(--Secondary, #0D1542);
-    text-align: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 26px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: 1373px; 
-  }
+
 
   .offer-content-177 {
     display: flex;
@@ -324,348 +613,6 @@
     align-items: flex-start;
     gap: 50px;
     flex-shrink: 0; 
-  }
-
-  .inquire-content-14 {
-    display: flex;
-    padding: 32px;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 745px;
-    align-items: left;
-    gap: 24px;
-    flex: 1 0 0;
-    align-self: stretch;
-    border-radius: 16px;
-    background: var(--white, #FFF);
-  }
-
-  .inquire-row {
-    display: flex;
-    width: 589px;
-    justify-content: center;
-    align-items: center;
-    gap: 13.463px;
-
-    margin-top: 1px; 
-  }
-
-  .inquire-text-1 {
-    color: var(--Secondary, #0D1542);
-    font-family: 'Inter';
-    text-align: left;
-    font-size: 28.985px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-    width: 654px;
-    flex: 1 0 0;
-  }
-
-  .inquire-text-2-box {
-    display: flex;
-    height: 213.098px;
-    padding: 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14.492px;
-    align-self: stretch;
-    border-radius: 10px;
-    background: #FFF;
-
-    /* ds */
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  }
-
-  .inquire-button-about {
-    display: flex;
-    height: 34.299px;
-    padding: 5.107px;
-    justify-content: center;
-    align-items: center;
-    gap: 5.107px;
-    flex-shrink: 0;
-    align-self: stretch;
-    border-radius: 5.107px;
-    background: var(--Primary, #4476F1);
-  }
-
-  .inqiure-button-text {
-    color: var(--white, #FFF);
-    font-family: 'Inter';
-    font-size: 12.56px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-  }
-
-  .inquire-text-2 {
-    width: 100%;
-    height: 100%;
-    color: #858585;
-    font-family: 'Inter';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    border-radius: 16px;
-    background: var(--white, #FFF);
-  }
-
-  .inquire-text-3-box {
-    display: flex;
-    width: 338.254px;
-    padding: 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14.492px;
-    flex-shrink: 0;
-    align-self: stretch;
-    border-radius: 10px;
-    background: #FFF;
-
-    /* ds */
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  }
-
-  .inquire-text-3 {
-    color: var(--Primary, #4476F1);
-    font-family: 'Inter';
-    font-size: 17.598px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-    height: 22.942px;
-    align-self: stretch;
-  }
-
-  .inquire-text-4 {
-    overflow: hidden;
-    color: var(--Secondary, #0D1542);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: 'Inter';
-    font-size: 17.598px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    flex: 1 0 0;
-    align-self: stretch;
-  }
-
-  .inquire-frame-107 {
-    position: relative;
-    // left: 48px;
-    display: flex;
-    align-items: left;
-    bottom: 138.196px;
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 589px;
-    height: 251px;
-
-     // Add margins
-     margin-top: 130px;    // Top distance
-     margin-bottom: 138px; // Bottom distance
-     margin-right: 81px;   // Right distance
-     margin-left: 1px;    // Left distance
-  }
-
-  .inquire-frame-135 {
-    display: flex;
-    padding: 7.012px;
-    align-items: center;
-    gap: 10.518px;
-    align-self: stretch;
-    background: rgba(15, 11, 156, 0.05);
-  }
-
-  .inquire-text-5 {
-    color: var(--Secondary, #0D1542);
-    font-family: 'Inter';
-    font-size: 7.012px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-    flex: 1 0 0;
-  }
-
-  .inquire-frame-95 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 175px;
-    height: auto;
-  }
-
-  .inquire-frame-99 {
-    display: flex;
-    width: 63.107px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    align-self: stretch;
-  }
-
-  .inquire-text-13 {
-    color: var(--Secondary, #0D1542);
-    text-align: center;
-    font-family: 'Inter';
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-    align-self: stretch;
-  }
-
-  .track-content {
-    display: flex;
-    padding: 32px;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: left;
-    gap: 24px;
-    flex: 1 0 0;
-    align-self: stretch;
-    border-radius: 16px;
-    background: var(--white, #FFF);
-  }
-
-  .track-frame-46 {
-    display: flex;
-    width: 578px;
-    height: 559px;
-    padding: 30px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14.492px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    margin-top: 1px; 
-  }
-
-  .track-frame-155 {
-    display: flex;
-    align-items: center;
-    gap: 4.831px;
-    align-self: stretch;
-  }
-
-  .track-button-1 {
-    display: flex;
-    height: 35.265px;
-    padding: 4.831px 9.662px;
-    justify-content: center;
-    align-items: center;
-    gap: 4.831px;
-    border-radius: 4.831px;
-    background: var(--Secondary, #0D1542);
-  }
-
-  .track-button-2 {
-    display: flex;
-    width: 96.616px;
-    height: 34.299px;
-    padding: 5.107px;
-    justify-content: center;
-    align-items: center;
-    gap: 5.107px;
-    border-radius: 5.107px;
-    background: var(--Primary, #4476F1);
-  }
-
-  .track-button-text {
-    color: var(--white, #FFF);
-    font-family: 'Inter';
-    font-size: 10.628px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-  }
-
-  .track-frame-150 {
-    display: flex;
-    align-items: flex-start;
-    gap: 9.662px;
-    align-self: stretch;
-    
-  }
-
-  .track-frame-151 {
-    display: flex;
-    width: 59.419px;
-    height: 48.791px;
-    padding: 9.662px;
-    justify-content: center;
-    align-items: center;
-    gap: 14.492px;
-    border-radius: 9.662px;
-    background: var(--white, #FFF);
-    box-shadow: 0px 1.932px 1.932px 0px rgba(198, 198, 198, 0.25);
-  }
-
-  .track-card {
-    display: flex;
-    height: 48.791px;
-    width: 100%;
-    padding: 9.662px;
-    // justify-content: center;
-    flex-direction: column;
-    align-items: flex-start;
-    // gap: 1px;
-    // align-self: stretch;
-    border-radius: 9.662px;
-    background: var(--white, #FFF);
-    box-shadow: 0px 1.932px 1.932px 0px rgba(198, 198, 198, 0.25);
-  }
-
-  .track-text-1 {
-    display: flex;
-    width: 59.419px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    align-self: stretch;
-    color: var(--Secondary, #0D1542);
-    text-align: center;
-    font-family: 'Inter';
-    font-size: 14.492px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-  }
-
-  .track-text-2 {
-    color: var(--Primary, #4476F1);
-    font-family: 'Inter';
-    font-size: 11.594px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-    flex: 1 0 0;
-  }
-
-  .track-text-3 {
-    align-self: stretch;
-    color: var(--Gray, #858585);
-    font-family: 'Inter';
-    font-size: 8.695px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-transform: capitalize;
   }
 
   .faq-frame-175 {
@@ -682,7 +629,7 @@
   .faq-text-header {
     color: var(--Secondary, #0D1542);
     text-align: center;
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-size: 60px;
     font-style: normal;
     font-weight: 700;
@@ -699,7 +646,7 @@
 
   .faq-text-normal {
     color: var(--Secondary, #0D1542);
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 500;
@@ -723,7 +670,7 @@
   
   .faq-answer {
     color: var(--Gray, #858585);
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -737,3 +684,112 @@
     
   }
 
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-self: stretch;
+  }
+/**************************************** Footer *****************************/
+  .comment {
+    display: flex;
+    width: 100%;
+    padding: 50px 120px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background: linear-gradient(90deg, rgba(98, 236, 246, 0.10) 0.03%, rgba(67, 122, 239, 0.10) 100.21%);
+  }
+
+  .comment-container {
+    display: flex;
+    align-items: center;
+    gap: var(--25, 10px);
+    align-self: stretch;
+  }
+
+  .comment-text {
+    flex: 1 0 0;
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .message-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+  }
+
+  .message-header {
+    align-self: stretch;
+    color: var(--Secondary, #0D1542);
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .message-box {
+    display: flex;
+    height: 202px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 0.5px solid var(--Gray, #858585);
+    background: #FBFBFB;
+  }
+
+  .submit-button {
+    display: flex;
+    width: 324.568px;
+    height: 70.834px;
+    padding: 10.572px;
+    justify-content: center;
+    align-items: center;
+    gap: 10.572px;
+    border-radius: 10.572px;
+background: var(--Primary, #4476F1);
+  }
+
+  .contact-text-combined {
+    align-self: stretch;
+    color: var(--Secondary, #0D1542);
+    text-align: center;
+    font-family: Inter;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.contact-email {
+    color: var(--Primary, #4476F1);
+    text-decoration-line: underline;
+}
+
+  .all-rights {
+    display: flex;
+    width: 1920px;
+    padding: 30px 120px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid var(--Line, #EAEAEA);
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 4px 0px rgba(231, 231, 231, 0.25);
+  }
